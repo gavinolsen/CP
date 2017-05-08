@@ -9,22 +9,23 @@
 import Foundation
 import CloudKit
 
-protocol CloudKitSyncable {
+protocol CloudKitSync {
     
     init?(record: CKRecord)
     
-    var cloudKitRecordID: CKRecordID? { get set }
+    var ckRecordID: CKRecordID? { get set }
     var recordType: String { get }
 }
 
-extension CloudKitSyncable {
+extension CloudKitSync {
+    
     var isSynced: Bool {
-        return cloudKitRecordID != nil
+        return ckRecordID != nil
     }
     
-    var cloudKitReference: CKReference? {
+    var ckReference: CKReference? {
         
-        guard let recordID = cloudKitRecordID else { return nil }
+        guard let recordID = ckRecordID else { return nil }
         
         return CKReference(recordID: recordID, action: .none)
     }
