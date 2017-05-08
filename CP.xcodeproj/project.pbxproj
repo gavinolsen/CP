@@ -20,6 +20,7 @@
 		3B281FD81EC0E9E50058F13A /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FD71EC0E9E50058F13A /* Family.swift */; };
 		3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FD91EC0E9F70058F13A /* Parent.swift */; };
 		3B281FDD1EC0EA940058F13A /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FDC1EC0EA940058F13A /* UserController.swift */; };
+		3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE11EC1039B0058F13A /* CloudKitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3B281FD71EC0E9E50058F13A /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
 		3B281FD91EC0E9F70058F13A /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parent.swift; sourceTree = "<group>"; };
 		3B281FDC1EC0EA940058F13A /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
+		3B281FE11EC1039B0058F13A /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			children = (
 				3B281FD11EC0E97A0058F13A /* Model */,
 				3B281FDB1EC0EA7D0058F13A /* Model Controllers */,
+				3B281FDE1EC0FAAB0058F13A /* View Controllers */,
 				3B281FC81EC0E86C0058F13A /* Cloud Kit */,
 				3B281FD21EC0E9890058F13A /* Resources */,
 			);
@@ -94,6 +97,7 @@
 			children = (
 				3B281FCD1EC0E8EE0058F13A /* SearchableRecord.swift */,
 				3B281FCF1EC0E8F80058F13A /* CloudKitSync.swift */,
+				3B281FE11EC1039B0058F13A /* CloudKitManager.swift */,
 			);
 			name = "Cloud Kit";
 			path = ..;
@@ -114,12 +118,11 @@
 		3B281FD21EC0E9890058F13A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B281FDF1EC0FAD00058F13A /* Storyboards */,
 				3B281FC41EC0E5000058F13A /* CP.entitlements */,
 				3B281FB21EC0E4920058F13A /* AppDelegate.swift */,
 				3B281FB41EC0E4920058F13A /* ViewController.swift */,
-				3B281FB61EC0E4920058F13A /* Main.storyboard */,
 				3B281FB91EC0E4920058F13A /* Assets.xcassets */,
-				3B281FBB1EC0E4920058F13A /* LaunchScreen.storyboard */,
 				3B281FBE1EC0E4920058F13A /* Info.plist */,
 			);
 			name = Resources;
@@ -131,6 +134,22 @@
 				3B281FDC1EC0EA940058F13A /* UserController.swift */,
 			);
 			name = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		3B281FDE1EC0FAAB0058F13A /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3B281FDF1EC0FAD00058F13A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				3B281FB61EC0E4920058F13A /* Main.storyboard */,
+				3B281FBB1EC0E4920058F13A /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +237,7 @@
 				3B281FCE1EC0E8EE0058F13A /* SearchableRecord.swift in Sources */,
 				3B281FB51EC0E4920058F13A /* ViewController.swift in Sources */,
 				3B281FD61EC0E9D20058F13A /* Carpool.swift in Sources */,
+				3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */,
 				3B281FB31EC0E4920058F13A /* AppDelegate.swift in Sources */,
 				3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */,
 				3B281FD81EC0E9E50058F13A /* Family.swift in Sources */,
@@ -390,6 +410,7 @@
 				3B281FC31EC0E4920058F13A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

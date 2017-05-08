@@ -9,6 +9,7 @@
 /*****************************************
  the user needs an array of children, and an 
  array of carpools.
+ This will be comparable to teh
  *****************************************/
 
 import Foundation
@@ -28,9 +29,9 @@ class Parent: CloudKitSync {
     //properties
     ////////////
     
-    var name: String = ""
-    var kids: [Child] = []
-    var carpools: [Carpool] = []
+    let name: String
+    var kids: [Child]
+    var carpools: [Carpool]
     var recordType: String { return Parent.typeKey }
     var ckRecordID: CKRecordID?
     
@@ -38,18 +39,22 @@ class Parent: CloudKitSync {
     //initilizers
     /////////////
     
-    init(name: String, kids: [Child], carpools: [Carpool]) {
-        
+    init(name: String, kids: [Child] = [], carpools: [Carpool] = []) {
         self.name = name
         self.kids = kids
         self.carpools = carpools
     }
     
     convenience required init?(record: CKRecord) {
-        
         guard let name = record[Parent.nameKey] as? String, let kids = record[Parent.kidKey] as? [Child], let carpools = record[Parent.carpoolKey] as? [Carpool] else { return nil }
         self.init(name: name, kids: kids, carpools: carpools)
         ckRecordID = record.recordID
     }
     
+}
+
+extension Parent: SearchableRecord {
+    func matches(searchTerm: String) -> Bool {
+        return name.contains(searchTerm)
+    }
 }
