@@ -16,37 +16,44 @@ class Carpool: CloudKitSync {
     static let nameKey = "carpoolname"
     static let dateKey = "dateKey"
     static let driverKey = "driverKey"
+    static let leaderKey = "leaderKey"
     static let kidKey = "kidKey"
     
     //MARK: properties
     var eventName: String
-    var eventTime: Date
+    var eventTimes: [Date]
     var drivers: [Parent]
+    let leader: Parent
     let kids: [Child]
     var ckRecordID: CKRecordID?
     var recordType: String { return Carpool.typeKey }
     
     //MARK: initilizers
-    init(name: String, time: Date, drivers: [Parent] = [], kids: [Child] = []) {
+    init(name: String, time: [Date], drivers: [Parent] = [], kids: [Child] = [], leader: Parent) {
         
         self.eventName = name
-        self.eventTime = time
+        self.eventTimes = time
         self.drivers = drivers
         self.kids = kids
+        self.leader = leader
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? Date,
-            let drivers = record[Carpool.driverKey] as? [Parent], let kids = record[Carpool.kidKey] as? [Child] else { return nil }
+        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? [Date],
+            let drivers = record[Carpool.driverKey] as? [Parent], let kids = record[Carpool.kidKey] as? [Child], let leader = record[Carpool.leaderKey] as? Parent else { return nil }
         
-        /////////////
-        // I might have to add in here
-        // to check if there's kids or not.
-        // so that i can call the right init
-        /////////////
-        self.init(name: name, time: time, drivers: drivers, kids: kids)
+        self.init(name: name, time: time, drivers: drivers, kids: kids, leader: leader)
         ckRecordID = record.recordID
     }
+}
+
+extension Carpool: Hashable {
     
+    var hashValue: Int {
+        return eventName.hashValue
+    }
     
+    static func == (lsh: Carpool, rhs: Carpool) -> Bool {
+        return lsh.ckRecordID == rhs.ckRecordID
+    }
 }

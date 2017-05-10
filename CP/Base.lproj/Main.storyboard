@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOT-rE-hhC" id="55z-Ye-Zee">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -35,6 +35,7 @@
                             <outlet property="delegate" destination="RsE-7n-Ius" id="ZHK-e4-nOK"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" systemItem="bookmarks" id="ybG-0a-8No"/>
                     <navigationItem key="navigationItem" id="99e-t3-hhM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9QY-nb-plF">
                             <connections>
@@ -45,7 +46,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="728.79999999999995" y="273.91304347826087"/>
+            <point key="canvasLocation" x="1668" y="273.91304347826087"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gme-Hy-WFo">
@@ -72,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gxx-k2-Dx6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1575.2" y="273.91304347826087"/>
+            <point key="canvasLocation" x="2514.4000000000001" y="273.91304347826087"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VQY-aT-laH">
@@ -85,12 +86,30 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="RsE-7n-Ius" kind="relationship" relationship="rootViewController" id="rH7-Rj-Bb8"/>
+                        <segue destination="IAo-Ko-H6V" kind="relationship" relationship="rootViewController" id="rH7-Rj-Bb8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cl-qX-T4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-210.40000000000001" y="273.91304347826087"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="lbM-ph-Vzr">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="IAo-Ko-H6V" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="C4o-CC-jOv"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="g9F-Bi-Yzd">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="RsE-7n-Ius" kind="relationship" relationship="viewControllers" id="cbI-qy-LTV"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HLd-ep-jPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="728.79999999999995" y="273.91304347826087"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
