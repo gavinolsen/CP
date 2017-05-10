@@ -22,14 +22,14 @@ class Child: CloudKitSync {
     //MARK: properties
     let name: String
     var age: Int
-    let parent: Parent
-    var carpools: [Carpool]
+    let parent: Parent?
+    var carpools: [Carpool] = []
     var details: String
     var ckRecordID: CKRecordID?
     var recordType: String { return Child.typeKey }
     
     //MARK: initilizers
-    init(name: String, age: Int, details: String, parent: Parent, carpools: [Carpool]) {
+    init(name: String, age: Int, details: String, parent: Parent, carpools: [Carpool] = []) {
         self.name = name
         self.age = age
         self.details = details
@@ -44,8 +44,28 @@ class Child: CloudKitSync {
     }
 }
 
+//MARK: extensions
 extension Child: SearchableRecord {
     func matches(searchTerm: String) -> Bool {
         return name.contains(searchTerm)
     }
+}
+
+extension CKRecord {
+    
+    convenience init?(_ kid: Child) {
+        
+        guard let parent = kid.parent else { NSLog("child doesn't have parent relationship"); return nil }
+        let parentRecordID = parent.ckRecordID ?? CKRecord(parent).recordID
+        let recordID = CKRecordID(recordName: UUID().uuidString)
+        
+        self.init(recordType: kid.recordType, recordID: recordID)
+        
+        self[Child.parentKey] = CKReference(recordID: parentRecordID, action: .deleteSelf)
+        self[Child.ageKey] = kid.age as CKRecordValue?
+        self[Child.nameKey] = kid.name as CKRecordValue?
+        self[Child.detailsKey] = kid.details as CKRecordValue?
+
+    }
+    
 }

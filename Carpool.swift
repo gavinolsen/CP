@@ -22,9 +22,9 @@ class Carpool: CloudKitSync {
     //MARK: properties
     var eventName: String
     var eventTimes: [Date]
-    var drivers: [Parent]
+    var drivers: [Parent]?
     let leader: Parent
-    let kids: [Child]
+    let kids: [Child]?
     var ckRecordID: CKRecordID?
     var recordType: String { return Carpool.typeKey }
     
@@ -57,3 +57,29 @@ extension Carpool: Hashable {
         return lsh.ckRecordID == rhs.ckRecordID
     }
 }
+
+extension CKRecord {
+    
+    convenience init(_ carpool: Carpool) {
+        
+        let recordID = CKRecordID(recordName: UUID().uuidString)
+        let parentRecordID = carpool.leader.ckRecordID ?? CKRecord(carpool.leader).recordID
+        self.init(recordType: carpool.recordType, recordID: recordID)
+        
+        self[Carpool.nameKey] = carpool.eventName as CKRecordValue?
+        self[Carpool.dateKey] = carpool.eventTimes as CKRecordValue?
+        self[Carpool.leaderKey] = CKReference(recordID: parentRecordID, action: .deleteSelf)
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+

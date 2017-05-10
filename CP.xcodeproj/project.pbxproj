@@ -19,8 +19,10 @@
 		3B281FD61EC0E9D20058F13A /* Carpool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FD51EC0E9D20058F13A /* Carpool.swift */; };
 		3B281FD81EC0E9E50058F13A /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FD71EC0E9E50058F13A /* Family.swift */; };
 		3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FD91EC0E9F70058F13A /* Parent.swift */; };
-		3B281FDD1EC0EA940058F13A /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FDC1EC0EA940058F13A /* UserController.swift */; };
 		3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE11EC1039B0058F13A /* CloudKitManager.swift */; };
+		3B281FE61EC3709C0058F13A /* ChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE51EC3709C0058F13A /* ChildController.swift */; };
+		3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE71EC370AD0058F13A /* ParentController.swift */; };
+		3B281FEA1EC370B90058F13A /* CarpoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE91EC370B90058F13A /* CarpoolController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,8 +41,10 @@
 		3B281FD51EC0E9D20058F13A /* Carpool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carpool.swift; sourceTree = "<group>"; };
 		3B281FD71EC0E9E50058F13A /* Family.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
 		3B281FD91EC0E9F70058F13A /* Parent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parent.swift; sourceTree = "<group>"; };
-		3B281FDC1EC0EA940058F13A /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		3B281FE11EC1039B0058F13A /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		3B281FE51EC3709C0058F13A /* ChildController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildController.swift; sourceTree = "<group>"; };
+		3B281FE71EC370AD0058F13A /* ParentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
+		3B281FE91EC370B90058F13A /* CarpoolController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +135,9 @@
 		3B281FDB1EC0EA7D0058F13A /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3B281FDC1EC0EA940058F13A /* UserController.swift */,
+				3B281FE51EC3709C0058F13A /* ChildController.swift */,
+				3B281FE71EC370AD0058F13A /* ParentController.swift */,
+				3B281FE91EC370B90058F13A /* CarpoolController.swift */,
 			);
 			name = "Model Controllers";
 			sourceTree = "<group>";
@@ -233,11 +239,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B281FDD1EC0EA940058F13A /* UserController.swift in Sources */,
 				3B281FCE1EC0E8EE0058F13A /* SearchableRecord.swift in Sources */,
 				3B281FB51EC0E4920058F13A /* ViewController.swift in Sources */,
+				3B281FE61EC3709C0058F13A /* ChildController.swift in Sources */,
 				3B281FD61EC0E9D20058F13A /* Carpool.swift in Sources */,
+				3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */,
 				3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */,
+				3B281FEA1EC370B90058F13A /* CarpoolController.swift in Sources */,
 				3B281FB31EC0E4920058F13A /* AppDelegate.swift in Sources */,
 				3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */,
 				3B281FD81EC0E9E50058F13A /* Family.swift in Sources */,

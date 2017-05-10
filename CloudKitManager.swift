@@ -36,6 +36,12 @@ class CloudKitManager {
         
         
     }
+    
+    //MARK: saving
+    func saveRecord(record: CKRecord, completion: ((_ record: CKRecord?, _ error: Error?) -> Void)?) {
+        publicDB.save(record, completionHandler: { (record, error) in
+            completion?(record, error)
+        })}
 }
 
 
