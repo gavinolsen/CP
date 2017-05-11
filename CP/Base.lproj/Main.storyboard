@@ -97,7 +97,7 @@
                                 <rect key="frame" x="0.0" y="305" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOT-rE-hhC" id="55z-Ye-Zee">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="L99-Lf-nGQ">
@@ -144,6 +144,9 @@
                     <navigationItem key="navigationItem" id="99e-t3-hhM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9QY-nb-plF"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="greetingLabel" destination="xWh-AO-FdF" id="plq-Md-Vz0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -155,6 +158,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xVN-2g-4ot" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="DWt-lw-qhJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>

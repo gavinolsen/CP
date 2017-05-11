@@ -42,7 +42,7 @@ class CarpoolController {
     
     func save() {
         guard let carpool = carpool else { return }
-        ckManager.saveRecord(record: CKRecord(carpool)) { (record, error) in
+        ckManager.saveRecord(CKRecord(carpool)) { (record, error) in
             
             guard record != nil else {
                 if let error = error {

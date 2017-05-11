@@ -29,7 +29,7 @@ class ChildController {
     
     func save(kid: Child) {
         guard let record = CKRecord(kid) else { return }
-        ckManager.saveRecord(record: record) { (record, error) in
+        ckManager.saveRecord(record) { (record, error) in
             
             guard record != nil else {
                 if let error = error {

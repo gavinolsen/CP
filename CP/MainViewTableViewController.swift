@@ -9,13 +9,18 @@
 import UIKit
 
 class MainViewTableViewController: UITableViewController {
-
-    //var parent: Parent
+    
+    @IBOutlet weak var greetingLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ParentController.shared.getParentInfo()
         
+        guard let name = ParentController.shared.parentName else { return }
+        
+        greetingLabel.text = "gotcha" + name
     }
 
     // MARK: - Table view data source
