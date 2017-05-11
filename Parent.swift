@@ -39,18 +39,17 @@ class Parent: CloudKitSync {
     let ckManager = CloudKitManager()
     
     //MARK: initilizers
-    init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID? = nil) {
+    init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID?) {
         self.name = name
         self.carpools = carpools
         self.isLeader = isLeader
-        //getUserRecord()
+        self.userRecordID = userRecordID
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Parent.nameKey] as? String, let carpools = record[Parent.carpoolKey] as? [Carpool], let isLeader = record[Parent.isLeaderKey] as? Bool else { return nil }
-        self.init(name: name, carpools: carpools, isLeader: isLeader)
+        guard let name = record[Parent.nameKey] as? String, let carpools = record[Parent.carpoolKey] as? [Carpool], let isLeader = record[Parent.isLeaderKey] as? Bool, let userID = record[Parent.userRecordIDKey] as? CKRecordID else { return nil }
+        self.init(name: name, carpools: carpools, isLeader: isLeader, userRecordID: userID)
         ckRecordID = record.recordID
-        //, let userID = record[Parent.userRecordIDKey] as? CKRecordID
     }
     
     //cloud kit functions

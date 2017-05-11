@@ -11,16 +11,27 @@ import UIKit
 class MainViewTableViewController: UITableViewController {
     
     @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var greetingView: UIView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         ParentController.shared.getParentInfo()
         
-        guard let name = ParentController.shared.parentName else { return }
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(userChanged(_:)), name: ParentController.ParentChangedNotification, object: nil)
         
-        greetingLabel.text = "gotcha" + name
+    }
+    
+    //MARK: Observer
+    func userChanged(_ notification: Notification) {
+        
+        guard let name = ParentController.shared.parentName else { return }
+        self.greetingLabel.text = "gotcha " + name
+        
+        greetingView.reloadInputViews()
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source

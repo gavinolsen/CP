@@ -146,6 +146,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="greetingLabel" destination="xWh-AO-FdF" id="plq-Md-Vz0"/>
+                        <outlet property="greetingView" destination="Epi-OS-AlM" id="PNT-WR-i6q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>

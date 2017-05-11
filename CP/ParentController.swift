@@ -9,13 +9,25 @@
 import Foundation
 import CloudKit
 
+extension ParentController {
+    static let ParentChangedNotification = Notification.Name("ParentChangedNotification")
+}
+
 class ParentController {
     
     static let shared = ParentController()
     
     let ckManager: CloudKitManager
     var parent: Parent?
-    var parentName: String?
+    var parentName: String? {
+        didSet {
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: ParentController.ParentChangedNotification, object: self)
+            }
+        }
+    }
+    
     var parentRecordID: CKRecordID?
     
     init() {
@@ -47,22 +59,24 @@ class ParentController {
                         print("this user hasn't been created in the database")
                     } else {
                         self.fetchFirstName()
+                        self.parentRecordID = recordID
+                        guard let name = self.parentName else { return }
+                        self.parent = self.makeNewParent(name: name)
                     }
                 })
             }
         }
     }
     
-    //MARK: get the username
+    //MARK: get the username from cloud kit
     func fetchFirstName() {
-        
-        CKContainer.default().fetchUserRecordID { (recordID, error) in
-            if error != nil {
-                print("Something broke")
-            
-            }
+        guard let parentID = parentRecordID else { return }
+        ckManager.fetchUsername(for: parentID) { (fisrtName, lastName) in
+                self.parentName = fisrtName
         }
     }
+    //MARK: check our database for their record ID
+    
     
     //crud functions
     //create
@@ -113,17 +127,8 @@ class ParentController {
                 }
             return
     }}}
-}
-    //MARK: fetching
     
-//    func fetchRecordsOf(type: String, completion: @escaping (() -> Void) = { _ in }) {
-//        
-//        var excludedReferences = [CKReference]()
-//        var predicate: NSPredicate!
-//        
-//        
-//    }
-
+}
 
 
 
