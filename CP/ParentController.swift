@@ -58,25 +58,22 @@ class ParentController {
                     } else if error == nil && record == nil {
                         print("this user hasn't been created in the database")
                     } else {
-                        self.fetchFirstName()
                         self.parentRecordID = recordID
-                        guard let name = self.parentName else { return }
-                        self.parent = self.makeNewParent(name: name)
+                        self.fetchFirstName()
+                        
                     }
                 })
             }
         }
     }
     
-    //MARK: get the username from cloud kit
+    //MARK: get the username
     func fetchFirstName() {
         guard let parentID = parentRecordID else { return }
         ckManager.fetchUsername(for: parentID) { (fisrtName, lastName) in
                 self.parentName = fisrtName
         }
     }
-    //MARK: check our database for their record ID
-    
     
     //crud functions
     //create
@@ -127,7 +124,6 @@ class ParentController {
                 }
             return
     }}}
-    
 }
 
 

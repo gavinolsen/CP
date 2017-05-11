@@ -10,12 +10,60 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CP/ParentController.swift"
-            timestampString = "516219888.832038"
+            timestampString = "516220127.57502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "getParentInfo()"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "fetchFirstName()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CP.ParentController.fetchFirstName () -&gt; ()"
+                  moduleName = "CP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gnarlygav/Desktop/CP/CP/ParentController.swift"
+                  timestampString = "516220127.64255"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "51">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CP.ParentController.(fetchFirstName () -&gt; ()).(closure #1)"
+                  moduleName = "CP"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gnarlygav/Desktop/CP/CP/ParentController.swift"
+                  timestampString = "516220127.644362"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "95">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CP/MainViewTableViewController.swift"
+            timestampString = "516220069.390265"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "userChanged(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
