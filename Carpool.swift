@@ -12,7 +12,7 @@ import CloudKit
 class Carpool: CloudKitSync {
     
     //MARK: keys
-    static let typeKey = "carpoolType"
+    static let typeKey = "Carpool"
     static let nameKey = "carpoolname"
     static let dateKey = "dateKey"
     static let driverKey = "driverKey"
@@ -24,7 +24,7 @@ class Carpool: CloudKitSync {
     var eventTimes: [Date]
     var drivers: [Parent]?
     let leader: Parent
-    let kids: [Child]?
+    var kids: [Child]?
     var ckRecordID: CKRecordID?
     var recordType: String { return Carpool.typeKey }
     

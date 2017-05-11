@@ -24,17 +24,82 @@ class CloudKitManager {
                 self.fetchRecord(withID: recordID, completion: completion)
             }}}
     
-    func fetchUsername(recordID: CKRecordID, completion: @escaping ((_ givenName: String?, _ familyName: String?) -> Void) = { _,_ in }) {
+    //MARK: get the users name with these two functions
+    func fetchLoggedInUserRecord(_ completion: ((_ record: CKRecord?, _ error: Error? ) -> Void)?){
         
+        CKContainer.default().fetchUserRecordID { (recordID, error) in
+            
+            if let error = error, let completion = completion {
+                completion(nil, error)
+            }
+            
+            if let recordID = recordID,let completion = completion {
+                self.fetchRecord(withID: recordID, completion: completion)
+            }}
     }
+    
+    func fetchUsername(for recordID: CKRecordID,
+                       completion: @escaping ((_ givenName: String?, _ familyName: String?) -> Void) = { _,_ in }) {
+        
+        let recordInfo = CKUserIdentityLookupInfo(userRecordID: recordID)
+        let operation = CKDiscoverUserIdentitiesOperation(userIdentityLookupInfos: [recordInfo])
+        
+        var userIdenties = [CKUserIdentity]()
+        operation.userIdentityDiscoveredBlock = { (userIdentity, _) in
+            userIdenties.append(userIdentity)
+        }
+        operation.discoverUserIdentitiesCompletionBlock = { (error) in
+            if let error = error {
+                NSLog("Error getting username from record ID: \(error)")
+                completion(nil, nil)
+                return
+            }
+            
+            let nameComponents = userIdenties.first?.nameComponents
+            completion(nameComponents?.givenName, nameComponents?.familyName)
+        }
+        
+        CKContainer.default().add(operation)
+    }
+    
+    //MARK: -
     
     func fetchRecord(withID recordID: CKRecordID, completion: ((_ record: CKRecord?, _ error: Error?) -> Void)?) {
         publicDB.fetch(withRecordID: recordID) { (record, error) in
             completion?(record, error)
         }
+    }
+    
+    func fetchRecordsWithType(_ type: String, predicate: NSPredicate = NSPredicate(value: true), recordFetchedBlock: ((_ record: CKRecord) -> Void)?, completion: ((_ records: [CKRecord]?, _ error: Error?) -> Void)?) {
         
+        var fetchedRecords: [CKRecord] = []
         
+        let query = CKQuery(recordType: type, predicate: predicate)
+        let queryOp = CKQueryOperation(query: query)
         
+        let perRecordBlock = {(fetchedRecord: CKRecord) -> Void in
+            fetchedRecords.append(fetchedRecord)
+            recordFetchedBlock?(fetchedRecord)
+        }
+        
+        queryOp.recordFetchedBlock = perRecordBlock
+        
+        var queryCompletionBlock: (CKQueryCursor?, Error?) -> Void = { _,_ in }
+        
+        queryCompletionBlock = { (queryCursor: CKQueryCursor?, error: Error?) -> Void in
+        
+            if let queryCursor = queryCursor {
+                let continuedQueryOp = CKQueryOperation(cursor: queryCursor)
+                continuedQueryOp.recordFetchedBlock = perRecordBlock
+                continuedQueryOp.queryCompletionBlock = queryCompletionBlock
+                
+                self.publicDB.add(continuedQueryOp)
+            } else {
+                completion?(fetchedRecords, error)
+            }
+        }
+        queryOp.queryCompletionBlock = queryCompletionBlock
+        self.publicDB.add(queryOp)
     }
     
     //MARK: saving
@@ -42,19 +107,12 @@ class CloudKitManager {
         publicDB.save(record, completionHandler: { (record, error) in
             completion?(record, error)
         })}
+    
+    
 }
 
 
 /*
- 
- func fetchRecord(withID recordID: CKRecordID, completion: ((_ record: CKRecord?, _ error: Error?) -> Void)?) {
- 
- publicDatabase.fetch(withRecordID: recordID) { (record, error) in
- 
- completion?(record, error)
- }
-	}
-	
 	func fetchRecordsWithType(_ type: String,
  predicate: NSPredicate = NSPredicate(value: true),
  recordFetchedBlock: ((_ record: CKRecord) -> Void)?,

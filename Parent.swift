@@ -18,7 +18,7 @@ import CloudKit
 class Parent: CloudKitSync {
     
     //MARK: keys
-    static let typeKey = "parenttype"
+    static let typeKey = "Parent"
     static let nameKey = "namekey"
     static let kidKey = "kidkey"
     static let carpoolKey = "carpoolkey"
@@ -26,18 +26,23 @@ class Parent: CloudKitSync {
     static let isLeaderKey = "leader????"
     
     //MARK: properties
-    let name: String
+    var name: String
     var kids: [Child] = []
     var carpools: [Carpool]
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
     var ckRecordID: CKRecordID?
     
+    var userRecordID: CKRecordID?
+    
+    let ckManager = CloudKitManager()
+    
     //MARK: initilizers
     init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false) {
         self.name = name
         self.carpools = carpools
         self.isLeader = isLeader
+        getUserRecord()
     }
     
     convenience required init?(record: CKRecord) {
@@ -45,6 +50,14 @@ class Parent: CloudKitSync {
         self.init(name: name, carpools: carpools, isLeader: isLeader)
         ckRecordID = record.recordID
     }
+    
+    //cloud kit functions
+    
+    func getUserRecord() {
+        ckManager.fetchLoggedInUserRecord { (record, error) in
+            guard let record = record else { return }
+            self.userRecordID = record.recordID
+    }}
     
 }
 

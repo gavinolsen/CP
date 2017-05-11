@@ -12,7 +12,7 @@ import CloudKit
 class Child: CloudKitSync {
     
     //MARK: keys
-    static let typeKey = "child"
+    static let typeKey = "Child"
     static let nameKey = "nameKey"
     static let parentKey = "parentKey"
     static let detailsKey = "detailsKey"
