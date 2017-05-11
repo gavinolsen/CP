@@ -21,6 +21,8 @@ class CloudKitManager {
     let publicDatabase = CKContainer.default().publicCloudDatabase
     let privateDatabase = CKContainer.default().privateCloudDatabase
     
+    static let shared = CloudKitManager()
+    
     init() {
         checkCloudKitAvailability()
     }
@@ -136,15 +138,23 @@ class CloudKitManager {
         self.publicDatabase.add(queryOperation)
     }
     
-    func fetchCurrentUserRecords(_ type: String, completion: ((_ records: [CKRecord]?, _ error: Error?) -> Void)?) {
+    func fetchCurrentUserRecords(_ type: String, completion: @escaping ((_ records: [CKRecord]?, _ error: Error?, _ firstName: String?, _ iCloudUserRecordId: CKRecordID?) -> Void)) {
         
         fetchLoggedInUserRecord { (record, error) in
             
             if let record = record {
                 
-                let predicate = NSPredicate(format: "%K == %@", argumentArray: [CreatorUserRecordIDKey, record.recordID])
+                self.fetchUsername(for: record.recordID, completion: { (firstName, lastName) in
+    
+                    let predicate = NSPredicate(format: "%K == %@", argumentArray: [CreatorUserRecordIDKey, record.recordID])
+                    
+//                    self.fetchRecordsWithType(type, predicate: predicate, recordFetchedBlock: nil, completion: completion)
+                    self.fetchRecordsWithType(type, predicate: predicate, recordFetchedBlock: nil, completion: { (records, error) in
+                        
+                        completion(records,error,firstName, record.recordID)
+                    })
+                })
                 
-                self.fetchRecordsWithType(type, predicate: predicate, recordFetchedBlock: nil, completion: completion)
             }
         }
     }

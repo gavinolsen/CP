@@ -13,6 +13,8 @@ class ChildController {
   
     var kid: Child?
     
+    static let shared = ChildController()
+    
     let ckManager: CloudKitManager
     
     init() {

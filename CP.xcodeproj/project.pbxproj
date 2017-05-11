@@ -23,6 +23,8 @@
 		3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE71EC370AD0058F13A /* ParentController.swift */; };
 		3B281FEA1EC370B90058F13A /* CarpoolController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FE91EC370B90058F13A /* CarpoolController.swift */; };
 		3B281FEE1EC3C1530058F13A /* MainViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */; };
+		3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */; };
+		3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		3B281FE71EC370AD0058F13A /* ParentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentController.swift; sourceTree = "<group>"; };
 		3B281FE91EC370B90058F13A /* CarpoolController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolController.swift; sourceTree = "<group>"; };
 		3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTableViewController.swift; sourceTree = "<group>"; };
+		3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidListTableViewController.swift; sourceTree = "<group>"; };
+		3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */,
+				3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */,
+				3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -247,7 +253,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */,
 				3B281FCE1EC0E8EE0058F13A /* SearchableRecord.swift in Sources */,
+				3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */,
 				3B281FE61EC3709C0058F13A /* ChildController.swift in Sources */,
 				3B281FD61EC0E9D20058F13A /* Carpool.swift in Sources */,
 				3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */,

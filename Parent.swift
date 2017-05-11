@@ -28,7 +28,7 @@ class Parent: CloudKitSync {
     
     //MARK: properties
     var name: String
-    var kids: [Child] = []
+    var kids: [Child]
     var carpools: [Carpool]
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
@@ -42,13 +42,14 @@ class Parent: CloudKitSync {
     init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID?) {
         self.name = name
         self.carpools = carpools
+        self.kids = kids
         self.isLeader = isLeader
         self.userRecordID = userRecordID
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Parent.nameKey] as? String, let carpools = record[Parent.carpoolKey] as? [Carpool], let isLeader = record[Parent.isLeaderKey] as? Bool, let userID = record[Parent.userRecordIDKey] as? CKRecordID else { return nil }
-        self.init(name: name, carpools: carpools, isLeader: isLeader, userRecordID: userID)
+        guard let name = record[Parent.nameKey] as? String, let carpools = record[Parent.carpoolKey] as? [Carpool], let userID = record[Parent.userRecordIDKey] as? CKRecordID else { return nil }
+        self.init(name: name, carpools: carpools, userRecordID: userID)
         ckRecordID = record.recordID
     }
     
@@ -75,6 +76,9 @@ extension CKRecord {
         self.init(recordType: parent.recordType, recordID: record)
         
         self[Parent.nameKey] = parent.name as CKRecordValue?
+        self[Parent.userRecordIDKey] = parent.ckRecordID as? CKRecordValue
+        self[Parent.kidKey] = parent.kids as CKRecordValue?
+        self[Parent.carpoolKey] = parent.carpools as CKRecordValue?
     }
 }
 

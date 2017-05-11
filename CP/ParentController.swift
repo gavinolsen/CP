@@ -17,7 +17,6 @@ class ParentController {
     
     static let shared = ParentController()
     
-    let ckManager: CloudKitManager
     var parent: Parent?
     var parentName: String? {
         didSet {
@@ -30,39 +29,56 @@ class ParentController {
     
     var parentRecordID: CKRecordID?
     
-    init() {
-        self.ckManager = CloudKitManager()
-        
-    }
-    
-    //Mark: see if the user has cloud kit
+    //Mark: see if the user has cloud kit, ask for permissions, and get name
     func getParentInfo() {
         
         //right here i'll need to search through my database and
         //see if there's any records matching. I need to call this
-        //function to get the logged in users record, then fetch that 
+        //function to get the logged in users record, then fetch that
         //record from my database
-        
-        ckManager.fetchLoggedInUserRecord { (record, error) in
+
+        CloudKitManager.shared.fetchCurrentUserRecords(Parent.typeKey) { (records, error, firstName, iCloudUserRecordID) in
             
-            if let recordID = record?.recordID {
+            if let error = error {
+                print("There was an error fetching current User record: \(error.localizedDescription)")
+                return
+            }
+            
+            if let record = records?.first {
                 
-                if error != nil || record == nil {
-                    print("there was an error fetching the loggedin user record")
-                }
+                let parent = Parent(record: record)
+                self.parent = parent
+            } else {
+                guard let firstName = firstName, let recordID = iCloudUserRecordID else { return }
+                self.makeNewParent(name: firstName, recordID: recordID)
+            }
+            
+        }
+        
+    }
+    
+    //MARK: get parent info!!!
+    func getParent() {
+        
+        //now that i set the parentRecordID, i can run it through my database
+        //to find the right parent object that matches this recordID
+        guard let parentID = parentRecordID else { return }
+        CloudKitManager.shared.fetchRecord(withID: parentID) { (record, error) in
+            
+            guard let parentRecord = record else { return }
+            
+            let thisParent = Parent(record: parentRecord)
+            
+            if thisParent == nil {
                 
-                self.ckManager.fetchRecord(withID: recordID, completion: { (record, error) in
-                    
-                    if error != nil || record == nil {
-                        print("there was an error fetching the loggedin user record")
-                    } else if error == nil && record == nil {
-                        print("this user hasn't been created in the database")
-                    } else {
-                        self.parentRecordID = recordID
-                        self.fetchFirstName()
-                        
-                    }
-                })
+                repeat {
+                    sleep(1)
+                } while (self.parentName == nil)
+                
+                guard let name = self.parentName else { return }
+                self.makeNewParent(name: name, recordID: parentRecord.recordID)
+            } else {
+                self.parent = thisParent
             }
         }
     }
@@ -70,26 +86,19 @@ class ParentController {
     //MARK: get the username
     func fetchFirstName() {
         guard let parentID = parentRecordID else { return }
-        ckManager.fetchUsername(for: parentID) { (fisrtName, lastName) in
-                self.parentName = fisrtName
+        CloudKitManager.shared.fetchUsername(for: parentID) { (firstName, lastName) in
+            self.parentName = firstName
         }
     }
     
     //crud functions
     //create
-    func makeNewParent(name: String) -> Parent {
+    func makeNewParent(name: String, recordID: CKRecordID){
         
-        var userID: CKRecordID?
-        
-        ckManager.fetchLoggedInUserRecord { (record, error) in
-            guard let record = record else { return }
-            userID = record.recordID
-        }
-        
-        let newParent = Parent(name: name, userRecordID: userID)
+        let newParent = Parent(name: name, userRecordID: recordID)
         parent = newParent
         save(parent: newParent)
-        return newParent
+        print("made new parent")
     }
     
     //updating and editing the parent object
@@ -112,18 +121,18 @@ class ParentController {
     func removeCarpoolFromParent(carpool: Carpool) {
     }
     
-    //MARK: saving 
+    //MARK: saving
     
     func save(parent: Parent) {
-        ckManager.saveRecord(CKRecord(parent)) { (record, error) in
+        CloudKitManager.shared.saveRecord(CKRecord(parent)) { (record, error) in
             
             guard record != nil else {
                 if let error = error {
                     NSLog("Error saving to CloudKit from ParentController: \(error)")
                     return
                 }
-            return
-    }}}
+                return
+            }}}
 }
 
 
