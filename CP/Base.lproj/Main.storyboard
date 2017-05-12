@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -111,7 +112,7 @@
             </objects>
             <point key="canvasLocation" x="4078" y="-441"/>
         </scene>
-        <!--Main View Table View Controller-->
+        <!--Home-->
         <scene sceneID="K9N-Hd-QUb">
             <objects>
                 <tableViewController id="RsE-7n-Ius" customClass="MainViewTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -171,8 +172,8 @@
                                         <constraint firstAttribute="width" constant="123" id="nqg-iR-4Pv"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Greeting Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
-                                    <rect key="frame" x="96" y="85" width="90" height="41"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey there!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
+                                    <rect key="frame" x="96" y="95.5" width="90" height="20.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="90" id="6Q0-nP-9pr"/>
                                     </constraints>
@@ -241,7 +242,7 @@
                             <outlet property="delegate" destination="RsE-7n-Ius" id="ZHK-e4-nOK"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="ybG-0a-8No"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="32house" id="ybG-0a-8No"/>
                     <navigationItem key="navigationItem" id="99e-t3-hhM">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9QY-nb-plF"/>
                     </navigationItem>
@@ -253,6 +254,112 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2607.1999999999998" y="273.91304347826087"/>
+        </scene>
+        <!--Carpools-->
+        <scene sceneID="EHN-GI-82z">
+            <objects>
+                <tableViewController id="SX5-Vg-0rn" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" id="NEZ-y1-bsg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" textLabel="ksl-ph-3jl" detailTextLabel="PxE-qw-45J" rowHeight="59" style="IBUITableViewCellStyleSubtitle" id="UrX-cX-4R4">
+                                <rect key="frame" x="0.0" y="28" width="375" height="59"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UrX-cX-4R4" id="2QA-Fv-ajj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ksl-ph-3jl">
+                                            <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PxE-qw-45J">
+                                            <rect key="frame" x="15" y="32.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="SX5-Vg-0rn" id="CYW-Ia-Uis"/>
+                            <outlet property="delegate" destination="SX5-Vg-0rn" id="lPW-Vm-aUp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Carpools" id="RWp-Ot-Lud">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MXv-si-Ygb">
+                            <connections>
+                                <segue destination="hh8-dR-tRe" kind="show" id="Dd1-5S-IcQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9It-dZ-VWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3334" y="1011"/>
+        </scene>
+        <!--carpool details-->
+        <scene sceneID="5c1-E6-BjI">
+            <objects>
+                <tableViewController id="hh8-dR-tRe" customClass="CarpoolDetailTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gfj-Tg-lfS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="azI-bJ-r5a">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="258"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="QLU-hZ-MgN">
+                            <rect key="frame" x="0.0" y="330" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carpoolTimeCell" id="JU4-8Q-Opb">
+                                <rect key="frame" x="0.0" y="286" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU4-8Q-Opb" id="tkl-Jg-gQ3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hh8-dR-tRe" id="qmt-bS-fQK"/>
+                            <outlet property="delegate" destination="hh8-dR-tRe" id="e4i-1d-YHQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="carpool details" id="4aE-It-8M9">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="save" id="nSa-4g-RDQ">
+                                <connections>
+                                    <action selector="saveCarpoolToParent:" destination="hh8-dR-tRe" id="r6K-9e-MYQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Add time" id="lRS-pg-GaT">
+                                <connections>
+                                    <action selector="addTimeToCarpool:" destination="hh8-dR-tRe" id="m9P-7E-Teg"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="carpoolDetailView" destination="azI-bJ-r5a" id="YFr-nj-IqN"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c0A-R6-UcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4078" y="1011"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OjS-x1-fVm">
@@ -267,17 +374,18 @@
                     <connections>
                         <segue destination="RsE-7n-Ius" kind="relationship" relationship="viewControllers" id="XvT-Z6-d1C"/>
                         <segue destination="07S-F1-MaV" kind="relationship" relationship="viewControllers" id="OWk-HR-v4W"/>
+                        <segue destination="qdI-nY-VlK" kind="relationship" relationship="viewControllers" id="wmg-xF-PWu"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAv-T7-1wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1668" y="273.91304347826087"/>
         </scene>
-        <!--Item-->
+        <!--Fam-->
         <scene sceneID="1oe-ha-dfA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07S-F1-MaV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="Family Man Woman-65" id="bi0-vT-idz"/>
+                    <tabBarItem key="tabBarItem" title="Fam" image="Family Man Woman-65" id="bi0-vT-idz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mLv-pC-85Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -292,8 +400,29 @@
             </objects>
             <point key="canvasLocation" x="2613.5999999999999" y="-441.22938530734638"/>
         </scene>
+        <!--Carpools-->
+        <scene sceneID="uGY-Lz-a9T">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qdI-nY-VlK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Carpools" image="32n" id="BWu-qA-gQN"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLM-PU-P0I">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SX5-Vg-0rn" kind="relationship" relationship="rootViewController" id="ReX-0l-i9s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nlB-7x-TRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2607" y="1011"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="32house" width="32" height="32"/>
+        <image name="32n" width="32" height="32"/>
         <image name="Car-64" width="64" height="64"/>
         <image name="Family Man Woman-65" width="26" height="19"/>
     </resources>

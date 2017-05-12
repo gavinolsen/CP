@@ -25,6 +25,7 @@
 		3B281FEE1EC3C1530058F13A /* MainViewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */; };
 		3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */; };
 		3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */; };
+		3B67C0541EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTableViewController.swift; sourceTree = "<group>"; };
 		3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidListTableViewController.swift; sourceTree = "<group>"; };
 		3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidDetailViewController.swift; sourceTree = "<group>"; };
+		3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolDetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */,
 				3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */,
 				3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */,
+				3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */,
 				3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */,
 				3B281FEA1EC370B90058F13A /* CarpoolController.swift in Sources */,
+				3B67C0541EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift in Sources */,
 				3B281FB31EC0E4920058F13A /* AppDelegate.swift in Sources */,
 				3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */,
 				3B281FD81EC0E9E50058F13A /* Family.swift in Sources */,

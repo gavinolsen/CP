@@ -10,24 +10,31 @@ import Foundation
 import CloudKit
 
 extension ParentController {
-    static let ParentChangedNotification = Notification.Name("ParentChangedNotification")
+    static let ParentNameChangedNotification = Notification.Name("ParentNameChangedNotification")
 }
 
 class ParentController {
     
     static let shared = ParentController()
     
-    var parent: Parent?
     var parentName: String? {
         didSet {
             DispatchQueue.main.async {
                 let nc = NotificationCenter.default
-                nc.post(name: ParentController.ParentChangedNotification, object: self)
+                nc.post(name: ParentController.ParentNameChangedNotification, object: self)
             }
         }
     }
     
-    var parentRecordID: CKRecordID?
+    var parent: Parent? {
+        didSet {
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: ParentController.ParentNameChangedNotification, object: self)
+            }
+        }
+    }
+    var parentRecord: CKRecord?
     
     //Mark: see if the user has cloud kit, ask for permissions, and get name
     func getParentInfo() {
@@ -44,50 +51,14 @@ class ParentController {
                 return
             }
             
+            guard let name = firstName, let recordID = iCloudUserRecordID else { return }
+            self.parentName = name
+            
             if let record = records?.first {
-                
-                let parent = Parent(record: record)
-                self.parent = parent
+                self.setParentWithRecord(record: record)
             } else {
-                guard let firstName = firstName, let recordID = iCloudUserRecordID else { return }
-                self.makeNewParent(name: firstName, recordID: recordID)
+                self.makeNewParent(name: name, recordID: recordID)
             }
-            
-        }
-        
-    }
-    
-    //MARK: get parent info!!!
-    func getParent() {
-        
-        //now that i set the parentRecordID, i can run it through my database
-        //to find the right parent object that matches this recordID
-        guard let parentID = parentRecordID else { return }
-        CloudKitManager.shared.fetchRecord(withID: parentID) { (record, error) in
-            
-            guard let parentRecord = record else { return }
-            
-            let thisParent = Parent(record: parentRecord)
-            
-            if thisParent == nil {
-                
-                repeat {
-                    sleep(1)
-                } while (self.parentName == nil)
-                
-                guard let name = self.parentName else { return }
-                self.makeNewParent(name: name, recordID: parentRecord.recordID)
-            } else {
-                self.parent = thisParent
-            }
-        }
-    }
-    
-    //MARK: get the username
-    func fetchFirstName() {
-        guard let parentID = parentRecordID else { return }
-        CloudKitManager.shared.fetchUsername(for: parentID) { (firstName, lastName) in
-            self.parentName = firstName
         }
     }
     
@@ -98,13 +69,17 @@ class ParentController {
         let newParent = Parent(name: name, userRecordID: recordID)
         parent = newParent
         save(parent: newParent)
-        print("made new parent")
     }
     
-    //updating and editing the parent object
-    func addChildToParent(name: String, age: Int, details: String) {
-        guard let parent = parent else { return }
-        let newChild = Child(name: name, age: age, details: details, parent: parent)
+    func setParentWithRecord(record: CKRecord) {
+        let savedParent = Parent(record: record)
+        parent = savedParent
+        parentRecord = record
+    }
+    
+    func addChildToParent(kid: Child) {
+        guard let parent = kid.parent else { print("bad parent"); return }
+        let newChild = Child(name: kid.name, age: kid.age, details: kid.details, parent: parent)
         parent.kids.append(newChild)
     }
     
@@ -112,6 +87,7 @@ class ParentController {
         guard let parent = parent else { return }
         let newCarpool = Carpool(name: name, time: times, leader: parent)
         parent.carpools.append(newCarpool)
+        save(parent: parent)
     }
     
     func addCarpoolToParent(carpool: Carpool) {

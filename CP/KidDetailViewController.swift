@@ -15,6 +15,9 @@ class KidDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        guard let record = ParentController.shared.parentRecord else { print("bad record from parent"); return}
+        ParentController.shared.setParentWithRecord(record: record)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -23,6 +26,7 @@ class KidDetailViewController: UIViewController {
         makeNewChild()
         
         print("child saved")
+        
         let nc = navigationController
         nc?.popViewController(animated: true)
     }
@@ -30,8 +34,8 @@ class KidDetailViewController: UIViewController {
     func makeNewChild() {
         
         guard let name = childNameTextField.text else { return }
-        guard let parent = ParentController.shared.parent else { return }
+        guard let parent = ParentController.shared.parent else { print("the parent in the parent controller is null"); return }
         let newChild = Child(name: name, age: 5, details: "", parent: parent)
-        ChildController.shared.save(kid: newChild)
+        ParentController.shared.addChildToParent(kid: newChild)
     }
 }

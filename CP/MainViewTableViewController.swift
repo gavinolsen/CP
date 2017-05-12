@@ -13,15 +13,16 @@ class MainViewTableViewController: UITableViewController {
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var greetingView: UIView!
     
+    var user: Parent?
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        ParentController.shared.getParentInfo()
-        
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(userChanged(_:)), name: ParentController.ParentChangedNotification, object: nil)
-        
+        DispatchQueue.main.async {
+            ParentController.shared.getParentInfo()
+            let nc = NotificationCenter.default
+            nc.addObserver(self, selector: #selector(self.userChanged(_:)), name: ParentController.ParentNameChangedNotification, object: nil)
+        }
     }
     
     //MARK: Observer
@@ -37,12 +38,12 @@ class MainViewTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        guard let kids = ParentController.shared.parent?.kids else { return 0 }
+        return kids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath)
 
         // Configure the cell...
 

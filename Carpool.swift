@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import EventKit
 
 class Carpool: CloudKitSync {
     
@@ -21,6 +22,9 @@ class Carpool: CloudKitSync {
     
     //MARK: properties
     var eventName: String
+    
+    let eventStore = EKEventStore()
+    
     var eventTimes: [Date]
     var drivers: [Parent]?
     let leader: Parent

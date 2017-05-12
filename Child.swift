@@ -29,7 +29,7 @@ class Child: CloudKitSync {
     var recordType: String { return Child.typeKey }
     
     //MARK: initilizers
-    init(name: String, age: Int, details: String, parent: Parent, carpools: [Carpool] = []) {
+    init(name: String, age: Int, details: String, parent: Parent? = nil, carpools: [Carpool] = []) {
         self.name = name
         self.age = age
         self.details = details
