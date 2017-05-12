@@ -37,5 +37,6 @@ class KidDetailViewController: UIViewController {
         guard let parent = ParentController.shared.parent else { print("the parent in the parent controller is null"); return }
         let newChild = Child(name: name, age: 5, details: "", parent: parent)
         ParentController.shared.addChildToParent(kid: newChild)
+        ChildController.shared.save(kid: newChild)
     }
 }

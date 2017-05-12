@@ -17,6 +17,7 @@ class KidListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         guard let kidCount = ParentController.shared.parent?.kids.count else { return 0 }
         return kidCount
     }

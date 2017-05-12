@@ -22,18 +22,15 @@ class ParentController {
             DispatchQueue.main.async {
                 let nc = NotificationCenter.default
                 nc.post(name: ParentController.ParentNameChangedNotification, object: self)
-            }
-        }
-    }
+    }}}
     
     var parent: Parent? {
         didSet {
             DispatchQueue.main.async {
                 let nc = NotificationCenter.default
                 nc.post(name: ParentController.ParentNameChangedNotification, object: self)
-            }
-        }
-    }
+    }}}
+    
     var parentRecord: CKRecord?
     
     //Mark: see if the user has cloud kit, ask for permissions, and get name
