@@ -69,31 +69,7 @@
                     <view key="view" contentMode="scaleToFill" id="Heu-jg-a4p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6jw-3D-Abp">
-                                <rect key="frame" x="0.0" y="84" width="375" height="50.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Childs name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyd-ov-dMs">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RAc-3t-75g">
-                                        <rect key="frame" x="0.0" y="20.5" width="375" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                            </stackView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="6jw-3D-Abp" secondAttribute="trailing" id="5rl-4s-6US"/>
-                            <constraint firstItem="6jw-3D-Abp" firstAttribute="leading" secondItem="Heu-jg-a4p" secondAttribute="leading" id="HzU-Og-sec"/>
-                            <constraint firstItem="6jw-3D-Abp" firstAttribute="top" secondItem="u73-FL-cU2" secondAttribute="bottom" constant="20" id="als-FL-q41"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Child" id="abw-MK-Gdn">
@@ -104,13 +80,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="childNameTextField" destination="RAc-3t-75g" id="CVq-AE-xaC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBJ-Gl-8I8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4078" y="-441"/>
+            <point key="canvasLocation" x="4077.5999999999999" y="-441.22938530734638"/>
         </scene>
         <!--Home-->
         <scene sceneID="K9N-Hd-QUb">
@@ -195,11 +168,11 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="kidCell" rowHeight="77" id="kOT-rE-hhC">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="kidCell" rowHeight="77" id="kOT-rE-hhC" customClass="KidTableViewCell" customModule="CP" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="305" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOT-rE-hhC" id="55z-Ye-Zee">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="L99-Lf-nGQ">
@@ -235,6 +208,10 @@
                                         <constraint firstItem="L99-Lf-nGQ" firstAttribute="leading" secondItem="55z-Ye-Zee" secondAttribute="leadingMargin" id="qJR-FA-J3o"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="kidCarpoolDetails" destination="mMn-34-C6G" id="zQq-He-lGx"/>
+                                    <outlet property="kidNameLabel" destination="cB3-dH-vRS" id="86h-yg-t4i"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -329,7 +306,7 @@
                                 <rect key="frame" x="0.0" y="286" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU4-8Q-Opb" id="tkl-Jg-gQ3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

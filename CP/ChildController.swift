@@ -15,12 +15,6 @@ class ChildController {
     
     static let shared = ChildController()
     
-    let ckManager: CloudKitManager
-    
-    init() {
-        self.ckManager = CloudKitManager()
-    }
-    
     //adding carpool to the kid
     func addCarpoolToKid(carpool: Carpool) {
         kid?.carpools.append(carpool)
@@ -31,7 +25,7 @@ class ChildController {
     
     func save(kid: Child) {
         guard let record = CKRecord(kid) else { return }
-        ckManager.saveRecord(record) { (record, error) in
+        CloudKitManager.shared.saveRecord(record) { (record, error) in
             
             guard record != nil else {
                 if let error = error {

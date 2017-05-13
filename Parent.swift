@@ -28,13 +28,19 @@ class Parent: CloudKitSync {
     
     //MARK: properties
     var name: String
-    var kids: [Child] = []
+    var kids: [Child] = [] {
+        
+        didSet {
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: ParentController.ParentNameChangedNotification, object: self)
+            }}
+        
+    }
     var carpools: [Carpool] = []
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
     var ckRecordID: CKRecordID?
-    
-    var userRecordID: CKRecordID?
     
     let ckManager = CloudKitManager()
     
@@ -42,33 +48,30 @@ class Parent: CloudKitSync {
     init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID? = nil) {
         self.name = name
         self.carpools = carpools
-        
-       
-        
+    
         self.kids = kids
         self.isLeader = isLeader
-        self.userRecordID = userRecordID
-        
-        /*
-         this is just for practice to try
-         to get things running
-//         */
-//        let firstKid = Child(name: "", age: 0, details: "", parent: self)
-//        self.kids.append(firstKid)
-        
-        let firstCarpool = Carpool(name: "", time: [], drivers: [], kids: [], leader: self)
-        self.carpools.append(firstCarpool)
+
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Parent.nameKey] as? String
-            //let userID = record[Parent.userRecordIDKey] as? CKRecordID?
-            else { print("one of the values from the required init came back as nil"); return nil }
-        //, let carpools = record[Parent.carpoolKey] as? [Carpool]
-        //, let kids = record[Parent.kidKey] as? [Child]
+        guard let name = record[Parent.nameKey] as? String else { print("one of the values from the required init came back as nil"); return nil }
+        
         self.init(name: name, userRecordID: nil)
         ckRecordID = record.recordID
+        fetchKids()
     }
+    
+    func fetchKids() {
+        
+        CloudKitManager.shared.fetchRecordsForChildren(ckRecordID: ckRecordID) { (records, error) in
+            
+            print("in the completion")
+            
+        }
+        
+    }
+    
     
 }
 
@@ -85,9 +88,6 @@ extension CKRecord {
         self.init(recordType: parent.recordType, recordID: record)
         
         self[Parent.nameKey] = parent.name as CKRecordValue?
-        self[Parent.userRecordIDKey] = parent.userRecordID?.recordName as CKRecordValue?
-//        self[Parent.kidKey] = parent.kids as CKRecordValue?
-//        self[Parent.carpoolKey] = parent.carpools as CKRecordValue?
     }
 }
 

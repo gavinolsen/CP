@@ -137,6 +137,47 @@ class CloudKitManager {
         
         self.publicDatabase.add(queryOperation)
     }
+    /*
+     my function if i need it
+     var query = CKQuery(recordType: recordType, predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID" ,CKReference(recordID: theSearchRecordId, action: CKReferenceAction.None)))
+     */
+    func fetchRecordsForChildren(ckRecordID: CKRecordID?, completion: ((_ records: [CKRecord]?, _ error: Error?) -> Void)?) {
+        
+        var fetchedRecords: [CKRecord] = []
+        
+        
+        guard let searchTerm = ckRecordID?.recordName else { return }
+        let predicate = NSPredicate(format: "parentKey = %@", argumentArray: [searchTerm])
+        
+        let query = CKQuery(recordType: Child.typeKey, predicate: predicate)
+        let queryOperation = CKQueryOperation(query: query)
+        
+        let perRecordBlock = { (fetchedRecord: CKRecord) -> Void in
+            fetchedRecords.append(fetchedRecord)
+        }
+        queryOperation.recordFetchedBlock = perRecordBlock
+        
+        var queryCompletionBlock: (CKQueryCursor?, Error?) -> Void = { (_, _) in }
+        
+        queryCompletionBlock = { (queryCursor: CKQueryCursor?, error: Error?) -> Void in
+            
+            if let queryCursor = queryCursor {
+                // there are more results, go fetch them
+                
+                let continuedQueryOperation = CKQueryOperation(cursor: queryCursor)
+                continuedQueryOperation.recordFetchedBlock = perRecordBlock
+                continuedQueryOperation.queryCompletionBlock = queryCompletionBlock
+                
+                self.publicDatabase.add(continuedQueryOperation)
+                
+            } else {
+                completion?(fetchedRecords, error)
+            }
+        }
+        
+        self.publicDatabase.add(queryOperation)
+    }
+
     
     func fetchCurrentUserRecords(_ type: String, completion: @escaping ((_ records: [CKRecord]?, _ error: Error?, _ firstName: String?, _ iCloudUserRecordId: CKRecordID?) -> Void)) {
         

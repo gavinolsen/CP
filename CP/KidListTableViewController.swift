@@ -25,9 +25,9 @@ class KidListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath)
 
-        guard let kids = ParentController.shared.parent?.kids else { return UITableViewCell() }
-
-        cell.textLabel?.text = kids[indexPath.row].name
+//        guard let kids = ParentController.shared.parent?.kids else { return UITableViewCell() }
+//
+//        cell.textLabel?.text = kids[indexPath.row].name
         
         return cell
     }

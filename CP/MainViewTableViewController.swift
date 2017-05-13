@@ -43,10 +43,13 @@ class MainViewTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath) as? KidTableViewCell else { return UITableViewCell() }
 
-        // Configure the cell...
-
+        guard let kids = ParentController.shared.parent?.kids else { print("can't get the kids"); return UITableViewCell() }
+        let kid = kids[indexPath.row]
+        
+        cell.setViewWith(kid: kid)
+        
         return cell
     }
     

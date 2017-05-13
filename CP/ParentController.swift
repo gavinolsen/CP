@@ -17,6 +17,8 @@ class ParentController {
     
     static let shared = ParentController()
     
+    var kids: [Child] = []
+    
     var parentName: String? {
         didSet {
             DispatchQueue.main.async {
@@ -34,12 +36,10 @@ class ParentController {
     var parentRecord: CKRecord?
     
     //Mark: see if the user has cloud kit, ask for permissions, and get name
+    //I can get the kid here too 
+    //var query = CKQuery(recordType: recordType, predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID" ,CKReference(recordID: theSearchRecordId, action: CKReferenceAction.None)))
+    
     func getParentInfo() {
-        
-        //right here i'll need to search through my database and
-        //see if there's any records matching. I need to call this
-        //function to get the logged in users record, then fetch that
-        //record from my database
 
         CloudKitManager.shared.fetchCurrentUserRecords(Parent.typeKey) { (records, error, firstName, iCloudUserRecordID) in
             
@@ -53,6 +53,12 @@ class ParentController {
             
             if let record = records?.first {
                 self.setParentWithRecord(record: record)
+                
+                let reference = CKReference(recordID: record.recordID, action: .none)
+                let predicate = NSPredicate(format: "%K == %@", Child.parentKey, reference)
+                
+                self.fetchKidsFromParent(predicate: predicate)
+                
             } else {
                 self.makeNewParent(name: name, recordID: recordID)
             }
@@ -74,10 +80,47 @@ class ParentController {
         parentRecord = record
     }
     
+    //retreiving
+    
+    func fetchKidsFromParent(predicate: NSPredicate) {
+        
+        CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, recordFetchedBlock: { (record) in
+            
+            print(record)
+            
+            guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
+            
+            self.kids.append(myChild)
+            
+        }) { (records, error) in
+            
+            if error != nil {
+                print("there's an error: \(String(describing: error))")
+            }
+            
+            guard let records = records else { return }
+
+            for record in records {
+                
+                guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
+                
+                self.kids.append(myChild)
+            }
+            
+            self.setParentWith(kids: self.kids)
+        }
+    }
+    
+    func setParentWith(kids: [Child]) {
+        
+        parent?.kids = kids
+        
+    }
+    
     func addChildToParent(kid: Child) {
         guard let parent = kid.parent else { print("bad parent"); return }
         let newChild = Child(name: kid.name, age: kid.age, details: kid.details, parent: parent)
-        parent.kids.append(newChild)
+        print(newChild.name)
     }
     
     func makeCarpoolWithLeader(name: String, times: [Date]) {
@@ -94,7 +137,7 @@ class ParentController {
     func removeCarpoolFromParent(carpool: Carpool) {
     }
     
-    //MARK: saving
+    //MARK: saving + modifying
     
     func save(parent: Parent) {
         CloudKitManager.shared.saveRecord(CKRecord(parent)) { (record, error) in
@@ -106,6 +149,22 @@ class ParentController {
                 }
                 return
             }}}
+    
+    func modify(parent: Parent) {
+
+        guard let record = parentRecord else { return }
+        
+        CloudKitManager.shared.modifyRecords([record], perRecordCompletion: { (record, error) in
+            
+            if error != nil || record == nil {
+                print("there was an error, or there wasn't a record")
+            }
+        }) { (records, error) in
+            if error != nil || records == nil {
+                print("there was an error, or there wasn't a record")
+            }
+        }
+    }
 }
 
 
