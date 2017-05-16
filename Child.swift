@@ -18,9 +18,10 @@ class Child: CloudKitSync {
     static let detailsKey = "detailsKey"
     static let ageKey = "ageKey"
     static let carpoolKey = "carpoolKey"
+    static let ckRecordKey = "ckRecordIDkey"
     
     //MARK: properties
-    let name: String
+    var name: String
     var age: Int
     var ckReference: CKReference?
     var parent: Parent?
@@ -39,9 +40,14 @@ class Child: CloudKitSync {
         self.ckReference = ckReference
     }
     
+    /*
+     I can't properly delete the methods that haven't been saved yet
+     because they don't have a record id yet. so i'll just save them
+     and pull them back out for my data model...
+     */
+    
     convenience required init?(record: CKRecord) {
         guard let name = record[Child.nameKey] as? String, let age = record[Child.ageKey] as? Int, let details = record[Child.detailsKey] as? String, let parent = record[Child.parentKey] as? CKReference else { return nil }
-        //, let carpools = record[Child.carpoolKey] as? [Carpool]
         self.init(name: name, age: age, details: details, ckReference: parent)
         ckRecordID = record.recordID
     }
@@ -68,6 +74,7 @@ extension CKRecord {
         self[Child.ageKey] = kid.age as CKRecordValue?
         self[Child.nameKey] = kid.name as CKRecordValue?
         self[Child.detailsKey] = kid.details as CKRecordValue?
+        self[Child.ckRecordKey] = recordID as? CKRecordValue
 
     }
     

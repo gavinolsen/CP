@@ -9,55 +9,102 @@
 import UIKit
 
 class KidListTableViewController: UITableViewController {
+    
+    var kids: [Child] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        kids = ParentController.shared.kids
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(updateView(_:)), name: ParentController.ChildArrayNotification, object: nil)
     }
 
+    func updateView(_ notification: Notification) {
+        kids = ParentController.shared.kids
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        guard let kidCount = ParentController.shared.parent?.kids.count else { return 0 }
-        return kidCount
+        return kids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath)
 
-//        guard let kids = ParentController.shared.parent?.kids else { return UITableViewCell() }
-//
-//        cell.textLabel?.text = kids[indexPath.row].name
+        cell.textLabel?.text = kids[indexPath.row].name
         
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            
+            if kids.count == 0 { return }
+            
+            let kid = kids[indexPath.row]
+            ChildController.shared.deleteChild(kid: kid)
+            ParentController.shared.kids.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "kidIdentifier" {
+            
+            guard let destinationVC = segue.destination as? KidDetailViewController else { return }
+
+            guard let index = tableView.indexPathForSelectedRow else { return }
+            
+            if kids.count == 0 { return }
+            
+            let kid = kids[index.row]
+            
+            destinationVC.kid = kid
+        }
+        
+        
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

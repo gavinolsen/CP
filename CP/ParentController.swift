@@ -11,13 +11,21 @@ import CloudKit
 
 extension ParentController {
     static let ParentNameChangedNotification = Notification.Name("ParentNameChangedNotification")
+    static let ChildArrayNotification = Notification.Name("ChildArrayNotification")
 }
 
 class ParentController {
     
     static let shared = ParentController()
     
-    var kids: [Child] = []
+    var kidPredicate: NSPredicate?
+    
+    var kids: [Child] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: ParentController.ChildArrayNotification, object: self)
+        }}}
     
     var parentName: String? {
         didSet {
@@ -34,10 +42,6 @@ class ParentController {
     }}}
     
     var parentRecord: CKRecord?
-    
-    //Mark: see if the user has cloud kit, ask for permissions, and get name
-    //I can get the kid here too 
-    //var query = CKQuery(recordType: recordType, predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID" ,CKReference(recordID: theSearchRecordId, action: CKReferenceAction.None)))
     
     func getParentInfo() {
 
@@ -56,8 +60,9 @@ class ParentController {
                 
                 let reference = CKReference(recordID: record.recordID, action: .none)
                 let predicate = NSPredicate(format: "%K == %@", Child.parentKey, reference)
+                self.kidPredicate = predicate
                 
-                self.fetchKidsFromParent(predicate: predicate)
+                self.fetchKidsFromParent()
                 
             } else {
                 self.makeNewParent(name: name, recordID: recordID)
@@ -67,8 +72,7 @@ class ParentController {
     
     //crud functions
     //create
-    func makeNewParent(name: String, recordID: CKRecordID){
-        
+    func makeNewParent(name: String, recordID: CKRecordID) {
         let newParent = Parent(name: name, userRecordID: recordID)
         parent = newParent
         save(parent: newParent)
@@ -82,43 +86,32 @@ class ParentController {
     
     //retreiving
     
-    func fetchKidsFromParent(predicate: NSPredicate) {
+    func fetchKidsFromParent() {
         
-        CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, recordFetchedBlock: { (record) in
-            
-            print(record)
-            
-            guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
-            
-            self.kids.append(myChild)
-            
-        }) { (records, error) in
-            
+        kids = []
+        guard let predicate = kidPredicate else { print("bad predicate"); return }
+        CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, predicate: predicate, recordFetchedBlock: nil) { (records, error) in
             if error != nil {
                 print("there's an error: \(String(describing: error))")
             }
             
             guard let records = records else { return }
-
+            
             for record in records {
                 
                 guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
                 
-                self.kids.append(myChild)
+                self.setParentWith(kid: myChild)
             }
-            
-            self.setParentWith(kids: self.kids)
         }
     }
     
-    func setParentWith(kids: [Child]) {
-        
-        parent?.kids = kids
-        
+    
+    func setParentWith(kid: Child) {
+        kids.append(kid)
     }
     
     func addChildToParent(kid: Child) {
-        guard let parent = kid.parent else { print("bad parent"); return }
         let newChild = Child(name: kid.name, age: kid.age, details: kid.details, parent: parent)
         print(newChild.name)
     }

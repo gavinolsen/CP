@@ -9,6 +9,8 @@
 import UIKit
 
 class KidDetailViewController: UIViewController {
+    
+    var kid: Child?
 
     let nameLabel = UILabel()
     let childNameTextField = UITextField()
@@ -18,7 +20,7 @@ class KidDetailViewController: UIViewController {
     let detailTextView = UITextView()
     
     var possibleAges: [String] {
-        var array: [String] = [""]
+        var array: [String] = []
         
         for i in 1...18 {
             let min = "\(i)"
@@ -32,9 +34,6 @@ class KidDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let record = ParentController.shared.parentRecord else { print("bad record from parent"); return}
-        ParentController.shared.setParentWithRecord(record: record)
-        
         pickerData = [possibleAges]
         
         self.agePicker.delegate = self
@@ -42,13 +41,26 @@ class KidDetailViewController: UIViewController {
         
         setupViews()
         setupConstraints()
+        
+        if let kid = kid {
+            setViewFor(child: kid)
+        }
+        
     }
 
     @IBAction func saveChild(_ sender: Any) {
         
-        makeNewChild()
-        let nc = navigationController
-        nc?.popViewController(animated: true)
+        
+        if kid == nil {
+            makeNewChild()
+            let nc = navigationController
+            nc?.popViewController(animated: true)
+        } else {
+            guard let kid = kid else {return}
+            setChildFromView()
+            ChildController.shared.modifyChild(kid: kid)
+        }
+        
     }
     
     func makeNewChild() {
@@ -59,9 +71,32 @@ class KidDetailViewController: UIViewController {
         guard let name = childNameTextField.text, let details = detailTextView.text else { return }
         guard let parent = ParentController.shared.parent else { print("the parent in the parent controller is null"); return }
         let newChild = Child(name: name, age: age, details: details, parent: parent)
-        ParentController.shared.addChildToParent(kid: newChild)
         ChildController.shared.save(kid: newChild)
+        ParentController.shared.getParentInfo()
     }
+    
+    func setChildFromView() {
+        
+        let selectedAge = agePicker.selectedRow(inComponent: 0)
+        guard let age = Int(possibleAges[selectedAge]) else { print("bad age"); return}
+        
+        guard let name = childNameTextField.text, let details = detailTextView.text else { return }
+
+        guard let kid = kid else { return }
+        
+        kid.age = age
+        kid.name = name
+        kid.details = details
+        
+    }
+    
+    func setViewFor(child: Child) {
+        childNameTextField.text = child.name
+        detailTextView.text = child.details
+        
+        agePicker.selectRow((child.age - 1), inComponent: 0, animated: true)
+    }
+
     
 }
 
@@ -142,7 +177,6 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         self.view.addConstraints([textViewTop, textViewLeading, textViewTrailing, textViewHeight, textViewWidth])
         
     }
-
 }
 
 

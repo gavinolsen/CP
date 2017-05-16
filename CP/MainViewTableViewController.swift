@@ -13,8 +13,6 @@ class MainViewTableViewController: UITableViewController {
     @IBOutlet weak var greetingLabel: UILabel!
     @IBOutlet weak var greetingView: UIView!
     
-    var user: Parent?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -22,31 +20,38 @@ class MainViewTableViewController: UITableViewController {
             ParentController.shared.getParentInfo()
             let nc = NotificationCenter.default
             nc.addObserver(self, selector: #selector(self.userChanged(_:)), name: ParentController.ParentNameChangedNotification, object: nil)
+            nc.addObserver(self, selector: #selector(self.gotKids(_:)), name: ParentController.ChildArrayNotification, object: nil)
         }
     }
     
-    //MARK: Observer
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
+    //MARK: Observers
     func userChanged(_ notification: Notification) {
-        
+
         guard let name = ParentController.shared.parentName else { return }
-        self.greetingLabel.text = "gotcha " + name
-        
+        self.greetingLabel.text = "Hello " + name
         greetingView.reloadInputViews()
+    }
+    
+    func gotKids(_ notification: Notification) {
         tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let kids = ParentController.shared.parent?.kids else { return 0 }
+        let kids = ParentController.shared.kids
         return kids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath) as? KidTableViewCell else { return UITableViewCell() }
 
-        guard let kids = ParentController.shared.parent?.kids else { print("can't get the kids"); return UITableViewCell() }
-        let kid = kids[indexPath.row]
+        let kid = ParentController.shared.kids[indexPath.row]
         
         cell.setViewWith(kid: kid)
         
@@ -55,10 +60,30 @@ class MainViewTableViewController: UITableViewController {
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        
+        
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

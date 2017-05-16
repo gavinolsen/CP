@@ -28,15 +28,7 @@ class Parent: CloudKitSync {
     
     //MARK: properties
     var name: String
-    var kids: [Child] = [] {
-        
-        didSet {
-            DispatchQueue.main.async {
-                let nc = NotificationCenter.default
-                nc.post(name: ParentController.ParentNameChangedNotification, object: self)
-            }}
-        
-    }
+    var kids: [Child] = []
     var carpools: [Carpool] = []
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
@@ -57,21 +49,12 @@ class Parent: CloudKitSync {
     convenience required init?(record: CKRecord) {
         guard let name = record[Parent.nameKey] as? String else { print("one of the values from the required init came back as nil"); return nil }
         
+        //it would probably be best to get the 
+        //kids here, and add them to the parent...
+        
         self.init(name: name, userRecordID: nil)
         ckRecordID = record.recordID
-        fetchKids()
     }
-    
-    func fetchKids() {
-        
-        CloudKitManager.shared.fetchRecordsForChildren(ckRecordID: ckRecordID) { (records, error) in
-            
-            print("in the completion")
-            
-        }
-        
-    }
-    
     
 }
 
