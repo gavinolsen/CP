@@ -14,21 +14,29 @@ class KidListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        kids = ParentController.shared.kids
+        
+        //ParentController.shared.getParentInfo()
         
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updateView(_:)), name: ParentController.ChildArrayNotification, object: nil)
+    
+        guard let kidos = ParentController.shared.parent?.kids else { return }
+        kids = kidos
     }
 
     func updateView(_ notification: Notification) {
-        kids = ParentController.shared.kids
+        
+        guard let kidos = ParentController.shared.parent?.kids else { return }
+        kids = kidos
+        
         tableView.reloadData()
     }
     
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return kids.count
+        
+        return ParentController.shared.parent?.kids.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,7 +55,7 @@ class KidListTableViewController: UITableViewController {
             
             let kid = kids[indexPath.row]
             ChildController.shared.deleteChild(kid: kid)
-            ParentController.shared.kids.remove(at: indexPath.row)
+            ParentController.shared.parent?.kids.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }

@@ -11,6 +11,8 @@ import CloudKit
 
 class Child: CloudKitSync {
     
+    static let shared = Child(name: "shared instance", age: 0)
+    
     //MARK: keys
     static let typeKey = "Child"
     static let nameKey = "nameKey"
@@ -26,12 +28,12 @@ class Child: CloudKitSync {
     var ckReference: CKReference?
     var parent: Parent?
     var carpools: [Carpool] = []
-    var details: String
+    var details: String?
     var ckRecordID: CKRecordID?
     var recordType: String { return Child.typeKey }
     
     //MARK: initilizers
-    init(name: String, age: Int, details: String, parent: Parent? = nil, carpools: [Carpool] = [], ckReference: CKReference? = nil) {
+    init(name: String, age: Int, details: String? = nil, parent: Parent? = nil, carpools: [Carpool] = [], ckReference: CKReference? = nil) {
         self.name = name
         self.age = age
         self.details = details
@@ -39,12 +41,6 @@ class Child: CloudKitSync {
         self.carpools = carpools
         self.ckReference = ckReference
     }
-    
-    /*
-     I can't properly delete the methods that haven't been saved yet
-     because they don't have a record id yet. so i'll just save them
-     and pull them back out for my data model...
-     */
     
     convenience required init?(record: CKRecord) {
         guard let name = record[Child.nameKey] as? String, let age = record[Child.ageKey] as? Int, let details = record[Child.detailsKey] as? String, let parent = record[Child.parentKey] as? CKReference else { return nil }
@@ -67,6 +63,8 @@ extension CKRecord {
         guard let parent = kid.parent else { NSLog("child doesn't have parent relationship"); return nil }
         let parentRecordID = parent.ckRecordID ?? CKRecord(parent).recordID
         let recordID = CKRecordID(recordName: UUID().uuidString)
+        
+        kid.ckRecordID = recordID
         
         self.init(recordType: kid.recordType, recordID: recordID)
         

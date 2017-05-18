@@ -44,14 +44,14 @@ class MainViewTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let kids = ParentController.shared.kids
+        guard let kids = ParentController.shared.parent?.kids else { return 0 }
         return kids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath) as? KidTableViewCell else { return UITableViewCell() }
 
-        let kid = ParentController.shared.kids[indexPath.row]
+        guard let kid = ParentController.shared.parent?.kids[indexPath.row] else { return UITableViewCell() }
         
         cell.setViewWith(kid: kid)
         

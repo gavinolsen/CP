@@ -20,13 +20,6 @@ class ParentController {
     
     var kidPredicate: NSPredicate?
     
-    var kids: [Child] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                let nc = NotificationCenter.default
-                nc.post(name: ParentController.ChildArrayNotification, object: self)
-        }}}
-    
     var parentName: String? {
         didSet {
             DispatchQueue.main.async {
@@ -88,8 +81,10 @@ class ParentController {
     
     func fetchKidsFromParent() {
         
-        kids = []
-        guard let predicate = kidPredicate else { print("bad predicate"); return }
+        guard let predicate = kidPredicate else { return }
+        
+        parent?.kids = []
+        
         CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, predicate: predicate, recordFetchedBlock: nil) { (records, error) in
             if error != nil {
                 print("there's an error: \(String(describing: error))")
@@ -108,7 +103,7 @@ class ParentController {
     
     
     func setParentWith(kid: Child) {
-        kids.append(kid)
+        parent?.kids.append(kid)
     }
     
     func addChildToParent(kid: Child) {

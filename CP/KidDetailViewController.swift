@@ -31,6 +31,7 @@ class KidDetailViewController: UIViewController {
     
     var pickerData: [[String]] = [[]]
     
+    //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -71,8 +72,10 @@ class KidDetailViewController: UIViewController {
         guard let name = childNameTextField.text, let details = detailTextView.text else { return }
         guard let parent = ParentController.shared.parent else { print("the parent in the parent controller is null"); return }
         let newChild = Child(name: name, age: age, details: details, parent: parent)
+        
+        ParentController.shared.parent?.kids.append(newChild)
         ChildController.shared.save(kid: newChild)
-        ParentController.shared.getParentInfo()
+        //ParentController.shared.fetchKidsFromParent()
     }
     
     func setChildFromView() {
