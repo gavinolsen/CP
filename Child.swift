@@ -10,9 +10,7 @@ import Foundation
 import CloudKit
 
 class Child: CloudKitSync {
-    
-    static let shared = Child(name: "shared instance", age: 0)
-    
+
     //MARK: keys
     static let typeKey = "Child"
     static let nameKey = "nameKey"
@@ -39,7 +37,7 @@ class Child: CloudKitSync {
         self.details = details
         self.parent = parent
         self.carpools = carpools
-        self.ckReference = ckReference
+        //self.ckReference = ckReference
     }
     
     convenience required init?(record: CKRecord) {

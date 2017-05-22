@@ -42,6 +42,7 @@ class KidDetailViewController: UIViewController {
         
         setupViews()
         setupConstraints()
+        setKeyboards()
         
         if let kid = kid {
             setViewFor(child: kid)
@@ -121,6 +122,9 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         detailLabel.text = "Details & emergency info:"
         detailTextView.isEditable = true
         
+        childNameTextField.returnKeyType = .done
+        detailTextView.returnKeyType = .done
+        
         self.view.addSubview(nameLabel)
         self.view.addSubview(childNameTextField)
         self.view.addSubview(childAgeLabel)
@@ -179,6 +183,20 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         
         self.view.addConstraints([textViewTop, textViewLeading, textViewTrailing, textViewHeight, textViewWidth])
         
+    }
+    
+    func setKeyboards() {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(KidDetailViewController.dismissKeyboard))
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        self.childNameTextField.inputAccessoryView = keyboardToolbar
+        self.detailTextView.inputAccessoryView = keyboardToolbar
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

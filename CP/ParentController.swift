@@ -11,7 +11,10 @@ import CloudKit
 
 extension ParentController {
     static let ParentNameChangedNotification = Notification.Name("ParentNameChangedNotification")
+    static let NameNeededNotification = Notification.Name("WeNeedToGetANameForTheUser")
     static let ChildArrayNotification = Notification.Name("ChildArrayNotification")
+    static let CarpoolArrayNotification = Notification.Name("CarpoolArrayNotification")
+    static let allParentsArrayNotification = Notification.Name("donefetchingalloftheparents")
 }
 
 class ParentController {
@@ -19,7 +22,7 @@ class ParentController {
     static let shared = ParentController()
     
     var kidPredicate: NSPredicate?
-    
+    var userRecordID: CKRecordID?
     var parentName: String? {
         didSet {
             DispatchQueue.main.async {
@@ -45,27 +48,58 @@ class ParentController {
                 return
             }
             
-            guard let name = firstName, let recordID = iCloudUserRecordID else { return }
-            self.parentName = name
+            guard let recordID = iCloudUserRecordID else { return }
+            self.userRecordID = recordID
+            
+            //if the first name comes back as nil, i'll have to get it from them somehow...
+            //probably an alert that prompts them to enter their name
+            
+            if self.parentName == nil && records?.count == 0 {
+                if firstName != nil {
+                    self.parentName = firstName!
+                } else {
+                    self.parentName = ""
+                    return
+                }
+            }
+            
+            if firstName == nil && records?.first != nil {
+                
+                guard let parentWithoutName = Parent(record: (records?.first)!) else { print("bad first record"); return }
+                
+                self.parent = parentWithoutName
+                self.parentName = parentWithoutName.name
+                
+                guard let record = records?.first else { print("bad first record"); return }
+                
+                let parentReference = CKReference(recordID: record.recordID, action: .none)
+                self.fetchKidsFromParent(reference: parentReference)
+                self.fetchCarpoolsFromParent(reference: parentReference)
+                
+                
+                return
+            }
+            
+            self.parent?.name = (firstName)!
+            self.parentName = firstName!
             
             if let record = records?.first {
                 self.setParentWithRecord(record: record)
                 
-                let reference = CKReference(recordID: record.recordID, action: .none)
-                let predicate = NSPredicate(format: "%K == %@", Child.parentKey, reference)
-                self.kidPredicate = predicate
-                
-                self.fetchKidsFromParent()
+                let parentReference = CKReference(recordID: record.recordID, action: .none)
+                self.fetchKidsFromParent(reference: parentReference)
+                self.fetchCarpoolsFromParent(reference: parentReference)
                 
             } else {
-                self.makeNewParent(name: name, recordID: recordID)
+                self.makeNewParent(nameString: self.parentName, recordID: recordID)
             }
         }
     }
     
     //crud functions
     //create
-    func makeNewParent(name: String, recordID: CKRecordID) {
+    func makeNewParent(nameString: String?, recordID: CKRecordID) {
+        guard let name = nameString else { return }
         let newParent = Parent(name: name, userRecordID: recordID)
         parent = newParent
         save(parent: newParent)
@@ -77,15 +111,23 @@ class ParentController {
         parentRecord = record
     }
     
-    //retreiving
+    func makeParentWithName(name: String) {
+        parentName = name
+        guard let recordID = userRecordID else { return }
+        makeNewParent(nameString: name, recordID: recordID)
+    }
     
-    func fetchKidsFromParent() {
+    //retreiving kids and carpools
+    
+    func fetchKidsFromParent(reference: CKReference) {
         
-        guard let predicate = kidPredicate else { return }
+        //guard let predicate = kidPredicate else { return }
+        
+        let predicate = NSPredicate(format: "%K == %@", Child.parentKey, reference)
         
         parent?.kids = []
         
-        CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, predicate: predicate, recordFetchedBlock: nil) { (records, error) in
+        CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, predicate: predicate) { (records, error) in
             if error != nil {
                 print("there's an error: \(String(describing: error))")
             }
@@ -93,11 +135,42 @@ class ParentController {
             guard let records = records else { return }
             
             for record in records {
-                
                 guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
-                
                 self.setParentWith(kid: myChild)
+    }}}
+    
+    func fetchCarpoolsFromParent(reference: CKReference) {
+        
+        let predicate = NSPredicate(format: "%K == %@", Carpool.leaderKey, reference)
+        
+        parent?.carpools = []
+        
+        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
+            
+            guard let records = records else { print("couldn't get the records for the carpools");return }
+            
+            for record in records {
+                guard let myCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
+                self.addCarpoolToParent(carpool: myCarpool)
+    }}}
+    
+    func fetchParents(completion: ((_ parents: [Parent]?) -> Void)?) {
+        
+        var allParents: [Parent] = []
+        
+        CloudKitManager.shared.fetchRecordsWithType(Parent.typeKey) { (records, error) in
+            
+            if records == nil || error != nil {
+                
+                print("there's a problem with the records or the error: \(String(describing: error?.localizedDescription))")
             }
+            guard let records = records else { return }
+            
+            for record in records {
+                guard let parent = Parent(record: record) else { return }
+                allParents.append(parent)
+            }
+            completion?(allParents)
         }
     }
     
@@ -111,9 +184,8 @@ class ParentController {
         print(newChild.name)
     }
     
-    func makeCarpoolWithLeader(name: String, times: [Date]) {
+    func makeCarpoolWithLeader(newCarpool: Carpool) {
         guard let parent = parent else { return }
-        let newCarpool = Carpool(name: name, time: times, leader: parent)
         parent.carpools.append(newCarpool)
         save(parent: parent)
     }

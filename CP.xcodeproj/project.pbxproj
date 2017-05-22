@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B22A9E81ECDE3970062B985 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22A9E71ECDE3970062B985 /* EventManager.swift */; };
+		3B22A9EE1ED0C9EC0062B985 /* CarpoolTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22A9ED1ED0C9EC0062B985 /* CarpoolTableViewController.swift */; };
+		3B22A9F21ED0F8FB0062B985 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22A9F11ED0F8FB0062B985 /* NotificationManager.swift */; };
+		3B22A9F41ED128310062B985 /* AllParentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22A9F31ED128310062B985 /* AllParentsTableViewController.swift */; };
 		3B281FB31EC0E4920058F13A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FB21EC0E4920058F13A /* AppDelegate.swift */; };
 		3B281FB81EC0E4920058F13A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B281FB61EC0E4920058F13A /* Main.storyboard */; };
 		3B281FBA1EC0E4920058F13A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B281FB91EC0E4920058F13A /* Assets.xcassets */; };
@@ -26,10 +30,15 @@
 		3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */; };
 		3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */; };
 		3B67C0541EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */; };
+		3B80C2151ED355FB00DC842B /* ParentsCarpoolsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B80C2141ED355FB00DC842B /* ParentsCarpoolsTableViewController.swift */; };
 		3B8AB5E21EC775CB001E03BF /* KidTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8AB5E11EC775CB001E03BF /* KidTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B22A9E71ECDE3970062B985 /* EventManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		3B22A9ED1ED0C9EC0062B985 /* CarpoolTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolTableViewController.swift; sourceTree = "<group>"; };
+		3B22A9F11ED0F8FB0062B985 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		3B22A9F31ED128310062B985 /* AllParentsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllParentsTableViewController.swift; sourceTree = "<group>"; };
 		3B281FAF1EC0E4920058F13A /* CP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B281FB21EC0E4920058F13A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B281FB71EC0E4920058F13A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 		3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidListTableViewController.swift; sourceTree = "<group>"; };
 		3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidDetailViewController.swift; sourceTree = "<group>"; };
 		3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolDetailTableViewController.swift; sourceTree = "<group>"; };
+		3B80C2141ED355FB00DC842B /* ParentsCarpoolsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParentsCarpoolsTableViewController.swift; path = ../ParentsCarpoolsTableViewController.swift; sourceTree = "<group>"; };
 		3B8AB5E11EC775CB001E03BF /* KidTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +77,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B22A9E61ECDE37E0062B985 /* Event Kit and Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				3B22A9E71ECDE3970062B985 /* EventManager.swift */,
+				3B22A9F11ED0F8FB0062B985 /* NotificationManager.swift */,
+			);
+			name = "Event Kit and Notifications";
+			sourceTree = "<group>";
+		};
 		3B281FA61EC0E4920058F13A = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +110,7 @@
 				3B281FDB1EC0EA7D0058F13A /* Model Controllers */,
 				3B281FDE1EC0FAAB0058F13A /* View Controllers */,
 				3B281FC81EC0E86C0058F13A /* Cloud Kit */,
+				3B22A9E61ECDE37E0062B985 /* Event Kit and Notifications */,
 				3B281FD21EC0E9890058F13A /* Resources */,
 			);
 			path = CP;
@@ -157,7 +177,10 @@
 				3B8AB5E11EC775CB001E03BF /* KidTableViewCell.swift */,
 				3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */,
 				3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */,
+				3B22A9ED1ED0C9EC0062B985 /* CarpoolTableViewController.swift */,
 				3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */,
+				3B22A9F31ED128310062B985 /* AllParentsTableViewController.swift */,
+				3B80C2141ED355FB00DC842B /* ParentsCarpoolsTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -261,10 +284,13 @@
 			files = (
 				3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */,
 				3B281FCE1EC0E8EE0058F13A /* SearchableRecord.swift in Sources */,
+				3B80C2151ED355FB00DC842B /* ParentsCarpoolsTableViewController.swift in Sources */,
 				3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */,
 				3B281FE61EC3709C0058F13A /* ChildController.swift in Sources */,
+				3B22A9F41ED128310062B985 /* AllParentsTableViewController.swift in Sources */,
 				3B281FD61EC0E9D20058F13A /* Carpool.swift in Sources */,
 				3B281FE81EC370AD0058F13A /* ParentController.swift in Sources */,
+				3B22A9E81ECDE3970062B985 /* EventManager.swift in Sources */,
 				3B281FE21EC1039B0058F13A /* CloudKitManager.swift in Sources */,
 				3B281FEA1EC370B90058F13A /* CarpoolController.swift in Sources */,
 				3B8AB5E21EC775CB001E03BF /* KidTableViewCell.swift in Sources */,
@@ -273,7 +299,9 @@
 				3B281FDA1EC0E9F70058F13A /* Parent.swift in Sources */,
 				3B281FD81EC0E9E50058F13A /* Family.swift in Sources */,
 				3B281FEE1EC3C1530058F13A /* MainViewTableViewController.swift in Sources */,
+				3B22A9F21ED0F8FB0062B985 /* NotificationManager.swift in Sources */,
 				3B281FD41EC0E9BB0058F13A /* Child.swift in Sources */,
+				3B22A9EE1ED0C9EC0062B985 /* CarpoolTableViewController.swift in Sources */,
 				3B281FD01EC0E8F80058F13A /* CloudKitSync.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

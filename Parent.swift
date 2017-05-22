@@ -36,7 +36,14 @@ class Parent: CloudKitSync {
                 nc.post(name: ParentController.ChildArrayNotification, object: self)
         }}}
     
-    var carpools: [Carpool] = []
+    var carpools: [Carpool] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: ParentController.CarpoolArrayNotification, object: self)
+            }}}
+
+
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
     var ckRecordID: CKRecordID?
@@ -49,7 +56,7 @@ class Parent: CloudKitSync {
         self.carpools = carpools
         self.kids = []
         self.isLeader = isLeader
-
+        self.ckRecordID = userRecordID
     }
     
     convenience required init?(record: CKRecord) {
@@ -97,6 +104,7 @@ extension Parent: SearchableRecord {
 
 extension CKRecord {
     convenience init(_ parent: Parent) {
+        
         let record = CKRecordID(recordName: UUID().uuidString)
         self.init(recordType: parent.recordType, recordID: record)
         

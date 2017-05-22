@@ -11,7 +11,8 @@ import CloudKit
 
 class CarpoolController {
     
-    var carpool: Carpool?
+    var carpools: [Carpool]?
+    var carpoolRecords: [CKRecord]?
     
     static let shared = CarpoolController()
     let ckManager: CloudKitManager
@@ -21,27 +22,25 @@ class CarpoolController {
     }
     
     //MARK: adding objects to carpool
-    func addParentToCarpool(parent: Parent) {
-        carpool?.drivers?.append(parent)
-    }
     
-    func addChildToCarpool(kid: Child) {
-        carpool?.kids?.append(kid)
-    }
-    
-    func setTimeOfCarpool(times: [Date]) {
+    func fetchCarpoolsForParent(reference: CKReference) {
         
-        carpool?.eventTimes = times
+        let predicate = NSPredicate(format: "%K == %@", Carpool.leaderKey, reference)
         
-        //this is where i'll be managing all of the push notifications
-        
-        
-    }
+        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
+            
+            guard let records = records else { print("couldn't get the records for the carpools");return }
+            
+            for record in records {
+                self.carpoolRecords?.append(record)
+                guard let newCarpool = Carpool(record: record) else { print("badrecord"); return }
+                self.carpools?.append(newCarpool)
+    }}}
     
     //MARK: save
     
-    func save() {
-        guard let carpool = carpool else { return }
+    func save(_ carpool: Carpool) {
+        
         ckManager.saveRecord(CKRecord(carpool)) { (record, error) in
             
             guard record != nil else {
@@ -51,5 +50,19 @@ class CarpoolController {
                 }
                 return
     }}}
+    
+    func modify(_ carpool: Carpool, withRecord record: CKRecord) {
+        
+        CloudKitManager.shared.modifyRecords([record], perRecordCompletion: { (record, error) in
+            
+            if error != nil || record == nil {
+                print("there was an error, or there wasn't a record")
+            }
+        }) { (records, error) in
+            if error != nil || records == nil {
+                print("there was an error, or there wasn't a record")
+            }
+        }
+    }
     
 }

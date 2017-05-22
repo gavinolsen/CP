@@ -70,6 +70,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="OeY-eo-o6O" appends="YES" id="ji4-rz-7yD"/>
+                        </connections>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Child" id="abw-MK-Gdn">
@@ -82,6 +86,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBJ-Gl-8I8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OeY-eo-o6O"/>
             </objects>
             <point key="canvasLocation" x="4186" y="-441"/>
         </scene>
@@ -145,8 +150,8 @@
                                         <constraint firstAttribute="width" constant="123" id="nqg-iR-4Pv"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey there!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
-                                    <rect key="frame" x="96" y="95.5" width="90" height="20.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey there! Don't forget to sign into iCloud!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
+                                    <rect key="frame" x="96" y="55" width="90" height="101.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="90" id="6Q0-nP-9pr"/>
                                     </constraints>
@@ -172,7 +177,7 @@
                                 <rect key="frame" x="0.0" y="305" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOT-rE-hhC" id="55z-Ye-Zee">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="L99-Lf-nGQ">
@@ -232,16 +237,16 @@
             </objects>
             <point key="canvasLocation" x="2607.1999999999998" y="273.91304347826087"/>
         </scene>
-        <!--Carpools-->
+        <!--My Carpools-->
         <scene sceneID="EHN-GI-82z">
             <objects>
-                <tableViewController id="SX5-Vg-0rn" sceneMemberID="viewController">
+                <tableViewController id="SX5-Vg-0rn" customClass="CarpoolTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" id="NEZ-y1-bsg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="dayCell" textLabel="ksl-ph-3jl" detailTextLabel="PxE-qw-45J" rowHeight="59" style="IBUITableViewCellStyleSubtitle" id="UrX-cX-4R4">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carpoolCell" textLabel="ksl-ph-3jl" detailTextLabel="PxE-qw-45J" rowHeight="59" style="IBUITableViewCellStyleSubtitle" id="UrX-cX-4R4">
                                 <rect key="frame" x="0.0" y="28" width="375" height="59"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UrX-cX-4R4" id="2QA-Fv-ajj">
@@ -271,17 +276,107 @@
                             <outlet property="delegate" destination="SX5-Vg-0rn" id="lPW-Vm-aUp"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Carpools" id="RWp-Ot-Lud">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="MXv-si-Ygb">
-                            <connections>
-                                <segue destination="hh8-dR-tRe" kind="show" id="Dd1-5S-IcQ"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="My Carpools" id="RWp-Ot-Lud">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="MXv-si-Ygb">
+                                <connections>
+                                    <segue destination="hh8-dR-tRe" kind="show" id="Dd1-5S-IcQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Join" id="Rau-nS-99u">
+                                <connections>
+                                    <segue destination="2DM-UC-VKj" kind="show" identifier="joinCarpoolSegue" id="XeC-0B-PIy"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9It-dZ-VWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3334" y="1011"/>
+        </scene>
+        <!--Who's carpool do you want to join??-->
+        <scene sceneID="WFx-jw-EbT">
+            <objects>
+                <tableViewController id="2DM-UC-VKj" customClass="AllParentsTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="QGt-Nw-SRg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="parentCell" id="nQ7-Cq-6cL">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nQ7-Cq-6cL" id="BC3-Zw-cz7">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="TiU-dw-tdI" kind="show" identifier="joinCarpoolSegue" id="Hfr-re-TxK"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2DM-UC-VKj" id="A2T-7n-kzg"/>
+                            <outlet property="delegate" destination="2DM-UC-VKj" id="6RX-9A-3K1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Who's carpool do you want to join??" id="2qI-oz-JSO"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9bG-C6-Sik" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4185" y="1307"/>
+        </scene>
+        <!--parent's carpool-->
+        <scene sceneID="JNC-y5-uuD">
+            <objects>
+                <tableViewController id="TiU-dw-tdI" customClass="ParentsCarpoolsTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="akV-Tv-4se">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="parentsCarpoolCell" textLabel="TMt-XE-NhJ" detailTextLabel="pHm-yL-unh" style="IBUITableViewCellStyleSubtitle" id="Yza-JK-xr6">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yza-JK-xr6" id="Bae-bM-P43">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TMt-XE-NhJ">
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pHm-yL-unh">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="TiU-dw-tdI" id="jdo-Nk-yGl"/>
+                            <outlet property="delegate" destination="TiU-dw-tdI" id="pTm-EZ-IU5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="parent's carpool" id="S4t-y8-8OX">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="zMt-h1-cVs">
+                            <connections>
+                                <action selector="saveYourselfToCarpool:" destination="TiU-dw-tdI" id="7ab-QY-nDi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bMc-to-N78" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5032" y="1307"/>
         </scene>
         <!--carpool details-->
         <scene sceneID="5c1-E6-BjI">
@@ -301,7 +396,7 @@
                                 <rect key="frame" x="0.0" y="286" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU4-8Q-Opb" id="tkl-Jg-gQ3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -331,7 +426,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0A-R6-UcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4078" y="1011"/>
+            <point key="canvasLocation" x="4185" y="541"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OjS-x1-fVm">

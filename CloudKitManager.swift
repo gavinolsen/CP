@@ -102,7 +102,7 @@ class CloudKitManager {
     
     func fetchRecordsWithType(_ type: String,
                               predicate: NSPredicate = NSPredicate(value: true),
-                              recordFetchedBlock: ((_ record: CKRecord) -> Void)?,
+                              recordFetchedBlock: ((_ record: CKRecord) -> Void)? = { _ in},
                               completion: ((_ records: [CKRecord]?, _ error: Error?) -> Void)?) {
         
         var fetchedRecords: [CKRecord] = []
