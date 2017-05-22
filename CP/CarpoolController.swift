@@ -9,10 +9,20 @@
 import Foundation
 import CloudKit
 
+extension CarpoolController {
+    static let OtherParentsCarpoolArrayNotification = Notification.Name("CarpoolArrayOfAnotherParentNotification")
+}
+
 class CarpoolController {
     
-    var carpools: [Carpool]?
-    var carpoolRecords: [CKRecord]?
+    var carpools: [Carpool] = [] {
+        didSet{
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: CarpoolController.OtherParentsCarpoolArrayNotification, object: self)
+        }}}
+    
+    var carpoolRecords: [CKRecord] = []
     
     static let shared = CarpoolController()
     let ckManager: CloudKitManager
@@ -23,8 +33,16 @@ class CarpoolController {
     
     //MARK: adding objects to carpool
     
-    func fetchCarpoolsForParent(reference: CKReference) {
+    func getCarpoolsFromParent(parent: Parent) {
         
+        guard let reference = parent.ckReference else { print("bad reference from parent");return }
+        
+        fetchCarpoolsForParent(reference: reference)
+    }
+    
+    func fetchCarpoolsForParent(reference: CKReference?) {
+        
+        guard let reference = reference else { print("bad reference"); return }
         let predicate = NSPredicate(format: "%K == %@", Carpool.leaderKey, reference)
         
         CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
@@ -32,9 +50,10 @@ class CarpoolController {
             guard let records = records else { print("couldn't get the records for the carpools");return }
             
             for record in records {
-                self.carpoolRecords?.append(record)
+                self.carpoolRecords.append(record)
                 guard let newCarpool = Carpool(record: record) else { print("badrecord"); return }
-                self.carpools?.append(newCarpool)
+                self.carpools.append(newCarpool)
+                
     }}}
     
     //MARK: save
@@ -51,18 +70,28 @@ class CarpoolController {
                 return
     }}}
     
-    func modify(_ carpool: Carpool, withRecord record: CKRecord) {
+    func modify(_ record: CKRecord) {
+     
+        guard let parent = ParentController.shared.parent else { return }
         
-        CloudKitManager.shared.modifyRecords([record], perRecordCompletion: { (record, error) in
-            
-            if error != nil || record == nil {
-                print("there was an error, or there wasn't a record")
-            }
-        }) { (records, error) in
-            if error != nil || records == nil {
-                print("there was an error, or there wasn't a record")
-            }
-        }
+        CloudKitManager.shared.modify(record, with: parent)
+        
     }
-    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -275,6 +275,7 @@ extension CarpoolDetailTableViewController {
         
         guard let parent = ParentController.shared.parent else { return }
         let newCarpool = Carpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, leader: parent)
+        newCarpool.drivers?.append(parent)
         CarpoolController.shared.save(newCarpool)
         ParentController.shared.parent?.carpools.append(newCarpool)
         

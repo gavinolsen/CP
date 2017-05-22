@@ -265,6 +265,33 @@ class CloudKitManager {
         publicDatabase.add(operation)
     }
     
+    func modify(_ record: CKRecord, with newDriver: Parent) {
+        
+        publicDatabase.fetch(withRecordID: record.recordID) { (record, error) in
+            
+            guard let record = record else { return }
+            
+            guard var drivers = record[Carpool.driverKey] as? [CKReference] else { print("can't get drivers"); return }
+            
+            guard let recordID = newDriver.ckRecordID else { print("bad reference to new driver"); return }
+            
+            let reference = CKReference(recordID: recordID, action: .deleteSelf)
+            
+            drivers.append(reference)
+            
+            record[Carpool.driverKey] = drivers as CKRecordValue
+            print("done with step one")
+            
+            self.publicDatabase.save(record) { (record, error) in
+                
+                if error != nil {
+                    print("there was an error saving to cloudkit")
+                } else if record == nil {
+                    print("bad record")
+                }
+                print("done with step two")
+        }}}
+    
     
     // MARK: - Subscriptions
     

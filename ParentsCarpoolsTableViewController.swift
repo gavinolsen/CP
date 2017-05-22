@@ -7,36 +7,41 @@
 //
 
 import UIKit
+import CloudKit
 
 class ParentsCarpoolsTableViewController: UITableViewController {
     
     var givenParent: Parent?
-    var parentsCarpools: [Carpool] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let parentReference = givenParent?.ckReference else { print ("bad parent"); return}
-
-        CarpoolController.shared.fetchCarpoolsForParent(reference: parentReference) {
-            
-            
+        guard let parent = givenParent else { return }
+        
+        DispatchQueue.main.async {
+            CarpoolController.shared.getCarpoolsFromParent(parent: parent)
+            let nc = NotificationCenter.default
+            nc.addObserver(self, selector:#selector(self.gotParentsCarpool(_:)), name: CarpoolController.OtherParentsCarpoolArrayNotification, object: nil)
             
         }
         
+    }
+    
+    func gotParentsCarpool(_ notification: Notification) {
+        tableView.reloadData()
     }
 
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return parentsCarpools.count
+        return CarpoolController.shared.carpools.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "parentsCarpoolCell", for: indexPath)
 
-        let carpool = parentsCarpools[indexPath.row]
+        let carpool = CarpoolController.shared.carpools[indexPath.row]
         
         cell.textLabel?.text = carpool.eventName
         
@@ -101,15 +106,12 @@ class ParentsCarpoolsTableViewController: UITableViewController {
         //i want to make a reference to the parent, and 
         //save it in the carpool...
         
-        guard let parent = ParentController.shared.parent else {print("bad parent from controller"); return}
-        
         guard let indexPaths = tableView.indexPathsForSelectedRows else { return }
         
         for index in indexPaths {
-            let carpool = parentsCarpools[index.row]
-            guard let record = CarpoolController.shared.carpoolRecords?[index.row] else { print("can't retrieve the record from carpool controller"); return }
-            carpool.drivers?.append(parent)
-            CarpoolController.shared.modify(carpool, withRecord: record)
+            
+            let record = CarpoolController.shared.carpoolRecords[index.row]
+            CarpoolController.shared.modify(record)
         }
      
         let nc = navigationController

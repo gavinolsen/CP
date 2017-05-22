@@ -41,11 +41,11 @@ class NotificationManager {
         }
         
         let day = getSelectedDay(day: dayString)
-        
+        let month = getMonth()
         let year = getYear()
         
-        let weeklyComponents = DateComponents(calendar: nil, timeZone: nil, era: nil, year: year, month: nil, hour: hour, minute: minute, second: nil, nanosecond: nil, weekday: day, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-        
+        let weeklyComponents = DateComponents(calendar: nil, timeZone: nil, era: nil, year: year, month: month, day: day, hour: hour, minute: minute, second: nil, nanosecond: nil, weekday: day, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+    
         let weeklyTrigger = UNCalendarNotificationTrigger(dateMatching: weeklyComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: NotificationManager.notificaionIdentifier, content: nc, trigger: weeklyTrigger)
@@ -74,6 +74,15 @@ class NotificationManager {
         let myComponents = myCalendar?.components(.year, from: todayDate)
         let year = myComponents?.year
         return year ?? 0
+    }
+    
+    func getMonth() -> Int {
+        
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let myComponents = myCalendar?.components(.month, from: todayDate)
+        let month = myComponents?.month
+        return month ?? 0
     }
     
     func getSelectedDay(day: String) -> Int {

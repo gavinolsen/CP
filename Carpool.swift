@@ -92,17 +92,25 @@ extension CKRecord {
         
         self.init(recordType: carpool.recordType, recordID: recordID)
         
+        var driversReference: [CKReference] = []
+        
         carpool.ckRecordID = recordID
         
         if let carpoolDrivers = carpool.drivers {
             if carpoolDrivers.count > 0 {
                 for driver in carpoolDrivers {
-                    let driverString = String(describing: driver.ckRecordID)
+                    guard let driverID = driver.ckRecordID else { print("bad ckrecordid"); return }
+                    driversReference.append(CKReference(recordID: driverID, action: .deleteSelf))
+                    let driverString = String(describing: driver.ckRecordID?.recordName)
                     driversRecords.append(driverString)
                 }
-                self[Carpool.driverKey] = driversRecords as CKRecordValue?
             }
         }
+        
+        
+        
+        
+        self[Carpool.driverKey] = driversReference as CKRecordValue
         
         self[Carpool.nameKey] = carpool.eventName as CKRecordValue?
         self[Carpool.dateKey] = carpool.notificationTimeStrings as CKRecordValue?
@@ -114,7 +122,6 @@ extension CKRecord {
         self[Carpool.minutesKey] = carpool.notificationMinutes as CKRecordValue?
         self[Carpool.leaderKey] = CKReference(recordID: parentRecordID, action: .deleteSelf)
     }
-    
 }
 
 
