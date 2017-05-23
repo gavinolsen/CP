@@ -13,6 +13,11 @@ class CarpoolTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //as soon as they can see carpools, I want to 
+        
+        NotificationManager.shared.requestReminderAuthorization()
+        EventManager.shared.requestEventAuthorization()
+        
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: ParentController.CarpoolArrayNotification, object: nil)
         

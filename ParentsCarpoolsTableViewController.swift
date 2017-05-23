@@ -18,6 +18,8 @@ class ParentsCarpoolsTableViewController: UITableViewController {
         
         guard let parent = givenParent else { return }
         
+        CarpoolController.shared.carpools = []
+        
         DispatchQueue.main.async {
             CarpoolController.shared.getCarpoolsFromParent(parent: parent)
             let nc = NotificationCenter.default
@@ -112,6 +114,13 @@ class ParentsCarpoolsTableViewController: UITableViewController {
             
             let record = CarpoolController.shared.carpoolRecords[index.row]
             CarpoolController.shared.modify(record)
+            
+            let carpool = CarpoolController.shared.carpools[index.row]
+            
+            carpool.setDateComponents()
+            EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
+            
+            NotificationManager.shared.loadCarpoolToReminders(carpool: carpool)
         }
      
         let nc = navigationController

@@ -279,6 +279,7 @@ extension CarpoolDetailTableViewController {
         CarpoolController.shared.save(newCarpool)
         ParentController.shared.parent?.carpools.append(newCarpool)
         
+        NotificationManager.shared.loadCarpoolToReminders(carpool: newCarpool)
         EventManager.shared.loadCarpoolToCalendar(carpool: newCarpool)
         
     }

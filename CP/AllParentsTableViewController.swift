@@ -93,10 +93,6 @@ class AllParentsTableViewController: UITableViewController {
             guard let index = tableView.indexPathForSelectedRow else { print("can't get the index path");return }
             let parent = allParents[index.row]
             
-            //at this point, i have the parent, along with the ckrecordID, so i can now 
-            //fetch all the carpools of this kid...
-            //MARK: fixxxxxxxxxxx
-            
             parentsCarpoolVC?.givenParent = parent
         }
     }

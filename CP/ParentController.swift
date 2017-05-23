@@ -76,7 +76,6 @@ class ParentController {
                 self.fetchKidsFromParent(reference: parentReference)
                 self.fetchCarpoolsFromParent(reference: parentReference)
                 
-                
                 return
             }
             
@@ -100,15 +99,27 @@ class ParentController {
     //create
     func makeNewParent(nameString: String?, recordID: CKRecordID) {
         guard let name = nameString else { return }
+        
+
         let newParent = Parent(name: name, userRecordID: recordID)
+        
+        //what do i want it do do if there is already a parent??
+        
         parent = newParent
         save(parent: newParent)
+        userRecordID = newParent.ckRecordID
+        print(newParent.ckRecordID ?? "nothing in here")
+        userRecordID = newParent.ckRecordID
+        getParentInfo()
     }
     
     func setParentWithRecord(record: CKRecord) {
         let savedParent = Parent(record: record)
         parent = savedParent
         parentRecord = record
+        
+        guard let ckRecordID = savedParent?.ckRecordID else { return }
+        userRecordID = ckRecordID
     }
     
     func makeParentWithName(name: String) {

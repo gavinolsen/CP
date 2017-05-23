@@ -63,6 +63,42 @@ class Carpool: CloudKitSync {
         self.init(name: name, timeStrings: time, days: days, hours: hours, minutes: minutes)
         ckRecordID = record.recordID
     }
+    
+    func setDateComponents() {
+        var dateComponents: [DateComponents] = []
+        
+        for i in 0...notificationDays.count - 1 {
+            
+            let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            dateComponents.append(oneDateComponent)
+        }
+        notificationComponents = dateComponents
+    }
+    
+    func getDay()->Int {
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let myComponents = myCalendar?.components(.day, from: todayDate)
+        let weekDay = myComponents?.day
+        return weekDay ?? 0
+    }
+    
+    func getYear() -> Int {
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let myComponents = myCalendar?.components(.year, from: todayDate)
+        let year = myComponents?.year
+        return year ?? 0
+    }
+    
+    func getMonth() -> Int {
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let myComponents = myCalendar?.components(.month, from: todayDate)
+        let month = myComponents?.month
+        return month ?? 0
+    }
+    
 }
 
 extension Carpool: Hashable {
@@ -82,11 +118,9 @@ extension CKRecord {
         
         let recordID = CKRecordID(recordName: UUID().uuidString)
         //MARK: FIXTHIS!!!!!!!!!!!!!!!A
+        print("before force unwrap")
         let parentRecordID = carpool.leader?.ckRecordID ?? CKRecord(carpool.leader!).recordID
-        
-        /*
-         I'm not sure how to save the
-         */
+        print("after force unwrap")
         
         var driversRecords: [String] = []
         
@@ -95,6 +129,8 @@ extension CKRecord {
         var driversReference: [CKReference] = []
         
         carpool.ckRecordID = recordID
+        
+        //MARK: revise this part
         
         if let carpoolDrivers = carpool.drivers {
             if carpoolDrivers.count > 0 {

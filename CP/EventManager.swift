@@ -26,19 +26,6 @@ class EventManager {
     var calendarIdentifiers: [String] = []
     var selectedCalendarString: String = ""
     
-    init() {
-        
-        if let calendarsString = UserDefaults.standard.object(forKey: EventManager.selectedCalendarKey) as? String {
-            self.selectedCalendarString = calendarsString
-        }
-        
-        if let identifiers = UserDefaults.standard.object(forKey: EventManager.carpoolAppCarpoolsKey) as? [String] {
-            self.calendarIdentifiers = identifiers
-        }
-        
-        
-    }
-    
     func getLocalCalendars() -> [EKCalendar] {
      
         let allCalendars = eventStore.calendars(for: .event)
@@ -66,25 +53,82 @@ class EventManager {
         
         UserDefaults.standard.set(calendarIdentifiers, forKey: EventManager.carpoolAppCarpoolsKey)
         
-        
     }
     
     func loadCarpoolToCalendar(carpool: Carpool) {
+        
+        let calendar = Calendar(identifier: .gregorian)
         
         guard let dateComponents = carpool.notificationComponents else { print("can't get the date components from the carpool");return }
         
         for date in dateComponents {
             
-            let reminder = EKReminder(eventStore: eventStore)
+            let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            let endTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour! + 1, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
             
-            reminder.title = carpool.eventName
+            // i need to make the month 5 months farther ahead. so
+            // if the month is 8 or higher, i need to subtract 12 
+            // from the month, and add one to the year
             
-            //guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { print("can't get the app delegate");return }
-        
-            reminder.dueDateComponents = date
+            guard var month = date.month else { return }
+            guard var year = date.year else { return }
+            
+            month += 5
+            
+            if month > 12 {
+                year += 1
+                month -= 12
+            }
+            
+            let endRecurrenceDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: year, month: month, day: date.day, hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            
+            let event = EKEvent(eventStore: eventStore)
+            
+            //what day of the week to repeat
+            guard let day = date.day else { return }
+            guard let weekday = EKWeekday(rawValue: day) else { return }
+            let eventDay = EKRecurrenceDayOfWeek(weekday)
+            
+            //what weeks of the year to repeat...
+            //for now i'll just do for the next 6 months 
+            //from the start date of the carpool
+            
+            guard let eventStartTimeDate = calendar.date(from: startTimeDate) else { print("can't get the event date"); return }
+            guard let eventEndTimeDate = calendar.date(from: endTimeDate) else { print("can't get the event end date"); return }
+            guard let eventEndRecurrenceDate = calendar.date(from: endRecurrenceDate) else { print("can't get the recurrence date"); return }
+            
+            //I have to put into this recurrence rule the date when 
+            //I want to set as the end of the recurrence... and i wasn't...
+            
+            let recurrenceEnd = EKRecurrenceEnd(end: eventEndRecurrenceDate)
+            let rule = EKRecurrenceRule(recurrenceWith: .weekly, interval: 1, daysOfTheWeek: [eventDay], daysOfTheMonth: nil, monthsOfTheYear: nil, weeksOfTheYear: nil, daysOfTheYear: nil, setPositions: nil, end: recurrenceEnd)
+            
+            event.title = carpool.eventName
+            event.notes = carpool.eventName
+            event.startDate = eventStartTimeDate
+            event.endDate = eventEndTimeDate
+            event.calendar = eventStore.defaultCalendarForNewEvents
+            event.recurrenceRules = [rule]
+            
+            do {
+                try eventStore.save(event, span: .futureEvents, commit: true)
+            } catch {
+                print("error?: \(error)")
+            }
         }
         
     }
+    
+    func requestEventAuthorization() {
+        
+        EventManager.shared.eventStore.requestAccess(to: EKEntityType.event) { (granted, error) in
+            
+            if error == nil {
+                EventManager.shared.accessGranted = granted
+            } else {
+                NSLog("error: \(String(describing: error?.localizedDescription))")
+            }
+        }}
     
     func confirmDeletion(calendar: EKCalendar) {
         
@@ -145,9 +189,15 @@ class EventManager {
         completion(weeklyComponents)
         
     }
-    
+    func getDay() -> Int {
+        
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let myComponents = myCalendar?.components(.day, from: todayDate)
+        let day = myComponents?.day
+        return day ?? 0
+    }
 
-    
 }
 
 

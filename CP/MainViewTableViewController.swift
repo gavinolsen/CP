@@ -19,8 +19,6 @@ class MainViewTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        requestAcessToEvents()
     
         DispatchQueue.main.async {
             ParentController.shared.getParentInfo()
@@ -87,17 +85,6 @@ class MainViewTableViewController: UITableViewController {
     }
 
     //MARK: - EventKit
-    
-    func requestAcessToEvents() {
-        
-        EventManager.shared.eventStore.requestAccess(to: EKEntityType.event) { (granted, error) in
-            
-            if error == nil {
-                EventManager.shared.accessGranted = granted
-            } else {
-                NSLog("error: \(String(describing: error?.localizedDescription))")
-            }
-        }}
     
     func getName() {
         var alertTextField: UITextField?
