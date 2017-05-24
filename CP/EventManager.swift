@@ -59,9 +59,7 @@ class EventManager {
         
         let calendar = Calendar(identifier: .gregorian)
         
-        guard let dateComponents = carpool.notificationComponents else { print("can't get the date components from the carpool");return }
-        
-        for date in dateComponents {
+        for date in carpool.notificationComponents {
             
             let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
             let endTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour! + 1, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)

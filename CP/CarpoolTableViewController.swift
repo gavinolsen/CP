@@ -13,7 +13,7 @@ class CarpoolTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //as soon as they can see carpools, I want to 
+        //as soon as they can see carpools, I want to
         
         NotificationManager.shared.requestReminderAuthorization()
         EventManager.shared.requestEventAuthorization()
@@ -36,15 +36,8 @@ class CarpoolTableViewController: UITableViewController {
 
         guard let carpool = ParentController.shared.parent?.carpools[indexPath.row] else { return UITableViewCell() }
         
-        var dateString: String = ""
-        
-        for date in carpool.notificationTimeStrings {
-            
-            dateString += "\(date) "
-        }
-        
         cell.textLabel?.text = carpool.eventName
-        cell.detailTextLabel?.text = dateString
+        cell.detailTextLabel?.text = carpool.getTimeString()
 
         return cell
     }

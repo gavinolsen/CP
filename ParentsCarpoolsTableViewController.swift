@@ -117,7 +117,11 @@ class ParentsCarpoolsTableViewController: UITableViewController {
             
             let carpool = CarpoolController.shared.carpools[index.row]
             
-            carpool.setDateComponents()
+            //i add the carpool to the database, now i need to make
+            //sure that i can reference this from the database!
+            
+            ParentController.shared.parent?.carpools.append(carpool)
+            
             EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
             
             NotificationManager.shared.loadCarpoolToReminders(carpool: carpool)

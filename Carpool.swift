@@ -33,7 +33,16 @@ class Carpool: CloudKitSync {
     var notificationDays: [Int]
     var notificationHours: [Int]
     var notificationMinutes: [Int]
-    var notificationComponents: [DateComponents]?
+    var notificationComponents: [DateComponents] {
+        var dateComponents: [DateComponents] = []
+        
+        for i in 0...notificationDays.count - 1 {
+            
+            let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            dateComponents.append(oneDateComponent)
+        }
+        return dateComponents
+    }
     var drivers: [Parent]?
     let leader: Parent?
     var kids: [Child]?
@@ -51,7 +60,6 @@ class Carpool: CloudKitSync {
         self.notificationDays = days
         self.notificationHours = hours
         self.notificationMinutes = minutes
-        self.notificationComponents = components
         self.drivers = drivers
         self.kids = kids
         self.leader = leader
@@ -64,15 +72,28 @@ class Carpool: CloudKitSync {
         ckRecordID = record.recordID
     }
     
-    func setDateComponents() {
-        var dateComponents: [DateComponents] = []
-        
-        for i in 0...notificationDays.count - 1 {
+//    func setDateComponents() {
+//        var dateComponents: [DateComponents] = []
+//        
+//        for i in 0...notificationDays.count - 1 {
+//            
+//            let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+//            dateComponents.append(oneDateComponent)
+//        }
+//        notificationComponents = dateComponents
+//    }
+    
+    func getTimeString() -> String {
+        var timeString = ""
+        for time in notificationTimeStrings {
             
-            let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-            dateComponents.append(oneDateComponent)
+            if time != notificationTimeStrings.first {
+              timeString += ", " + time
+            } else {
+                timeString += time
+            }
         }
-        notificationComponents = dateComponents
+        return timeString
     }
     
     func getDay()->Int {
@@ -117,12 +138,8 @@ extension CKRecord {
     convenience init(_ carpool: Carpool) {
         
         let recordID = CKRecordID(recordName: UUID().uuidString)
-        //MARK: FIXTHIS!!!!!!!!!!!!!!!A
-        print("before force unwrap")
+    
         let parentRecordID = carpool.leader?.ckRecordID ?? CKRecord(carpool.leader!).recordID
-        print("after force unwrap")
-        
-        var driversRecords: [String] = []
         
         self.init(recordType: carpool.recordType, recordID: recordID)
         
@@ -137,16 +154,24 @@ extension CKRecord {
                 for driver in carpoolDrivers {
                     guard let driverID = driver.ckRecordID else { print("bad ckrecordid"); return }
                     driversReference.append(CKReference(recordID: driverID, action: .deleteSelf))
-                    let driverString = String(describing: driver.ckRecordID?.recordName)
-                    driversRecords.append(driverString)
-                }
-            }
-        }
+        }}}
         
+        var kidReferences = [CKReference]()
+        
+        if let kidsInCarpool = carpool.kids {
+            //this line of code below means that there has to be
+            //at least one kid in the carpool befor it is instantiated
+            //in the iCloud database
+            if kidsInCarpool.count > 0 {
+                for kid in kidsInCarpool {
+                    guard let kidID = kid.ckRecordID else { print("bad ckrecordID"); return }
+                    kidReferences.append(CKReference(recordID: kidID, action: .deleteSelf))
+        }}}
         
         
         
         self[Carpool.driverKey] = driversReference as CKRecordValue
+        self[Carpool.kidKey] = kidReferences as CKRecordValue
         
         self[Carpool.nameKey] = carpool.eventName as CKRecordValue?
         self[Carpool.dateKey] = carpool.notificationTimeStrings as CKRecordValue?

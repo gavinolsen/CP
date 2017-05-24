@@ -137,6 +137,31 @@ class CloudKitManager {
         
         self.publicDatabase.add(queryOperation)
     }
+    
+//    func fetchCarpoolsForParentAsDriverWith(predicate: NSPredicate, completion: (( _ records: [CKRecord]?, _ error: Error?) -> Void)?) {
+//        
+//        var fetchedRecords: [CKRecord] = []
+//        
+//        let query = CKQuery(recordType: Carpool.driverKey, predicate: predicate)
+//        let queryOp = CKQueryOperation(query: query)
+//        
+//        
+//        var queryCompletionBlock: (CKQueryCursor?, Error?) -> Void = { (_, _) in }
+//        queryCompletionBlock = { (queryCursor: CKQueryCursor?, error: Error?) -> Void in
+//            
+//            if let queryCursor = queryCursor {
+//                
+//                let continued = CKQueryOperation(cursor: queryCursor)
+//                continued.queryCompletionBlock = queryCompletionBlock
+//                
+//            } else {
+//                print("couldn't get the records")
+//            }
+//        
+//            
+//        }
+//    }
+    
     /*
      my function if i need it
      var query = CKQuery(recordType: recordType, predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID" ,CKReference(recordID: theSearchRecordId, action: CKReferenceAction.None)))
@@ -280,7 +305,6 @@ class CloudKitManager {
             drivers.append(reference)
             
             record[Carpool.driverKey] = drivers as CKRecordValue
-            print("done with step one")
             
             self.publicDatabase.save(record) { (record, error) in
                 
@@ -289,7 +313,6 @@ class CloudKitManager {
                 } else if record == nil {
                     print("bad record")
                 }
-                print("done with step two")
         }}}
     
     

@@ -21,6 +21,7 @@ class CarpoolDetailTableViewController: UITableViewController {
     //MARK: properties
     var carpool: Carpool?
     var times: [Date]?
+    var firstKid: Child?
     
     //dayString: day, hourString: hour, minuteString: minute, isPm: isPm,
     //arrays i need to save a carpool
@@ -123,7 +124,7 @@ class CarpoolDetailTableViewController: UITableViewController {
     }
     
     @IBAction func saveCarpoolToParent(_ sender: Any) {
-        saveCarpool()
+        getFirstChildAlert()
         let nc = navigationController
         nc?.popViewController(animated: true)
     }
@@ -273,9 +274,26 @@ extension CarpoolDetailTableViewController {
     
     func saveCarpool() {
         
+        
+        
         guard let parent = ParentController.shared.parent else { return }
-        let newCarpool = Carpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, leader: parent)
+        guard let kid = firstKid else { return }
+        let newCarpool = Carpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent)
         newCarpool.drivers?.append(parent)
+        
+        /*
+         before saving the parent, i need to come up with a way to save
+         a child to the carpool...
+         
+         SOLUTIONS---
+         
+         1- I could force a segue to another view controller
+         
+         2- I could pop up a modal view (an alert), that has a table view, 
+            from which you could choose kids to be in the carpool that was selected
+         
+         */
+        
         CarpoolController.shared.save(newCarpool)
         ParentController.shared.parent?.carpools.append(newCarpool)
         
@@ -283,6 +301,36 @@ extension CarpoolDetailTableViewController {
         EventManager.shared.loadCarpoolToCalendar(carpool: newCarpool)
         
     }
+    
+    //here will be my function for presenting the alert view...
+    
+    func getFirstChildAlert() {
+        
+        let alertController = UIAlertController(title: "Which of your kids will be enrolled in this carpool?", message: "Please pick one child", preferredStyle: .alert)
+        
+        alertController.view.layer.cornerRadius = 8.0
+        
+        guard let kids = ParentController.shared.parent?.kids else { return }
+        
+        for kid in kids {
+            
+            let kidAction = UIAlertAction(title: kid.name, style: .default, handler: { (_) in
+                self.firstKid = kid
+                self.saveCarpool()
+                
+                let nc = self.navigationController
+                nc?.popViewController(animated: true)
+            })
+            
+            alertController.addAction(kidAction)
+            
+        }
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    
 }
 
 
