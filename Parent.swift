@@ -42,7 +42,8 @@ class Parent: CloudKitSync {
                 let nc = NotificationCenter.default
                 nc.post(name: ParentController.CarpoolArrayNotification, object: self)
             }}}
-
+    
+    var leaderdCarpools: [Carpool] = []
 
     var isLeader: Bool
     var recordType: String { return Parent.typeKey }
@@ -82,14 +83,10 @@ class Parent: CloudKitSync {
             guard let records = records else { return }
             
             for record in records {
-                
                 guard let myChild = Child(record: record) else { print("I couldn't get the child back with the record provided"); return }
-                
                 kidos.append(myChild)
             }
-            
         }
-        
         return kidos
     }
     
@@ -107,7 +104,6 @@ extension CKRecord {
         
         let record = CKRecordID(recordName: UUID().uuidString)
         self.init(recordType: parent.recordType, recordID: record)
-        
         self[Parent.nameKey] = parent.name as CKRecordValue?
     }
 }

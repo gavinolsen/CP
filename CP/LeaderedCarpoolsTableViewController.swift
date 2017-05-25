@@ -1,48 +1,28 @@
 //
-//  AddPaentsToCarpoolTableViewController.swift
+//  LeaderedCarpoolsTableViewController.swift
 //  CP
 //
-//  Created by Gavin Olsen on 5/20/17.
+//  Created by Gavin Olsen on 5/25/17.
 //  Copyright © 2017 Gavin Olsen. All rights reserved.
 //
 
 import UIKit
 
-class AllParentsTableViewController: UITableViewController {
-
-    var allParents: [Parent] = []
+class LeaderedCarpoolsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DispatchQueue.main.async {
-            ParentController.shared.fetchParents(completion: { (parents) in
-                
-                guard let parents = parents else { return }
-                
-                for parent in parents {
-                    self.allParents.append(parent)
-                }
-                self.tableView.reloadData()
-            })
-            
-        }
     }
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return allParents.count
-    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return ParentController.shared.parent?.leaderdCarpools.count ?? 0 }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "parentCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "leaderedCarpoolsKids", for: indexPath)
 
-        let parent = allParents[indexPath.row]
-        
-        cell.textLabel?.text = parent.name
-
+        guard let carpool = ParentController.shared.parent?.leaderdCarpools[indexPath.row] else { return UITableViewCell() }
+        cell.textLabel?.text = carpool.eventName
         return cell
     }
 
@@ -86,49 +66,16 @@ class AllParentsTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "joinCarpoolSegue" {
+        if segue.identifier == "goingToKidsInLeaderedCarpoolSegue" {
             
-            let parentsCarpoolVC = segue.destination as? ParentsCarpoolsTableViewController
+            guard let destinatinoVC = segue.destination as? KidsInCarpoolTableViewController else { return }
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            guard let carpool = ParentController.shared.parent?.leaderdCarpools[indexPath.row] else { return }
             
-            guard let index = tableView.indexPathForSelectedRow else { print("can't get the index path");return }
-            let parent = allParents[index.row]
-            
-            parentsCarpoolVC?.givenParent = parent
-        }
-    }
+            destinatinoVC.carpool = carpool
+    }}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

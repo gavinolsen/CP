@@ -274,27 +274,10 @@ extension CarpoolDetailTableViewController {
     
     func saveCarpool() {
         
-        
-        
         guard let parent = ParentController.shared.parent else { return }
         guard let kid = firstKid else { return }
-        let newCarpool = Carpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent)
-        newCarpool.drivers?.append(parent)
+        guard let newCarpool = CarpoolController.shared.makeNewCarpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent, driver: parent) else { return }
         
-        /*
-         before saving the parent, i need to come up with a way to save
-         a child to the carpool...
-         
-         SOLUTIONS---
-         
-         1- I could force a segue to another view controller
-         
-         2- I could pop up a modal view (an alert), that has a table view, 
-            from which you could choose kids to be in the carpool that was selected
-         
-         */
-        
-        CarpoolController.shared.save(newCarpool)
         ParentController.shared.parent?.carpools.append(newCarpool)
         
         NotificationManager.shared.loadCarpoolToReminders(carpool: newCarpool)

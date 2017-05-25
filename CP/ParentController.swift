@@ -23,6 +23,10 @@ class ParentController {
     
     var kidPredicate: NSPredicate?
     var userRecordID: CKRecordID?
+    var parentRecord: CKRecord?
+    
+    var parentsCarpoolsRecords: [CKRecord] = []
+    
     var parentName: String? {
         didSet {
             DispatchQueue.main.async {
@@ -37,7 +41,6 @@ class ParentController {
                 nc.post(name: ParentController.ParentNameChangedNotification, object: self)
     }}}
     
-    var parentRecord: CKRecord?
     
     func getParentInfo() {
 
@@ -74,8 +77,8 @@ class ParentController {
                 
                 let parentReference = CKReference(recordID: record.recordID, action: .none)
                 self.fetchKidsFromParent(reference: parentReference)
+                self.fetchCarpoolsFromParent(reference: parentReference)
                 self.fetchCarpoolsFromParentAsLeader(reference: parentReference)
-                self.fetchCarpoolsFromParentAsDriver(reference: parentReference)
                 return
             }
             
@@ -87,9 +90,8 @@ class ParentController {
                 
                 let parentReference = CKReference(recordID: record.recordID, action: .none)
                 self.fetchKidsFromParent(reference: parentReference)
+                self.fetchCarpoolsFromParent(reference: parentReference)
                 self.fetchCarpoolsFromParentAsLeader(reference: parentReference)
-                self.fetchCarpoolsFromParentAsDriver(reference: parentReference)
-                
             } else {
                 self.makeNewParent(nameString: self.parentName, recordID: recordID)
             }
@@ -166,35 +168,23 @@ class ParentController {
             guard let records = records else { print("couldn't get the records for the carpools");return }
             
             for record in records {
-                guard let myCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
-                self.addCarpoolToParent(carpool: myCarpool)
+                self.setLeaderdCarpools(record: record)
     }}}
     
-    func fetchCarpoolsFromParentAsDriver(reference: CKReference) {
+    func fetchCarpoolsFromParent(reference: CKReference) {
         
-        //6AF869E6-DEC2-4D15-8A32-A88AE814336E
+        parent?.carpools = []
         
-        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey) { (records, error) in
+        let predicate = NSPredicate(format: "%K CONTAINS %@", Carpool.driverKey, reference)
+        
+        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
             
             guard let records = records else { print("couldn't get the records for the carpools");return }
             
             for record in records {
+                self.addCarpoolToParent(record: record)
                 
-                guard let driverKeys = record[Carpool.driverKey] as? [CKReference] else { return }
-                
-                for driverKey in driverKeys {
-                    
-                    if driverKey.recordID.recordName == reference.recordID.recordName {
-                        
-                        guard let oneOfMyCarpools = Carpool(record: record) else { print("can't make carpool from record"); return }
-                        self.addCarpoolToParent(carpool: oneOfMyCarpools)
-                        
-                        print("it's in here!!")
-                    }
-                    
-                }
     }}}
-    
     
     func fetchParents(completion: ((_ parents: [Parent]?) -> Void)?) {
         
@@ -233,8 +223,15 @@ class ParentController {
         save(parent: parent)
     }
     
-    func addCarpoolToParent(carpool: Carpool) {
-        parent?.carpools.append(carpool)
+    func addCarpoolToParent(record: CKRecord) {
+        guard let myCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
+        parentsCarpoolsRecords.append(record)
+        parent?.carpools.append(myCarpool)
+    }
+    
+    func setLeaderdCarpools(record: CKRecord) {
+        guard let leaderedCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
+        parent?.leaderdCarpools.append(leaderedCarpool)
     }
     
     func removeCarpoolFromParent(carpool: Carpool) {
@@ -251,7 +248,7 @@ class ParentController {
                     return
                 }
                 return
-            }}}
+    }}}
     
     func modify(parent: Parent) {
 
@@ -265,9 +262,7 @@ class ParentController {
         }) { (records, error) in
             if error != nil || records == nil {
                 print("there was an error, or there wasn't a record")
-            }
-        }
-    }
+    }}}
 }
 
 

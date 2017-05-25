@@ -22,6 +22,7 @@ class CarpoolController {
                 nc.post(name: CarpoolController.OtherParentsCarpoolArrayNotification, object: self)
         }}}
     
+    //used for modifying records
     var carpoolRecords: [CKRecord] = []
     
     static let shared = CarpoolController()
@@ -29,6 +30,23 @@ class CarpoolController {
     
     init() {
         self.ckManager = CloudKitManager()
+    }
+    
+    func makeNewCarpool(name: String, timeStrings: [String], days: [Int], hours: [Int], minutes: [Int], components: [DateComponents], kids: [Child], leader: Parent, driver: Parent) -> Carpool? {
+        
+        //now i want to make the password.
+        //i'll probabaly pass it back
+        //through a completion and alert
+        //the leader of the carpool
+        //what the key is...
+        
+        guard let passkey = UUID().uuidString.components(separatedBy: "-").first else { return nil}
+        
+        let newCarpool = Carpool(name: name, timeStrings: timeStrings, days: days, hours: hours, minutes: minutes, components: components, drivers: [driver], kids: kids, leader: leader, passkey: passkey)
+        
+        save(newCarpool)
+        
+        return newCarpool
     }
     
     //MARK: adding objects to carpool
@@ -40,9 +58,10 @@ class CarpoolController {
         fetchCarpoolsForParent(reference: reference)
     }
     
-    func fetchCarpoolsForParent(reference: CKReference?) {
+    func fetchCarpoolsForParent(reference: CKReference) {
         
-        guard let reference = reference else { print("bad reference"); return }
+        carpoolRecords = []
+        
         let predicate = NSPredicate(format: "%K == %@", Carpool.leaderKey, reference)
         
         CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
@@ -70,12 +89,14 @@ class CarpoolController {
                 return
     }}}
     
-    func modify(_ record: CKRecord) {
+    func modifyParent(_ record: CKRecord) {
      
         guard let parent = ParentController.shared.parent else { return }
-        
         CloudKitManager.shared.modify(record, with: parent)
-        
+    }
+    
+    func modify(carpoolRecord: CKRecord, with kid: Child) {
+        CloudKitManager.shared.modify(carpoolRecord, with: kid)
     }
 }
 

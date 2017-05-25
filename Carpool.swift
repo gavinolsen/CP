@@ -19,7 +19,7 @@ class Carpool: CloudKitSync {
     static let driverKey = "driverKey"
     static let leaderKey = "leaderKey"
     static let kidKey = "kidKey"
-    static let requestsKey = "requestsKey"
+    static let passkey = "passKey"
     static let daysKey = "daysKey"
     static let minutesKey = "minutesKey"
     static let hoursKey = "hoursKey"
@@ -46,14 +46,17 @@ class Carpool: CloudKitSync {
     var drivers: [Parent]?
     let leader: Parent?
     var kids: [Child]?
+    var ckRecord: CKRecord?
     var ckRecordID: CKRecordID?
     var recordType: String { return Carpool.typeKey }
+    
+    let passkey: String?
     
     //dayString: day, hourString: hour, minuteString: minute, isPm: isPm,
     //these are the components that i need to make the notification
     
     //MARK: initilizers
-    init(name: String, timeStrings: [String], days: [Int], hours: [Int], minutes: [Int], components: [DateComponents]? = nil, drivers: [Parent] = [], kids: [Child] = [], leader: Parent? = nil) {
+    init(name: String, timeStrings: [String], days: [Int], hours: [Int], minutes: [Int], components: [DateComponents]? = nil, drivers: [Parent] = [], kids: [Child] = [], leader: Parent? = nil, passkey: String) {
         
         self.eventName = name
         self.notificationTimeStrings = timeStrings
@@ -63,25 +66,15 @@ class Carpool: CloudKitSync {
         self.drivers = drivers
         self.kids = kids
         self.leader = leader
+        self.passkey = passkey
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? [String], let days = record[Carpool.daysKey] as? [Int], let hours = record[Carpool.hoursKey] as? [Int], let minutes = record[Carpool.minutesKey] as? [Int] else { return nil }
+        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? [String], let days = record[Carpool.daysKey] as? [Int], let hours = record[Carpool.hoursKey] as? [Int], let minutes = record[Carpool.minutesKey] as? [Int], let passkey = record[Carpool.passkey] as? String else { return nil }
         
-        self.init(name: name, timeStrings: time, days: days, hours: hours, minutes: minutes)
+        self.init(name: name, timeStrings: time, days: days, hours: hours, minutes: minutes, passkey: passkey)
         ckRecordID = record.recordID
     }
-    
-//    func setDateComponents() {
-//        var dateComponents: [DateComponents] = []
-//        
-//        for i in 0...notificationDays.count - 1 {
-//            
-//            let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-//            dateComponents.append(oneDateComponent)
-//        }
-//        notificationComponents = dateComponents
-//    }
     
     func getTimeString() -> String {
         var timeString = ""
@@ -123,11 +116,9 @@ class Carpool: CloudKitSync {
 }
 
 extension Carpool: Hashable {
-    
     var hashValue: Int {
         return eventName.hashValue
     }
-    
     static func == (lsh: Carpool, rhs: Carpool) -> Bool {
         return lsh.ckRecordID == rhs.ckRecordID
     }
@@ -138,13 +129,9 @@ extension CKRecord {
     convenience init(_ carpool: Carpool) {
         
         let recordID = CKRecordID(recordName: UUID().uuidString)
-    
         let parentRecordID = carpool.leader?.ckRecordID ?? CKRecord(carpool.leader!).recordID
-        
         self.init(recordType: carpool.recordType, recordID: recordID)
-        
         var driversReference: [CKReference] = []
-        
         carpool.ckRecordID = recordID
         
         //MARK: revise this part
@@ -159,9 +146,6 @@ extension CKRecord {
         var kidReferences = [CKReference]()
         
         if let kidsInCarpool = carpool.kids {
-            //this line of code below means that there has to be
-            //at least one kid in the carpool befor it is instantiated
-            //in the iCloud database
             if kidsInCarpool.count > 0 {
                 for kid in kidsInCarpool {
                     guard let kidID = kid.ckRecordID else { print("bad ckrecordID"); return }
@@ -182,6 +166,7 @@ extension CKRecord {
         self[Carpool.hoursKey] = carpool.notificationHours as CKRecordValue?
         self[Carpool.minutesKey] = carpool.notificationMinutes as CKRecordValue?
         self[Carpool.leaderKey] = CKReference(recordID: parentRecordID, action: .deleteSelf)
+        self[Carpool.passkey] = carpool.passkey as CKRecordValue?
     }
 }
 
