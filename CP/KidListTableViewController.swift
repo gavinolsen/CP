@@ -67,8 +67,7 @@ class KidListTableViewController: UITableViewController {
             })
             
             //I also have to remove the reference from the carpool.
-            
-            CloudKitManager.shared.removeChildFromCarpool(kidID)
+            CloudKitManager.shared.removeChildFromCarpools(kidID)
             
         }
     }

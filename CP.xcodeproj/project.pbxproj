@@ -180,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				3B281FED1EC3C1530058F13A /* MainViewTableViewController.swift */,
+				3B6E35DB1ED7EB6A008773DF /* CarpoolsForKidTableViewController.swift */,
 				3B8AB5E11EC775CB001E03BF /* KidTableViewCell.swift */,
 				3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */,
 				3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */,
@@ -189,7 +190,6 @@
 				3BAC7B431ED744570084D328 /* LeaderedCarpoolsTableViewController.swift */,
 				3BAC7B451ED74A280084D328 /* KidsInCarpoolTableViewController.swift */,
 				3BAC7B471ED768AE0084D328 /* JoinCarpoolViewController.swift */,
-				3B6E35DB1ED7EB6A008773DF /* CarpoolsForKidTableViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

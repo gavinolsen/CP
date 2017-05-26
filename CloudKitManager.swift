@@ -138,34 +138,6 @@ class CloudKitManager {
         self.publicDatabase.add(queryOperation)
     }
     
-//    func fetchCarpoolsForParentAsDriverWith(predicate: NSPredicate, completion: (( _ records: [CKRecord]?, _ error: Error?) -> Void)?) {
-//        
-//        var fetchedRecords: [CKRecord] = []
-//        
-//        let query = CKQuery(recordType: Carpool.driverKey, predicate: predicate)
-//        let queryOp = CKQueryOperation(query: query)
-//        
-//        
-//        var queryCompletionBlock: (CKQueryCursor?, Error?) -> Void = { (_, _) in }
-//        queryCompletionBlock = { (queryCursor: CKQueryCursor?, error: Error?) -> Void in
-//            
-//            if let queryCursor = queryCursor {
-//                
-//                let continued = CKQueryOperation(cursor: queryCursor)
-//                continued.queryCompletionBlock = queryCompletionBlock
-//                
-//            } else {
-//                print("couldn't get the records")
-//            }
-//        
-//            
-//        }
-//    }
-    
-    /*
-     my function if i need it
-     var query = CKQuery(recordType: recordType, predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID" ,CKReference(recordID: theSearchRecordId, action: CKReferenceAction.None)))
-     */
     func fetchRecordsForChildren(ckRecordID: CKRecordID?, completion: ((_ records: [CKRecord]?, _ error: Error?) -> Void)?) {
         
         var fetchedRecords: [CKRecord] = []
@@ -260,7 +232,7 @@ class CloudKitManager {
     
     //delete child from carpool 
     
-    func removeChildFromCarpool(_ recordID: CKRecordID) {
+    func removeChildFromCarpools(_ recordID: CKRecordID) {
         
         //I need to make a ckreference and predicate to search through all of the
         //carpools, and then remove any with the same ID
@@ -281,6 +253,41 @@ class CloudKitManager {
                 var newKidReferences: [CKReference] = []
                 for kidRef in kidReferences {
                     if thisKidReference != kidRef {
+                        newKidReferences.append(kidRef)
+                    }
+                }
+                record[Carpool.kidKey] = newKidReferences as CKRecordValue
+                self.publicDatabase.save(record, completionHandler: { (record, error) in
+                    if error != nil || record == nil {
+                        print("can't save :(")
+                    }
+                })
+            }
+        }
+
+    }
+    
+    func removeChild(childRecordID: CKRecordID, from carpoolRecordID: CKRecordID) {
+        
+        //I need to make a ckreference and predicate to search through all of the
+        //carpools, and then remove any with the same ID
+        
+        let thisKidReference = CKReference(recordID: childRecordID, action: .none)
+        let kidPredicate = NSPredicate(format: "%K CONTAINS %@", Carpool.kidKey, thisKidReference)
+        
+        fetchRecordsWithType(Carpool.typeKey, predicate: kidPredicate) { (records, error) in
+            
+            if error != nil {
+                print(error ?? "aaaaaaaa")
+                return
+            }
+            guard let records = records else { return }
+            
+            for record in records {
+                guard let kidReferences = record[Carpool.kidKey] as? [CKReference] else { return }
+                var newKidReferences: [CKReference] = []
+                for kidRef in kidReferences {
+                    if thisKidReference.recordID.recordName != kidRef.recordID.recordName {
                         newKidReferences.append(kidRef)
                     }
                 }

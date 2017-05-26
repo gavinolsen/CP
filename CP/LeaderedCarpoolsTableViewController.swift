@@ -29,25 +29,59 @@ class LeaderedCarpoolsTableViewController: UITableViewController {
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            
+            //remove the carpool from the kid, parent (each the leaderd carpools and carpools...), and each in the database...
+            
+            guard let deletedCarpoolID = ParentController.shared.parent?.leaderdCarpools[indexPath.row].ckRecordID else { return }
+            ParentController.shared.parent?.leaderdCarpools.remove(at: indexPath.row)
+            
+            //I want to find the leaderd carpool in the array of normal carpools...
+            guard let carpools = ParentController.shared.parent?.carpools else { return }
+            
+            //the array of leaderd carpools isn't going to be the same
+            //order as the normal carpools. and normally, there will actually
+            //be more in the normal carpools. so i want to make sure that I'm 
+            //deleting the right one.. so i just loop through and see if 
+            //i'm hitting the right record in there, and i'll delete it 
+            //according to what the variable checker is at.
+            
+            var checker = 0
+            
+            for carpool in carpools {
+                if carpool.ckRecordID == deletedCarpoolID {
+                    ParentController.shared.parent?.carpools.remove(at: checker)
+                    break
+                }
+                checker += 1
+            }
+            
+            //I also have to delete the carpool from the kid
+            
+            checker = 0
+            
+            guard let kids = ParentController.shared.parent?.kids else { return }
+            
+            for kid in kids {
+                for carpool in kid.carpools {
+                    if carpool.ckRecordID == deletedCarpoolID {
+                        kid.carpools.remove(at: checker)
+                        break
+                    }
+                    checker += 1
+                }
+            }
+
+            CloudKitManager.shared.deleteRecordWithID(deletedCarpoolID, completion: { (recordID, error) in
+                if error != nil || recordID == nil {
+                    print("something's wrong")
+                }
+            })
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.

@@ -206,9 +206,9 @@ class MainViewTableViewController: UITableViewController {
             //we can search for the carpools of each kid and append them to the
             //kid.carpool property of the parent. perfecto...
             
-            guard let carpools = ParentController.shared.parent?.kids[indexPath.row].carpools else { return }
+            guard let kid = ParentController.shared.parent?.kids[indexPath.row] else { return }
             
-            destinationVC.carpools = carpools
+            destinationVC.kid = kid
         }
         
     }

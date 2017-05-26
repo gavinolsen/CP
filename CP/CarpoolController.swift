@@ -112,9 +112,9 @@ class CarpoolController {
     
     func deleteCarpool(_ record: CKRecord) {
         
-//        CloudKitManager.shared.deleteRecordWithID(record.recordID) { (recordID, <#Error?#>) in
-//            <#code#>
-//        }
+        CloudKitManager.shared.deleteRecordWithID(record.recordID) { (recordID, error) in
+            
+        }
         
     }
 }
