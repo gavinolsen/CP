@@ -22,7 +22,10 @@ class LeaderedCarpoolsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "leaderedCarpoolsKids", for: indexPath)
 
         guard let carpool = ParentController.shared.parent?.leaderdCarpools[indexPath.row] else { return UITableViewCell() }
+        
         cell.textLabel?.text = carpool.eventName
+        cell.detailTextLabel?.text = carpool.passkey
+        
         return cell
     }
 

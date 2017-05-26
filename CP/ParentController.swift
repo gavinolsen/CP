@@ -181,6 +181,10 @@ class ParentController {
             
             guard let records = records else { print("couldn't get the records for the carpools");return }
             
+            if error != nil {
+                print("error fetching parent as driver from carpool")
+                return
+            }
             for record in records {
                 self.addCarpoolToParent(record: record)
                 
@@ -206,10 +210,40 @@ class ParentController {
         }
     }
     
+    func fetchCarpoolsForKid(kid: Child) {
+    
+        guard let kidID = kid.ckRecordID else { return }
+        
+        let ckref = CKReference(recordID: kidID, action: .deleteSelf)
+        
+        let predicate = NSPredicate(format: "%K CONTAINS %@", Carpool.kidKey, ckref)
+        
+        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
+            
+            guard let records = records else { print("couldn't get the records for the carpools");return }
+            if error != nil {
+                print("error fetching parent as driver from carpool")
+                return
+            }
+            
+            for record in records {
+                guard let carpool = Carpool(record: record) else { return }
+                kid.carpools.append(carpool)
+            }
+        }
+    }
+    
     //end of fetching and retrieving.
     
     func setParentWith(kid: Child) {
-        parent?.kids.append(kid)
+        
+        //here's where I want to get the 
+        //carpools for each kid....
+        print(kid.ckRecordID?.recordName ?? "0")
+        DispatchQueue.main.async {
+            self.fetchCarpoolsForKid(kid: kid)
+            self.parent?.kids.append(kid)
+        }
     }
     
     func addChildToParent(kid: Child) {
@@ -232,6 +266,12 @@ class ParentController {
     func setLeaderdCarpools(record: CKRecord) {
         guard let leaderedCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
         parent?.leaderdCarpools.append(leaderedCarpool)
+        parentsCarpoolsRecords.append(record)
+    }
+    
+    func joinCarpool(record: CKRecord) {
+        guard let parent = parent else {return}
+        CloudKitManager.shared.modify(record, with: parent)
     }
     
     func removeCarpoolFromParent(carpool: Carpool) {

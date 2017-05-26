@@ -43,6 +43,7 @@ class Child: CloudKitSync {
     convenience required init?(record: CKRecord) {
         guard let name = record[Child.nameKey] as? String, let age = record[Child.ageKey] as? Int, let details = record[Child.detailsKey] as? String, let parent = record[Child.parentKey] as? CKReference else { return nil }
         self.init(name: name, age: age, details: details, ckReference: parent)
+
         ckRecordID = record.recordID
     }
 }

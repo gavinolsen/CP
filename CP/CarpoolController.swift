@@ -32,7 +32,7 @@ class CarpoolController {
         self.ckManager = CloudKitManager()
     }
     
-    func makeNewCarpool(name: String, timeStrings: [String], days: [Int], hours: [Int], minutes: [Int], components: [DateComponents], kids: [Child], leader: Parent, driver: Parent) -> Carpool? {
+    func makeNewCarpool(name: String, timeStrings: [String], days: [Int], hours: [Int], minutes: [Int], components: [DateComponents], kids: [Child], leader: Parent, driver: Parent, completion: ((_ passowrd: String?) -> Void)? = { _ in}) -> Carpool? {
         
         //now i want to make the password.
         //i'll probabaly pass it back
@@ -41,9 +41,8 @@ class CarpoolController {
         //what the key is...
         
         guard let passkey = UUID().uuidString.components(separatedBy: "-").first else { return nil}
-        
+        completion?(passkey)
         let newCarpool = Carpool(name: name, timeStrings: timeStrings, days: days, hours: hours, minutes: minutes, components: components, drivers: [driver], kids: kids, leader: leader, passkey: passkey)
-        
         save(newCarpool)
         
         return newCarpool
@@ -72,10 +71,22 @@ class CarpoolController {
                 self.carpoolRecords.append(record)
                 guard let newCarpool = Carpool(record: record) else { print("badrecord"); return }
                 self.carpools.append(newCarpool)
-                
     }}}
     
     //MARK: save
+    
+    func fetchCarpoolWithKey(passKey: String, completion: @escaping ((_ carpool: Carpool?) -> Void)) {
+        
+        let predicate = NSPredicate(format: "%K == %@", Carpool.passkey, passKey)
+        
+        carpoolRecords = []
+        
+        CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate, recordFetchedBlock: { (record) in
+            guard let carpool = Carpool(record: record) else { return }
+            self.carpoolRecords.append(record)
+            completion(carpool)
+        }, completion: nil)
+    }
     
     func save(_ carpool: Carpool) {
         
@@ -97,6 +108,14 @@ class CarpoolController {
     
     func modify(carpoolRecord: CKRecord, with kid: Child) {
         CloudKitManager.shared.modify(carpoolRecord, with: kid)
+    }
+    
+    func deleteCarpool(_ record: CKRecord) {
+        
+//        CloudKitManager.shared.deleteRecordWithID(record.recordID) { (recordID, <#Error?#>) in
+//            <#code#>
+//        }
+        
     }
 }
 

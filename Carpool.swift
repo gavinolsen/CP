@@ -37,7 +37,6 @@ class Carpool: CloudKitSync {
         var dateComponents: [DateComponents] = []
         
         for i in 0...notificationDays.count - 1 {
-            
             let oneDateComponent = DateComponents(calendar: nil, timeZone: nil, era: nil, year: getYear(), month: getMonth(), day: notificationDays[i], hour: notificationHours[i], minute: notificationMinutes[i], second: nil, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
             dateComponents.append(oneDateComponent)
         }
@@ -167,6 +166,8 @@ extension CKRecord {
         self[Carpool.minutesKey] = carpool.notificationMinutes as CKRecordValue?
         self[Carpool.leaderKey] = CKReference(recordID: parentRecordID, action: .deleteSelf)
         self[Carpool.passkey] = carpool.passkey as CKRecordValue?
+        
+        
     }
 }
 

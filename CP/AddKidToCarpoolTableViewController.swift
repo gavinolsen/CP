@@ -53,12 +53,17 @@ class AddKidToCarpoolTableViewController: UITableViewController {
         //now i need to modify the carpool
         //to have this kid in it...
         guard let carpoolRecord = carpool?.ckRecord else { return }
-        
         CarpoolController.shared.modify(carpoolRecord: carpoolRecord, with: kid)
+        guard let carpool = carpool else { return }
         
+        for someKid in kids {
+            if someKid.ckRecordID == kid.ckRecordID {
+                ParentController.shared.parent?.kids[indexPath.row].carpools.append(carpool)
+            }
+            
+        }
         let nc = navigationController
         nc?.popViewController(animated: true)
-        
     }
     
     

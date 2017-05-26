@@ -90,7 +90,7 @@
             </objects>
             <point key="canvasLocation" x="4294" y="-765"/>
         </scene>
-        <!--Home-->
+        <!--Main View Table View Controller-->
         <scene sceneID="K9N-Hd-QUb">
             <objects>
                 <tableViewController id="RsE-7n-Ius" customClass="MainViewTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,7 +177,7 @@
                                 <rect key="frame" x="0.0" y="305" width="375" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kOT-rE-hhC" id="55z-Ye-Zee">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="L99-Lf-nGQ">
@@ -216,6 +216,7 @@
                                 <connections>
                                     <outlet property="kidCarpoolDetails" destination="mMn-34-C6G" id="zQq-He-lGx"/>
                                     <outlet property="kidNameLabel" destination="cB3-dH-vRS" id="86h-yg-t4i"/>
+                                    <segue destination="V4q-8p-TZ8" kind="show" identifier="kidsCarpoolSegue" id="5Jf-jN-p7Q"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -224,18 +225,65 @@
                             <outlet property="delegate" destination="RsE-7n-Ius" id="ZHK-e4-nOK"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Home" image="32house" id="ybG-0a-8No"/>
-                    <navigationItem key="navigationItem" id="99e-t3-hhM">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9QY-nb-plF"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="99e-t3-hhM"/>
                     <connections>
+                        <outlet property="carpoolsTodayCountLabel" destination="4u7-Dx-5KU" id="urn-eU-E6a"/>
+                        <outlet property="carpoolsTodayDetailsLabel" destination="w6x-Cz-WTi" id="0FW-nc-JmZ"/>
+                        <outlet property="carpoolsTomorrowCountLabel" destination="Mec-DK-tea" id="Pe2-FN-1el"/>
+                        <outlet property="carpoolsTomorrowDetailsLabel" destination="Yme-8j-7Qo" id="6jC-Tp-Btm"/>
+                        <outlet property="carpoolsWeeklyCountLabel" destination="P3j-KY-MlJ" id="TXM-fo-Zg5"/>
                         <outlet property="greetingLabel" destination="xWh-AO-FdF" id="plq-Md-Vz0"/>
                         <outlet property="greetingView" destination="Epi-OS-AlM" id="PNT-WR-i6q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2607.1999999999998" y="273.91304347826087"/>
+            <point key="canvasLocation" x="3425" y="274"/>
+        </scene>
+        <!--Title-->
+        <scene sceneID="izM-fJ-M4B">
+            <objects>
+                <tableViewController id="V4q-8p-TZ8" customClass="CarpoolsForKidTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="68" sectionHeaderHeight="28" sectionFooterHeight="28" id="f3I-pv-Vbs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="carpoolForKidCell" textLabel="iXV-EC-NZz" detailTextLabel="LDW-BP-QIG" rowHeight="68" style="IBUITableViewCellStyleSubtitle" id="N3G-Oo-S03">
+                                <rect key="frame" x="0.0" y="28" width="375" height="68"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N3G-Oo-S03" id="fQT-IQ-Rf3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="67.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="iXV-EC-NZz">
+                                            <rect key="frame" x="15" y="17" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LDW-BP-QIG">
+                                            <rect key="frame" x="15" y="37.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V4q-8p-TZ8" id="za4-cP-euv"/>
+                            <outlet property="delegate" destination="V4q-8p-TZ8" id="5JA-KC-7m9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="cMk-aN-2yY"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h6F-KS-4qM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4294" y="274"/>
         </scene>
         <!--My Carpools-->
         <scene sceneID="EHN-GI-82z">
@@ -301,12 +349,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9It-dZ-VWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3334" y="1011"/>
+            <point key="canvasLocation" x="3334" y="1390"/>
         </scene>
         <!--Join carpool-->
         <scene sceneID="hqa-Ap-oeV">
             <objects>
-                <viewController id="qLj-iD-tHS" sceneMemberID="viewController">
+                <viewController id="qLj-iD-tHS" customClass="JoinCarpoolViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VJ0-WX-sE0"/>
                         <viewControllerLayoutGuide type="bottom" id="Nrz-Ud-SJZ"/>
@@ -333,6 +381,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TGq-yS-Xzz">
                                         <rect key="frame" x="0.0" y="50.5" width="343" height="30"/>
                                         <state key="normal" title="Search"/>
+                                        <connections>
+                                            <action selector="searchForCarpool:" destination="qLj-iD-tHS" eventType="touchUpInside" id="TbC-TU-7mA"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Carpool name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N53-yI-MoN">
                                         <rect key="frame" x="0.0" y="80.5" width="343" height="20.5"/>
@@ -343,6 +394,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-74-mfn">
                                         <rect key="frame" x="0.0" y="101" width="343" height="30"/>
                                         <state key="normal" title="Join"/>
+                                        <connections>
+                                            <action selector="joinCarpool:" destination="qLj-iD-tHS" eventType="touchUpInside" id="Keo-ob-utD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -369,10 +423,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Join carpool" id="O8a-Gs-h65"/>
+                    <connections>
+                        <outlet property="carpoolKeyTextField" destination="tWp-RC-xTm" id="IrP-b6-oh4"/>
+                        <outlet property="carpoolNameLabel" destination="N53-yI-MoN" id="qs3-D7-Qdy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyO-gn-gfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3333.5999999999999" y="1700.5997001499252"/>
+            <point key="canvasLocation" x="3334" y="2111"/>
         </scene>
         <!--Title-->
         <scene sceneID="04D-mc-whD">
@@ -416,7 +474,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ce8-uV-KAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4884" y="740"/>
+            <point key="canvasLocation" x="5039" y="1389"/>
         </scene>
         <!--Leader-->
         <scene sceneID="Yni-Ii-XQU">
@@ -427,7 +485,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderedCarpoolsKids" textLabel="ROf-yz-1yV" style="IBUITableViewCellStyleDefault" id="iGR-is-GM1">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="leaderedCarpoolsKids" textLabel="ROf-yz-1yV" detailTextLabel="pPZ-9f-Fny" style="IBUITableViewCellStyleSubtitle" id="iGR-is-GM1">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iGR-is-GM1" id="E12-XC-yWK">
@@ -435,9 +493,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ROf-yz-1yV">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pPZ-9f-Fny">
+                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -457,7 +522,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iGR-4u-sTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4857" y="1415"/>
+            <point key="canvasLocation" x="4294" y="2111"/>
         </scene>
         <!--Kids in carpool-->
         <scene sceneID="VcI-IQ-OI0">
@@ -502,7 +567,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="978-Tz-q4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5657" y="1415"/>
+            <point key="canvasLocation" x="5038" y="2111"/>
         </scene>
         <!--carpool details-->
         <scene sceneID="5c1-E6-BjI">
@@ -522,7 +587,7 @@
                                 <rect key="frame" x="0.0" y="286" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU4-8Q-Opb" id="tkl-Jg-gQ3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -552,7 +617,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0A-R6-UcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4100" y="349"/>
+            <point key="canvasLocation" x="4294" y="1389"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OjS-x1-fVm">
@@ -565,7 +630,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="RsE-7n-Ius" kind="relationship" relationship="viewControllers" id="XvT-Z6-d1C"/>
+                        <segue destination="AdF-ru-ai6" kind="relationship" relationship="viewControllers" id="XvT-Z6-d1C"/>
                         <segue destination="07S-F1-MaV" kind="relationship" relationship="viewControllers" id="OWk-HR-v4W"/>
                         <segue destination="qdI-nY-VlK" kind="relationship" relationship="viewControllers" id="wmg-xF-PWu"/>
                     </connections>
@@ -574,11 +639,11 @@
             </objects>
             <point key="canvasLocation" x="1668" y="273.91304347826087"/>
         </scene>
-        <!--Fam-->
+        <!--Family-->
         <scene sceneID="1oe-ha-dfA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07S-F1-MaV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Fam" image="Family Man Woman-65" id="bi0-vT-idz"/>
+                    <tabBarItem key="tabBarItem" title="Family" image="40x32" id="bi0-vT-idz"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mLv-pC-85Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -612,12 +677,31 @@
             </objects>
             <point key="canvasLocation" x="2607" y="1011"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="ef0-yb-2Q3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AdF-ru-ai6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" image="32house" id="ybG-0a-8No"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yei-rB-IhQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RsE-7n-Ius" kind="relationship" relationship="rootViewController" id="TL0-ZB-DSN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g4m-Jd-lh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2614" y="274"/>
+        </scene>
     </scenes>
     <resources>
         <image name="32house" width="32" height="32"/>
         <image name="32n" width="32" height="32"/>
+        <image name="40x32" width="40" height="32"/>
         <image name="Car-64" width="64" height="64"/>
-        <image name="Family Man Woman-65" width="26" height="19"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZLG-zd-Y2J"/>

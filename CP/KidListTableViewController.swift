@@ -57,6 +57,19 @@ class KidListTableViewController: UITableViewController {
             ChildController.shared.deleteChild(kid: kid)
             ParentController.shared.parent?.kids.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            guard let kidID = kid.ckRecordID else { return }
+            
+            CloudKitManager.shared.deleteRecordWithID(kidID, completion: { (record, error) in
+                if record == nil || error != nil {
+                    print("someting went wron")
+                }
+            })
+            
+            //I also have to remove the reference from the carpool.
+            
+            CloudKitManager.shared.removeChildFromCarpool(kidID)
+            
         }
     }
     

@@ -1,44 +1,33 @@
 //
-//  CarpoolTableViewController.swift
+//  CarpoolsForKidTableViewController.swift
 //  CP
 //
-//  Created by Gavin Olsen on 5/20/17.
+//  Created by Gavin Olsen on 5/25/17.
 //  Copyright © 2017 Gavin Olsen. All rights reserved.
 //
 
 import UIKit
 
-class CarpoolTableViewController: UITableViewController {
+class CarpoolsForKidTableViewController: UITableViewController {
+    
+    var carpools: [Carpool]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //as soon as they can see carpools, I want to
-        
-        NotificationManager.shared.requestReminderAuthorization()
-        EventManager.shared.requestEventAuthorization()
-        
-        let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: ParentController.CarpoolArrayNotification, object: nil)
-        
-    }
-    
-    func gotCarpools(_ notification: Notification) {
-        tableView.reloadData()
     }
     
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return ParentController.shared.parent?.carpools.count ?? 0 }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return carpools?.count ?? 0 }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "carpoolCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "carpoolForKidCell", for: indexPath)
 
-        guard let carpool = ParentController.shared.parent?.carpools[indexPath.row] else { return UITableViewCell() }
+        guard let carpool = carpools?[indexPath.row] else { return UITableViewCell() }
+
+        cell.textLabel?.text = carpool.getTimeString()
+        cell.detailTextLabel?.text = carpool.eventName
         
-        cell.textLabel?.text = carpool.eventName
-        cell.detailTextLabel?.text = carpool.getTimeString()
-
         return cell
     }
 
@@ -77,37 +66,14 @@ class CarpoolTableViewController: UITableViewController {
     }
     */
 
+    /*
     // MARK: - Navigation
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "carpoolToKidsSegue" {
-            guard let destinationVC = segue.destination as? AddKidToCarpoolTableViewController else { return }
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            guard let carpool = ParentController.shared.parent?.carpools[indexPath.row] else { return }
-            //shows out of range for parentsCarpoolsRecords
-            carpool.ckRecord = ParentController.shared.parentsCarpoolsRecords[indexPath.row]
-            destinationVC.carpool = carpool
-            
-        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+    */
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

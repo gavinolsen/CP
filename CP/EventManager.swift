@@ -195,6 +195,14 @@ class EventManager {
         let day = myComponents?.day
         return day ?? 0
     }
+    
+    func getWeekDay() -> Int {
+        let todayDate = Date()
+        let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
+        let components = myCalendar?.components(.weekday, from: todayDate)
+        let weekday = components?.weekday
+        return weekday ?? 0
+    }
 
 }
 

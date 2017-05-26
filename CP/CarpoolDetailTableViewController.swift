@@ -125,8 +125,6 @@ class CarpoolDetailTableViewController: UITableViewController {
     
     @IBAction func saveCarpoolToParent(_ sender: Any) {
         getFirstChildAlert()
-        let nc = navigationController
-        nc?.popViewController(animated: true)
     }
     
 }
@@ -269,17 +267,34 @@ extension CarpoolDetailTableViewController {
         newEvent.calendar = calendarEvent
         newEvent.title = carpoolTextField.text ?? "default name"
         
-        
     }
     
     func saveCarpool() {
         
         guard let parent = ParentController.shared.parent else { return }
         guard let kid = firstKid else { return }
-        guard let newCarpool = CarpoolController.shared.makeNewCarpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent, driver: parent) else { return }
+        guard let newCarpool = CarpoolController.shared.makeNewCarpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent, driver: parent, completion: { (passkey) in
+            guard let key = passkey else { return }
+            self.alertUserOfPassKey(passKey: key)
+        }) else { return }
         
         ParentController.shared.parent?.carpools.append(newCarpool)
         
+        guard let kids = ParentController.shared.parent?.kids else { return }
+        
+        for kid in kids {
+            
+            if kid.ckRecordID?.recordName == firstKid?.ckRecordID?.recordName {
+                kid.carpools.append(newCarpool)
+                break
+            }
+        }
+        
+        //i need to know which kid is the parents 
+        //in the order, so i know which kid to append the carpool to...
+        
+//        ParentController.shared.parent?.kids
+        ParentController.shared.parent?.leaderdCarpools.append(newCarpool)
         NotificationManager.shared.loadCarpoolToReminders(carpool: newCarpool)
         EventManager.shared.loadCarpoolToCalendar(carpool: newCarpool)
         
@@ -290,30 +305,36 @@ extension CarpoolDetailTableViewController {
     func getFirstChildAlert() {
         
         let alertController = UIAlertController(title: "Which of your kids will be enrolled in this carpool?", message: "Please pick one child", preferredStyle: .alert)
-        
         alertController.view.layer.cornerRadius = 8.0
-        
         guard let kids = ParentController.shared.parent?.kids else { return }
         
         for kid in kids {
-            
             let kidAction = UIAlertAction(title: kid.name, style: .default, handler: { (_) in
                 self.firstKid = kid
                 self.saveCarpool()
-                
-                let nc = self.navigationController
-                nc?.popViewController(animated: true)
             })
-            
             alertController.addAction(kidAction)
-            
         }
-        
         present(alertController, animated: true, completion: nil)
-        
     }
     
     
+    //MARK: TODO--------
+    func alertUserOfPassKey(passKey: String) {
+        
+        let passAlertController = UIAlertController(title: passKey, message: "Other parents who want to join your carpool will need this key", preferredStyle: .alert)
+        
+        passAlertController.view.layer.cornerRadius = 8
+        
+        let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+        
+            let nc = self.navigationController
+            nc?.popViewController(animated: true)
+            
+        })
+        passAlertController.addAction(dismissAction)
+        present(passAlertController, animated: true, completion: nil)
+    }
 }
 
 
