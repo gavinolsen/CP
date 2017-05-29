@@ -383,6 +383,33 @@ class CloudKitManager {
                 }
             }}}
     
+    func removeParentReferenceFrom(_ carpoolID: CKRecordID) {
+        
+        var newParentRefs: [CKReference] = []
+        guard let parentRef = ParentController.shared.parent?.ckReference else { return }
+        
+        publicDatabase.fetch(withRecordID: carpoolID) { (record, error) in
+            guard let record = record else { return }
+            if error != nil { print("error\(String(describing: error))"); return }
+            guard let parentRefs = record[Carpool.driverKey] as? [CKReference] else { print("bad references"); return }
+            
+            for parent in parentRefs {
+                if parent.recordID.recordName != parentRef.recordID.recordName {
+                    newParentRefs.append(parent)
+                }
+            }
+            
+            record[Carpool.driverKey] = newParentRefs as CKRecordValue
+            self.publicDatabase.save(record, completionHandler: { (record, error) in
+                
+                if error != nil {
+                    print("there was an error saving to cloudkit")
+                } else if record == nil {
+                    print("bad record")
+                }
+                
+        })}}
+    
     
     // MARK: - Subscriptions
     

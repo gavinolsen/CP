@@ -69,7 +69,7 @@ class Carpool: CloudKitSync {
     }
     
     convenience required init?(record: CKRecord) {
-        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? [String], let days = record[Carpool.daysKey] as? [Int], let hours = record[Carpool.hoursKey] as? [Int], let minutes = record[Carpool.minutesKey] as? [Int], let passkey = record[Carpool.passkey] as? String else { return nil }
+        guard let name = record[Carpool.nameKey] as? String, let time = record[Carpool.dateKey] as? [String], let days = record[Carpool.daysKey] as? [Int], let hours = record[Carpool.hoursKey] as? [Int], let minutes = record[Carpool.minutesKey] as? [Int], let passkey = record[Carpool.passkey] as? String else { print("coudn't make carpool"); return nil }
         
         self.init(name: name, timeStrings: time, days: days, hours: hours, minutes: minutes, passkey: passkey)
         ckRecordID = record.recordID

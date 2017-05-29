@@ -59,16 +59,12 @@ class KidListTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             guard let kidID = kid.ckRecordID else { return }
-            
             CloudKitManager.shared.deleteRecordWithID(kidID, completion: { (record, error) in
                 if record == nil || error != nil {
                     print("someting went wron")
                 }
             })
-            
-            //I also have to remove the reference from the carpool.
             CloudKitManager.shared.removeChildFromCarpools(kidID)
-            
         }
     }
     

@@ -19,7 +19,7 @@ class CarpoolTableViewController: UITableViewController {
         EventManager.shared.requestEventAuthorization()
         
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: ParentController.CarpoolArrayNotification, object: nil)
+        nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: CarpoolController.ParentsCarpoolArrayNotification, object: nil)
         
     }
     
@@ -29,12 +29,12 @@ class CarpoolTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return ParentController.shared.parent?.carpools.count ?? 0 }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return CarpoolController.shared.parentsCarpools.count }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "carpoolCell", for: indexPath)
 
-        guard let carpool = ParentController.shared.parent?.carpools[indexPath.row] else { return UITableViewCell() }
+        let carpool = CarpoolController.shared.parentsCarpools[indexPath.row]
         
         cell.textLabel?.text = carpool.eventName
         cell.detailTextLabel?.text = carpool.getTimeString()
@@ -50,17 +50,16 @@ class CarpoolTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            let deletedCarpool = CarpoolController.shared.parentsCarpools[indexPath.row]
+            ParentController.shared.removeCarpoolFromParent(carpool: deletedCarpool)
+            CarpoolController.shared.parentsCarpools.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -85,9 +84,16 @@ class CarpoolTableViewController: UITableViewController {
         if segue.identifier == "carpoolToKidsSegue" {
             guard let destinationVC = segue.destination as? AddKidToCarpoolTableViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            guard let carpool = ParentController.shared.parent?.carpools[indexPath.row] else { return }
+            let carpool = CarpoolController.shared.parentsCarpools[indexPath.row]
             //shows out of range for parentsCarpoolsRecords
-            carpool.ckRecord = ParentController.shared.parentsCarpoolsRecords[indexPath.row]
+            
+            if ParentController.shared.parentsCarpoolsRecords.count > 0 {
+                carpool.ckRecord = ParentController.shared.parentsCarpoolsRecords[indexPath.row]
+            } else {
+                return
+            }
+            
+            
             destinationVC.carpool = carpool
             
         }

@@ -56,7 +56,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FkM-nu-eRw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3426" y="-606"/>
+            <point key="canvasLocation" x="3425" y="-493"/>
         </scene>
         <!--Child-->
         <scene sceneID="HVI-5H-aYU">
@@ -88,9 +88,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBJ-Gl-8I8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="OeY-eo-o6O"/>
             </objects>
-            <point key="canvasLocation" x="4294" y="-765"/>
+            <point key="canvasLocation" x="4294" y="-493"/>
         </scene>
-        <!--Main View Table View Controller-->
+        <!--CP-->
         <scene sceneID="K9N-Hd-QUb">
             <objects>
                 <tableViewController id="RsE-7n-Ius" customClass="MainViewTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -103,34 +103,34 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9jZ-a9-wa0">
-                                    <rect key="frame" x="0.0" y="177" width="375" height="100"/>
+                                    <rect key="frame" x="0.0" y="176" width="375" height="101"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carpools today" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4u7-Dx-5KU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4u7-Dx-5KU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carpools today details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-Cz-WTi">
-                                            <rect key="frame" x="0.0" y="20" width="375" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't stay too busy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-Cz-WTi">
+                                            <rect key="frame" x="0.0" y="21" width="375" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carpools tomorrow" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mec-DK-tea">
-                                            <rect key="frame" x="0.0" y="40" width="375" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomorrow:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mec-DK-tea">
+                                            <rect key="frame" x="0.0" y="41" width="375" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carpools tomorrow details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yme-8j-7Qo">
-                                            <rect key="frame" x="0.0" y="60" width="375" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Take a vacation tomorrow" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yme-8j-7Qo">
+                                            <rect key="frame" x="0.0" y="61" width="375" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carpools in the next 7 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3j-KY-MlJ">
-                                            <rect key="frame" x="0.0" y="80" width="375" height="20"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or just take the week off" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3j-KY-MlJ">
+                                            <rect key="frame" x="0.0" y="81" width="375" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -145,13 +145,13 @@
                                     </constraints>
                                 </stackView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Car-64" translatesAutoresizingMaskIntoConstraints="NO" id="4Gg-AR-R1z">
-                                    <rect key="frame" x="252" y="51" width="123" height="108"/>
+                                    <rect key="frame" x="252" y="51" width="123" height="107"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="123" id="nqg-iR-4Pv"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey there! Don't forget to sign into iCloud!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
-                                    <rect key="frame" x="96" y="55" width="90" height="101.5"/>
+                                    <rect key="frame" x="96" y="54.5" width="90" height="101.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="90" id="6Q0-nP-9pr"/>
                                     </constraints>
@@ -225,7 +225,13 @@
                             <outlet property="delegate" destination="RsE-7n-Ius" id="ZHK-e4-nOK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="99e-t3-hhM"/>
+                    <navigationItem key="navigationItem" title="CP" id="99e-t3-hhM">
+                        <barButtonItem key="leftBarButtonItem" tag="29" image="32_settings" id="qof-xO-wtQ">
+                            <connections>
+                                <segue destination="DYd-Tf-u1b" kind="show" id="QCA-KI-pMW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="carpoolsTodayCountLabel" destination="4u7-Dx-5KU" id="urn-eU-E6a"/>
                         <outlet property="carpoolsTodayDetailsLabel" destination="w6x-Cz-WTi" id="0FW-nc-JmZ"/>
@@ -240,7 +246,7 @@
             </objects>
             <point key="canvasLocation" x="3425" y="274"/>
         </scene>
-        <!--Title-->
+        <!--Carpools for this kid-->
         <scene sceneID="izM-fJ-M4B">
             <objects>
                 <tableViewController id="V4q-8p-TZ8" customClass="CarpoolsForKidTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -279,11 +285,57 @@
                             <outlet property="delegate" destination="V4q-8p-TZ8" id="5JA-KC-7m9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="cMk-aN-2yY"/>
+                    <navigationItem key="navigationItem" title="Carpools for this kid" id="cMk-aN-2yY"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6F-KS-4qM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4294" y="274"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="KCl-0a-Ff8">
+            <objects>
+                <viewController id="DYd-Tf-u1b" customClass="SettingsViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="piI-ca-Cq0"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZEL-dK-TDf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AoS-M4-qxE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="koF-ab-AvJ">
+                                <rect key="frame" x="16" y="64" width="343" height="50.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear all notifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1g-k2-OWy">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEy-fA-U2p">
+                                        <rect key="frame" x="0.0" y="20.5" width="343" height="30"/>
+                                        <state key="normal" title="Clear">
+                                            <color key="titleShadowColor" red="0.78489095080000004" green="0.37443053929999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelNotifications:" destination="DYd-Tf-u1b" eventType="touchUpInside" id="smo-Q3-L8v"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="koF-ab-AvJ" secondAttribute="trailing" id="Ibs-4I-5OP"/>
+                            <constraint firstItem="koF-ab-AvJ" firstAttribute="leading" secondItem="AoS-M4-qxE" secondAttribute="leadingMargin" id="JDd-gU-JJa"/>
+                            <constraint firstItem="koF-ab-AvJ" firstAttribute="top" secondItem="piI-ca-Cq0" secondAttribute="bottom" id="TnP-ke-kvZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="pzR-CL-ZZp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sef-hm-YZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5038" y="274"/>
         </scene>
         <!--My Carpools-->
         <scene sceneID="EHN-GI-82z">
@@ -349,7 +401,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9It-dZ-VWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3334" y="1390"/>
+            <point key="canvasLocation" x="3425" y="1011"/>
         </scene>
         <!--Join carpool-->
         <scene sceneID="hqa-Ap-oeV">
@@ -430,9 +482,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyO-gn-gfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3334" y="2111"/>
+            <point key="canvasLocation" x="3425" y="1741"/>
         </scene>
-        <!--Title-->
+        <!--My Kids-->
         <scene sceneID="04D-mc-whD">
             <objects>
                 <tableViewController id="Xv9-1b-NHJ" customClass="AddKidToCarpoolTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -464,7 +516,7 @@
                             <outlet property="delegate" destination="Xv9-1b-NHJ" id="s68-CY-kJ3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="X6I-KA-eUB">
+                    <navigationItem key="navigationItem" title="My Kids" id="X6I-KA-eUB">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="oB0-gV-K4W">
                             <connections>
                                 <action selector="saveKidToCarpool:" destination="Xv9-1b-NHJ" id="5uk-Wl-xaN"/>
@@ -474,9 +526,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ce8-uV-KAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5039" y="1389"/>
+            <point key="canvasLocation" x="5038" y="1011"/>
         </scene>
-        <!--Leader-->
+        <!--You lead these carpools-->
         <scene sceneID="Yni-Ii-XQU">
             <objects>
                 <tableViewController id="0Av-uC-yfD" customClass="LeaderedCarpoolsTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -518,11 +570,11 @@
                             <outlet property="delegate" destination="0Av-uC-yfD" id="08W-OT-Gnc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Leader" id="FT2-Iu-Zqv"/>
+                    <navigationItem key="navigationItem" title="You lead these carpools" id="FT2-Iu-Zqv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iGR-4u-sTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4294" y="2111"/>
+            <point key="canvasLocation" x="4294" y="1740"/>
         </scene>
         <!--Kids in carpool-->
         <scene sceneID="VcI-IQ-OI0">
@@ -567,9 +619,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="978-Tz-q4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5038" y="2111"/>
+            <point key="canvasLocation" x="5079" y="1739"/>
         </scene>
-        <!--carpool details-->
+        <!--New Carpool-->
         <scene sceneID="5c1-E6-BjI">
             <objects>
                 <tableViewController id="hh8-dR-tRe" customClass="CarpoolDetailTableViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
@@ -597,7 +649,7 @@
                             <outlet property="delegate" destination="hh8-dR-tRe" id="e4i-1d-YHQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="carpool details" id="4aE-It-8M9">
+                    <navigationItem key="navigationItem" title="New Carpool" id="4aE-It-8M9">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="save" id="nSa-4g-RDQ">
                                 <connections>
@@ -617,7 +669,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0A-R6-UcI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4294" y="1389"/>
+            <point key="canvasLocation" x="4294" y="1011"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OjS-x1-fVm">
@@ -628,6 +680,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="AdF-ru-ai6" kind="relationship" relationship="viewControllers" id="XvT-Z6-d1C"/>
@@ -645,9 +698,12 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07S-F1-MaV" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Family" image="40x32" id="bi0-vT-idz"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mLv-pC-85Q">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="mLv-pC-85Q">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.64313725490196072" green="0.60392156862745094" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -656,17 +712,20 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Sa-L8-ULg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2613.5999999999999" y="-441.22938530734638"/>
+            <point key="canvasLocation" x="2614" y="-493"/>
         </scene>
         <!--Carpools-->
         <scene sceneID="uGY-Lz-a9T">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qdI-nY-VlK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Carpools" image="32n" id="BWu-qA-gQN"/>
+                    <tabBarItem key="tabBarItem" title="Carpools" image="32n" id="sr5-Ny-gKJ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLM-PU-P0I">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="RLM-PU-P0I">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.64313725490196072" green="0.60392156862745094" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -683,9 +742,12 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AdF-ru-ai6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="32house" id="ybG-0a-8No"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yei-rB-IhQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yei-rB-IhQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.64313725490196072" green="0.60392156862745094" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -698,6 +760,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="32_settings" width="32" height="32"/>
         <image name="32house" width="32" height="32"/>
         <image name="32n" width="32" height="32"/>
         <image name="40x32" width="40" height="32"/>

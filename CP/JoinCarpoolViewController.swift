@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class JoinCarpoolViewController: UIViewController {
 
@@ -46,15 +47,39 @@ class JoinCarpoolViewController: UIViewController {
         
         guard let carpool = carpool else { return }
         let carpoolRecord = CarpoolController.shared.carpoolRecords[0]
-        ParentController.shared.joinCarpool(record: carpoolRecord)
-        ParentController.shared.parent?.carpools.append(carpool)
-        NotificationManager.shared.loadCarpoolToReminders(carpool: carpool)
-        EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
+        getFirstChildAlertWith(carpool: carpool, and: carpoolRecord)
         
-        print(carpool)
         let nc = navigationController
         nc?.popViewController(animated: true)
         
+    }
+    
+    func getFirstChildAlertWith(carpool: Carpool, and record: CKRecord) {
+        
+        let alertController = UIAlertController(title: "Which of your kids will be enrolled in this carpool?", message: "Please pick one child", preferredStyle: .alert)
+        alertController.view.layer.cornerRadius = 8.0
+        guard let kids = ParentController.shared.parent?.kids else { return }
+        
+        for kid in kids {
+            let kidAction = UIAlertAction(title: kid.name, style: .default, handler: { (_) in
+                
+                //i need to know which of the carpools of
+                //the parent i need to add this kid to...
+                //or maybe i can just add the kid to the carpool directly..
+                carpool.kids?.append(kid)
+                
+                ParentController.shared.joinCarpool(record: record)
+                ParentController.shared.parent?.carpools.append(carpool)
+                NotificationManager.shared.loadCarpoolToReminders(carpool: carpool)
+                EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
+                
+                let nc = self.navigationController
+                nc?.popViewController(animated: true)
+                
+            })
+            alertController.addAction(kidAction)
+        }
+        present(alertController, animated: true, completion: nil)
     }
     
     

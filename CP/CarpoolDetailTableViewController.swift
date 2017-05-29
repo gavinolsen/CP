@@ -83,54 +83,44 @@ class CarpoolDetailTableViewController: UITableViewController {
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            carpoolDateComponents.remove(at: indexPath.row)
+            timeArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     @IBAction func addTimeToCarpool(_ sender: Any) {
         addCarpoolTime()
     }
     
     @IBAction func saveCarpoolToParent(_ sender: Any) {
+        //make sure the carpool will have a name
+        if carpoolTextField.text == "" {
+            enterNameAlert()
+            return
+        }
+        
+        //make sure the user has enterd in a time
+        if timeArray.count == 0 {
+            noTimesEnteredAlert()
+            return
+        }
+        
+        //make sure there are kids
+        if ParentController.shared.parent?.kids.count == 0 || ParentController.shared.parent?.kids == nil || ParentController.shared.parent == nil {
+            registerKidsAlert()
+            return
+        }
+        NotificationManager.shared.makeNewNotificationsWith(name: carpoolTextField.text ?? "Planned Activity", and: carpoolDateComponents)
         getFirstChildAlert()
     }
-    
 }
 
 extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDataSource  {
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int { return pickerData.count }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { return pickerData[component].count}
@@ -163,7 +153,7 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
         let pickerLabelTrailing = NSLayoutConstraint(item: dayPickerLabel, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([pickerLablTop, pickerLabelLeading, pickerLabelTrailing])
         
-        let pickerTop = NSLayoutConstraint(item: dayPicker, attribute: .top, relatedBy: .equal, toItem: dayPickerLabel, attribute: .bottom, multiplier: 1, constant: -10)
+        let pickerTop = NSLayoutConstraint(item: dayPicker, attribute: .top, relatedBy: .equal, toItem: dayPickerLabel, attribute: .bottom, multiplier: 1, constant: 0)
         let pickerLeading = NSLayoutConstraint(item: dayPicker, attribute: .leading, relatedBy: .equal, toItem: carpoolDetailView, attribute: .leading, multiplier: 1, constant: 0)
         let pickerTrailing = NSLayoutConstraint(item: dayPicker, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([pickerTop, pickerLeading, pickerTrailing])
@@ -233,58 +223,25 @@ extension CarpoolDetailTableViewController {
         
         let timeString = "\(day) \(hour):\(minute) \(amOrPm)"
         
-        var name = "default carpool name"
-        
-        if carpoolTextField.text != "" {
-            name = carpoolTextField.text!
-        }
-        
-        NotificationManager.shared.makeNewNotificationWith(carpoolName: name, dayString: day, hourString: hour, minuteString: minute, isPm: isPm, completion: { (components) in
-            self.carpoolDateComponents.append(components)
-        })
+        let weeklyComponents = DateComponents(calendar: nil, timeZone: nil, era: nil, year: NotificationManager.shared.getYear(), month: NotificationManager.shared.getMonth(), day: nil, hour: hourInt, minute: minuteInt, second: nil, nanosecond: nil, weekday: dayInt, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+        carpoolDateComponents.append(weeklyComponents)
         timeArray.append(timeString)
         tableView.reloadData()
-        
-    }
-    
-    func addTime(){
-        
-        let selectedDayRow = dayPicker.selectedRow(inComponent: 0)
-        let day = daysOfWeek[selectedDayRow]
-        let selectedHourRow = dayPicker.selectedRow(inComponent: 1)
-        let hour = hoursOfDay[selectedHourRow]
-        let selectedMinuteRow = dayPicker.selectedRow(inComponent: 2)
-        let minute = minutesOfHour[selectedMinuteRow]
-        let amOrPmRow = dayPicker.selectedRow(inComponent: 3)
-        let amOrPm = amPm[amOrPmRow]
-        
-        print( day + " " + hour + " " + minute + " " + amOrPm )
-        
-        guard let calendarEvent = EventManager.shared.eventStore.calendar(withIdentifier: calendar.calendarIdentifier) else { print("can't get calendar with key"); return }
-        
-        let newEvent = EKEvent(eventStore: EventManager.shared.eventStore)
-        
-        newEvent.calendar = calendarEvent
-        newEvent.title = carpoolTextField.text ?? "default name"
-        
     }
     
     func saveCarpool() {
         
         guard let parent = ParentController.shared.parent else { return }
-        guard let kid = firstKid else { return }
-        guard let newCarpool = CarpoolController.shared.makeNewCarpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [kid], leader: parent, driver: parent, completion: { (passkey) in
+        guard let firstKid = firstKid else { return }
+        guard let newCarpool = CarpoolController.shared.makeNewCarpool(name: carpoolTextField.text ?? "new carpool default name", timeStrings: timeArray, days: days, hours: hours, minutes: minutes, components: carpoolDateComponents, kids: [firstKid], leader: parent, driver: parent, completion: { (passkey) in
             guard let key = passkey else { return }
             self.alertUserOfPassKey(passKey: key)
         }) else { return }
         
-        ParentController.shared.parent?.carpools.append(newCarpool)
-        
         guard let kids = ParentController.shared.parent?.kids else { return }
         
         for kid in kids {
-            
-            if kid.ckRecordID?.recordName == firstKid?.ckRecordID?.recordName {
+            if kid.ckRecordID?.recordName == firstKid.ckRecordID?.recordName {
                 kid.carpools.append(newCarpool)
                 break
             }
@@ -292,14 +249,15 @@ extension CarpoolDetailTableViewController {
         
         //i need to know which kid is the parents 
         //in the order, so i know which kid to append the carpool to...
-        
-//        ParentController.shared.parent?.kids
+    
+        CarpoolController.shared.parentsCarpools.append(newCarpool)
         ParentController.shared.parent?.leaderdCarpools.append(newCarpool)
         NotificationManager.shared.loadCarpoolToReminders(carpool: newCarpool)
         EventManager.shared.loadCarpoolToCalendar(carpool: newCarpool)
         
     }
     
+    //MARK: all my alerts----
     //here will be my function for presenting the alert view...
     
     func getFirstChildAlert() {
@@ -322,19 +280,42 @@ extension CarpoolDetailTableViewController {
     //MARK: TODO--------
     func alertUserOfPassKey(passKey: String) {
         
-        let passAlertController = UIAlertController(title: passKey, message: "Other parents who want to join your carpool will need this key", preferredStyle: .alert)
-        
+        let passAlertController = UIAlertController(title: passKey, message: "Other parents who want to join your carpool will need this key. You can find it again in your leaderd carpools tab.", preferredStyle: .alert)
         passAlertController.view.layer.cornerRadius = 8
-        
         let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
-        
             let nc = self.navigationController
             nc?.popViewController(animated: true)
-            
         })
         passAlertController.addAction(dismissAction)
         present(passAlertController, animated: true, completion: nil)
     }
+    
+    //the following two
+    //could be condensed 
+    //into a function that
+    //passes in the title as a parameter...
+    
+    func enterNameAlert() {
+        let enterNameAlertController = UIAlertController(title: "You must enter a name before saving your carpool", message: nil, preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        enterNameAlertController.addAction(dismiss)
+        present(enterNameAlertController, animated: true, completion: nil)
+    }
+    
+    func registerKidsAlert() {
+        let enterNameAlertController = UIAlertController(title: "You must register at least one child before making a carpool", message: "You can do this from the Family tab below", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        enterNameAlertController.addAction(dismiss)
+        present(enterNameAlertController, animated: true, completion: nil)
+    }
+    
+    func noTimesEnteredAlert() {
+        let enterNameAlertController = UIAlertController(title: "You must add at least one time before registering a carpool", message: "You can do this by tapping the Add Time button above", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        enterNameAlertController.addAction(dismiss)
+        present(enterNameAlertController, animated: true, completion: nil)
+    }
+    
 }
 
 

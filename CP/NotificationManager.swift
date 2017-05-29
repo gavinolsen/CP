@@ -38,36 +38,26 @@ class NotificationManager {
         }
     }
     
-    func makeNewNotificationWith(carpoolName: String, dayString: String, hourString: String, minuteString: String, isPm: Bool, completion: ((_ request: DateComponents) -> Void)) {
+    func removeNotifications() {
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
+    
+    func makeNewNotificationsWith(name: String, and components: [DateComponents]) {
         
         let nc = UNMutableNotificationContent()
-        nc.title = carpoolName
+        nc.title = name
         nc.body = "Don't forget to take the kids to the activity"
+        nc.sound = .default()
         
-        guard var hour = Int(hourString) else { return }
-        guard let minute = Int(minuteString) else { return }
-    
-        if isPm {
-            hour += 12
+        for date in components {
+            let weeklyTrigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+            let request = UNNotificationRequest(identifier: NotificationManager.notificaionIdentifier, content: nc, trigger: weeklyTrigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
+                if error != nil {
+                    print("error pushing notification")
+                }
+            })
         }
-        
-        let weekDay = getSelectedDay(day: dayString)
-        let month = getMonth()
-        let year = getYear()
-        
-        let weeklyComponents = DateComponents(calendar: nil, timeZone: nil, era: nil, year: year, month: month, day: weekDay, hour: hour, minute: minute, second: nil, nanosecond: nil, weekday: weekDay, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-    
-        let weeklyTrigger = UNCalendarNotificationTrigger(dateMatching: weeklyComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: NotificationManager.notificaionIdentifier, content: nc, trigger: weeklyTrigger)
-        
-        UNUserNotificationCenter.current().add(request) { (error) in
-            if error != nil {
-                print("error pushing notification:\(String(describing: error))")
-        }}
-        
-        completion(weeklyComponents)
-        
     }
     
     func loadCarpoolToReminders(carpool: Carpool) {
@@ -91,7 +81,7 @@ class NotificationManager {
                 year += 1
                 month -= 12
             }
-            
+                                                                                                                          //date.day
             let endRecurrenceDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: year, month: month, day: date.day, hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
             
             let reminder = EKReminder(eventStore: eventStore)

@@ -1,4 +1,4 @@
-//
+ //
 //  MainViewTableViewController.swift
 //  CP
 //
@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import EventKit
-import EventKitUI
 
 class MainViewTableViewController: UITableViewController {
     
@@ -28,14 +26,13 @@ class MainViewTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         DispatchQueue.main.async {
             ParentController.shared.getParentInfo()
-            let nc = NotificationCenter.default
-            nc.addObserver(self, selector: #selector(self.userChanged(_:)), name: ParentController.ParentNameChangedNotification, object: nil)
-            nc.addObserver(self, selector: #selector(self.gotKids(_:)), name: ParentController.ChildArrayNotification, object: nil)
-            nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: ParentController.CarpoolArrayNotification, object: nil)
+            self.addObservers()
         }
+        
+        Theme.configAppearance()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -56,21 +53,31 @@ class MainViewTableViewController: UITableViewController {
         greetingView.reloadInputViews()
     }
     
-    
     func gotKids(_ notification: Notification) {
         tableView.reloadData()
     }
     
     func gotCarpools(_ notification: Notification) {
-        
-        
         //I need to get the current day so that I know
         //how many carpools fall on this day, as well as tomorrow...
-        guard let carpools = ParentController.shared.parent?.carpools else { return }
+        let carpools = CarpoolController.shared.parentsCarpools
         if carpools.count == 0 {
-            return
+            resetLabels()
+        } else {
+            setLabels(carpools: carpools)
         }
-        setLabels(carpools: carpools)
+    }
+    
+    func resetLabels() {
+        
+        DispatchQueue.main.async {
+            
+            self.carpoolsTodayCountLabel.text = "Congrats"
+            self.carpoolsTodayDetailsLabel.text = "You're free"
+            self.carpoolsTomorrowCountLabel.text = "No more carpools!!!"
+            self.carpoolsTomorrowDetailsLabel.text = "It must be summer"
+            self.carpoolsWeeklyCountLabel.text = "Or you just lost your license..."
+        }
     }
     
     func setLabels(carpools: [Carpool]) {
@@ -109,10 +116,9 @@ class MainViewTableViewController: UITableViewController {
         
         DispatchQueue.main.async {
             
-            //now i have everything that I need, so i'll set the labels...
-            self.carpoolsTodayCountLabel.text = "You have \(self.getPluralCarpool(num: todaysCarpoolCount)) scheduled today:"
+            self.carpoolsTodayCountLabel.text = "You have \(self.getPluralCarpool(num: todaysCarpoolCount)) today:"
             self.carpoolsTodayDetailsLabel.text = self.getTimeStringFrom(timeString: todaysCarpoolString)
-            self.carpoolsTomorrowCountLabel.text = "You have \(self.getPluralCarpool(num: tomorrowsCarpoolCount)) scheduled tomorrow:"
+            self.carpoolsTomorrowCountLabel.text = "You have \(self.getPluralCarpool(num: tomorrowsCarpoolCount)) tomorrow:"
             self.carpoolsTomorrowDetailsLabel.text = self.getTimeStringFrom(timeString: tomorrowsCarpoolString)
             self.carpoolsWeeklyCountLabel.text = "There will be \(self.getDrives(num: drives)) this week"
         }
@@ -174,6 +180,13 @@ class MainViewTableViewController: UITableViewController {
         }
     }
 
+    func addObservers() {
+        let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(self.userChanged(_:)), name: ParentController.ParentNameChangedNotification, object: nil)
+        nc.addObserver(self, selector: #selector(self.gotKids(_:)), name: ParentController.ChildArrayNotification, object: nil)
+        nc.addObserver(self, selector: #selector(self.gotCarpools(_:)), name: CarpoolController.ParentsCarpoolArrayNotification, object: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

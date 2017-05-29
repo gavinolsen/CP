@@ -11,6 +11,7 @@ import CloudKit
 
 extension CarpoolController {
     static let OtherParentsCarpoolArrayNotification = Notification.Name("CarpoolArrayOfAnotherParentNotification")
+    static let ParentsCarpoolArrayNotification = Notification.Name("CarpoolArrayOfParentNotification")
 }
 
 class CarpoolController {
@@ -21,6 +22,14 @@ class CarpoolController {
                 let nc = NotificationCenter.default
                 nc.post(name: CarpoolController.OtherParentsCarpoolArrayNotification, object: self)
         }}}
+    
+    var parentsCarpools: [Carpool] = [] {
+        didSet{
+            DispatchQueue.main.async {
+                let nc = NotificationCenter.default
+                nc.post(name: CarpoolController.ParentsCarpoolArrayNotification, object: self)
+            }}
+    }
     
     //used for modifying records
     var carpoolRecords: [CKRecord] = []
@@ -101,7 +110,6 @@ class CarpoolController {
     }}}
     
     func modifyParent(_ record: CKRecord) {
-     
         guard let parent = ParentController.shared.parent else { return }
         CloudKitManager.shared.modify(record, with: parent)
     }
@@ -111,11 +119,9 @@ class CarpoolController {
     }
     
     func deleteCarpool(_ record: CKRecord) {
-        
         CloudKitManager.shared.deleteRecordWithID(record.recordID) { (recordID, error) in
             
         }
-        
     }
 }
 

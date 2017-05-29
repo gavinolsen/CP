@@ -50,10 +50,8 @@ class ParentController {
                 print("There was an error fetching current User record: \(error.localizedDescription)")
                 return
             }
-            
             guard let recordID = iCloudUserRecordID else { return }
             self.userRecordID = recordID
-            
             //if the first name comes back as nil, i'll have to get it from them somehow...
             //probably an alert that prompts them to enter their name
             
@@ -158,15 +156,10 @@ class ParentController {
     //of the parent, so that it dosn't get overloaded
     
     func fetchCarpoolsFromParentAsLeader(reference: CKReference) {
-        
         parent?.carpools = []
-        
         let predicate = NSPredicate(format: "%K == %@", Carpool.leaderKey, reference)
-        
         CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
-            
             guard let records = records else { print("couldn't get the records for the carpools");return }
-            
             for record in records {
                 self.setLeaderdCarpools(record: record)
     }}}
@@ -175,19 +168,18 @@ class ParentController {
         
         parent?.carpools = []
         
-        let predicate = NSPredicate(format: "%K CONTAINS %@", Carpool.driverKey, reference)
+        guard let parentID = parent?.ckRecordID else { return }
+        let parentReference = CKReference(recordID: parentID, action: .deleteSelf)
         
+        let predicate = NSPredicate(format: "%K CONTAINS %@", Carpool.driverKey, parentReference)
         CloudKitManager.shared.fetchRecordsWithType(Carpool.typeKey, predicate: predicate) { (records, error) in
-            
             guard let records = records else { print("couldn't get the records for the carpools");return }
-            
             if error != nil {
                 print("error fetching parent as driver from carpool")
                 return
             }
             for record in records {
                 self.addCarpoolToParent(record: record)
-                
     }}}
     
     func fetchParents(completion: ((_ parents: [Parent]?) -> Void)?) {
@@ -259,6 +251,8 @@ class ParentController {
     
     func addCarpoolToParent(record: CKRecord) {
         guard let myCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
+        
+        CarpoolController.shared.parentsCarpools.append(myCarpool)
         parentsCarpoolsRecords.append(record)
         parent?.carpools.append(myCarpool)
     }
@@ -266,7 +260,7 @@ class ParentController {
     func setLeaderdCarpools(record: CKRecord) {
         guard let leaderedCarpool = Carpool(record: record) else { print("can't make carpool from record"); return }
         parent?.leaderdCarpools.append(leaderedCarpool)
-        parentsCarpoolsRecords.append(record)
+        //parentsCarpoolsRecords.append(record)
     }
     
     func joinCarpool(record: CKRecord) {
