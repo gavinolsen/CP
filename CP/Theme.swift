@@ -19,17 +19,16 @@ enum Theme {
         UITabBar.appearance().backgroundColor = .timePurple
         UITabBar.appearance().barTintColor = .timePurple
         
-        //UILabel.appearance() = .timeGrey
-        
-//        UITableView.appearance().backgroundColor = .timePurple
-//        UITableViewCell.appearance().backgroundColor = .timePurple
+//        let theme: UIColor = .timeLightOrange
 //        
-//        UIView.appearance().backgroundColor = .timePurple
+//        UITableView.appearance().backgroundColor = theme
+//        UITableViewCell.appearance().backgroundColor = theme
 //        
-//        UIPickerView.appearance().backgroundColor = .timeGrey
-//        UIPickerView.appearance().
+//        //UIView.appearance().backgroundColor = theme
 //        
-//        UITableViewCell.appearance().textLabel?.textColor = .timeGrey
+//        UIPickerView.appearance().backgroundColor = theme
+//        
+//        UITableViewCell.appearance().textLabel?.textColor = theme
     }
     
 }

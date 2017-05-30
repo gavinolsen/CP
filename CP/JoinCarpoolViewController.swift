@@ -47,6 +47,12 @@ class JoinCarpoolViewController: UIViewController {
         
         guard let carpool = carpool else { return }
         let carpoolRecord = CarpoolController.shared.carpoolRecords[0]
+        
+        if ParentController.shared.parent?.kids == nil || ParentController.shared.parent?.kids.count == 0  {
+            registerKidsAlert()
+            return
+        }
+        
         getFirstChildAlertWith(carpool: carpool, and: carpoolRecord)
         
         let nc = navigationController
@@ -69,6 +75,7 @@ class JoinCarpoolViewController: UIViewController {
                 carpool.kids?.append(kid)
                 
                 ParentController.shared.joinCarpool(record: record)
+                CarpoolController.shared.parentsCarpools.append(carpool)
                 ParentController.shared.parent?.carpools.append(carpool)
                 NotificationManager.shared.loadCarpoolToReminders(carpool: carpool)
                 EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
@@ -85,10 +92,14 @@ class JoinCarpoolViewController: UIViewController {
     
     func setViewWith(carpool: Carpool) {
         
-        //as long as this funciton is called on the main queue
-        //this will be updated real time.
-        
         carpoolNameLabel.text = carpool.eventName
+    }
+    
+    func registerKidsAlert() {
+        let enterNameAlertController = UIAlertController(title: "You must register at least one child before making a carpool", message: "You can do this from the Family tab below", preferredStyle: .alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: .default, handler: nil)
+        enterNameAlertController.addAction(dismiss)
+        present(enterNameAlertController, animated: true, completion: nil)
     }
     
 }

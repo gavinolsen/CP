@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KidDetailViewController: UIViewController {
+class KidDetailViewController: UIViewController, UITextFieldDelegate {
     
     var kid: Child?
 
@@ -17,7 +17,10 @@ class KidDetailViewController: UIViewController {
     let childAgeLabel = UILabel()
     let agePicker = UIPickerView()
     let detailLabel = UILabel()
-    let detailTextView = UITextView()
+    
+    @IBOutlet weak var detailTextView: UITextField!
+    @IBOutlet weak var ScrollView: UIScrollView!
+    
     
     var possibleAges: [String] {
         var array: [String] = []
@@ -34,6 +37,9 @@ class KidDetailViewController: UIViewController {
     //MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
         pickerData = [possibleAges]
         
@@ -47,8 +53,28 @@ class KidDetailViewController: UIViewController {
         if let kid = kid {
             setViewFor(child: kid)
         }
-        
     }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if detailTextView.isEditing {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                if self.view.frame.origin.y == 0{
+                    self.view.frame.origin.y -= keyboardSize.height
+                }
+            }
+        } else {
+            return
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
 
     @IBAction func saveChild(_ sender: Any) {
         
@@ -62,7 +88,6 @@ class KidDetailViewController: UIViewController {
             setChildFromView()
             ChildController.shared.modifyChild(kid: kid)
         }
-        
     }
     
     func makeNewChild() {
@@ -100,8 +125,6 @@ class KidDetailViewController: UIViewController {
         
         agePicker.selectRow((child.age - 1), inComponent: 0, animated: true)
     }
-
-    
 }
 
 extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -120,10 +143,21 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         childAgeLabel.text = "Child's age:"
         
         detailLabel.text = "Details & emergency info:"
-        detailTextView.isEditable = true
         
         childNameTextField.returnKeyType = .done
         detailTextView.returnKeyType = .done
+        detailTextView.delegate = self
+        
+        let themeColor: UIColor = .timeLightOrange
+        
+        agePicker.backgroundColor = themeColor
+        childNameTextField.backgroundColor = themeColor
+        nameLabel.backgroundColor = themeColor
+        detailLabel.backgroundColor = themeColor
+        detailTextView.backgroundColor = themeColor
+        childAgeLabel.backgroundColor = themeColor
+        view.backgroundColor = themeColor
+        
         
         self.view.addSubview(nameLabel)
         self.view.addSubview(childNameTextField)
@@ -182,6 +216,9 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         let textViewWidth = NSLayoutConstraint(item: detailTextView, attribute: .width, relatedBy: .equal, toItem: self.view, attribute: .width, multiplier: 1, constant: 0)
         
         self.view.addConstraints([textViewTop, textViewLeading, textViewTrailing, textViewHeight, textViewWidth])
+        
+        detailTextView.frame = CGRect(x: 0, y: 400, width: 25, height: 30)
+        
         
     }
     

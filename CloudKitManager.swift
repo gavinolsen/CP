@@ -381,7 +381,21 @@ class CloudKitManager {
                 } else if record == nil {
                     print("bad record")
                 }
-            }}}
+    }}}
+    
+    
+    func modify(parentID: CKRecordID, newName: String) {
+        
+        publicDatabase.fetch(withRecordID: parentID) { (record, error) in
+            guard let record = record else { return }
+            record[Parent.nameKey] = newName as CKRecordValue
+            self.publicDatabase.save(record, completionHandler: { (record, error) in
+                if error != nil || record == nil {
+                    print("there was an error")
+                }
+            })
+        }
+    }
     
     func removeParentReferenceFrom(_ carpoolID: CKRecordID) {
         

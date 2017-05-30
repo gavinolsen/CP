@@ -28,6 +28,10 @@ class MainViewTableViewController: UITableViewController {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
+            
+            //now I'm going to chang it, so that I will get the name of the parent for 
+            //the first time, no matter what...
+            
             ParentController.shared.getParentInfo()
             self.addObservers()
         }
@@ -42,13 +46,14 @@ class MainViewTableViewController: UITableViewController {
     
     //MARK: Observers
     func userChanged(_ notification: Notification) {
-
-        guard let name = ParentController.shared.parentName else { return }
         
-        if name == "" {
+        if ParentController.shared.parentName == "" {
             print("need to get the name")
             getName()
         }
+        
+        guard let name = ParentController.shared.parentName else { return }
+        
         self.greetingLabel.text = "Hello " + name
         greetingView.reloadInputViews()
     }
@@ -230,7 +235,7 @@ class MainViewTableViewController: UITableViewController {
     
     func getName() {
         var alertTextField: UITextField?
-        let alertController = UIAlertController(title: "Name:", message: "Please enter your name", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Please enter your name", message: "You only have to enter it once. We will always refer to you by this name from now on. You won't be able to save any information until you have saved a name", preferredStyle: .alert)
         
         alertController.addTextField { (textField) in
             alertTextField = textField

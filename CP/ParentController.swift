@@ -96,6 +96,16 @@ class ParentController {
         }
     }
     
+    //what i want to do, is search for the record of the current user... if there
+    //isn't a record with
+    
+    func changeParent(name: String) {
+        guard let parentID = userRecordID else { return }
+        CloudKitManager.shared.modify(parentID: parentID, newName: name)
+        parentName = name
+        parent?.name = name
+    }
+    
     //crud functions
     //create
     func makeNewParent(nameString: String?, recordID: CKRecordID) {

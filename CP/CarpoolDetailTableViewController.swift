@@ -10,7 +10,7 @@ import UIKit
 import EventKit
 import UserNotifications
 
-class CarpoolDetailTableViewController: UITableViewController {
+class CarpoolDetailTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var carpoolDetailView: UIView!
     let dayPickerLabel = UILabel()
@@ -62,6 +62,9 @@ class CarpoolDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         self.dayPicker.delegate = self
         self.dayPicker.dataSource = self
         
@@ -70,6 +73,23 @@ class CarpoolDetailTableViewController: UITableViewController {
         setupViews()
         setupConstraints()
         setKeyboards()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height - 100
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height - 100
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -87,6 +107,12 @@ class CarpoolDetailTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            days.remove(at: indexPath.row)
+            hours.remove(at: indexPath.row)
+            minutes.remove(at: indexPath.row)
+            isPmArray.remove(at: indexPath.row)
+            
             carpoolDateComponents.remove(at: indexPath.row)
             timeArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -134,6 +160,7 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
         carpoolTextField.placeholder = "carpool name"
         
         carpoolTextField.returnKeyType = .done
+        carpoolTextField.delegate = self
         
         carpoolDetailView.addSubview(dayPickerLabel)
         carpoolDetailView.addSubview(dayPicker)
@@ -158,7 +185,7 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
         let pickerTrailing = NSLayoutConstraint(item: dayPicker, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([pickerTop, pickerLeading, pickerTrailing])
         
-        let carpoolNameTop = NSLayoutConstraint(item: carpoolNameLabel, attribute: .top, relatedBy: .equal, toItem: dayPicker, attribute: .bottom, multiplier: 1, constant: -10)
+        let carpoolNameTop = NSLayoutConstraint(item: carpoolNameLabel, attribute: .top, relatedBy: .equal, toItem: dayPicker, attribute: .bottom, multiplier: 1, constant: 0)
         let carpoolNameLead = NSLayoutConstraint(item: carpoolNameLabel, attribute: .leading, relatedBy: .equal, toItem: carpoolDetailView, attribute: .leading, multiplier: 1, constant: 0)
         let carpoolNameTrail = NSLayoutConstraint(item: carpoolNameLabel, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([carpoolNameLead, carpoolNameTop, carpoolNameTrail])
@@ -179,6 +206,10 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
 }
 
@@ -318,7 +349,34 @@ extension CarpoolDetailTableViewController {
     
 }
 
-
+/*
+ The usual solution is to slide the field (and everything above it) up with an animation, and then back down when you are done. You may need to put the text field and some of the other items into another view and slide the view as a unit. (I call these things "plates" as in "tectonic plates", but that's just me). But here is the general idea if you don't need to get fancy.
+ 
+ - (void)textFieldDidBeginEditing:(UITextField *)textField
+ {
+ [self animateTextField: textField up: YES];
+ }
+ 
+ 
+ - (void)textFieldDidEndEditing:(UITextField *)textField
+ {
+ [self animateTextField: textField up: NO];
+ }
+ 
+ - (void) animateTextField: (UITextField*) textField up: (BOOL) up
+ {
+ const int movementDistance = 80; // tweak as needed
+ const float movementDuration = 0.3f; // tweak as needed
+ 
+ int movement = (up ? -movementDistance : movementDistance);
+ 
+ [UIView beginAnimations: @"anim" context: nil];
+ [UIView setAnimationBeginsFromCurrentState: YES];
+ [UIView setAnimationDuration: movementDuration];
+ self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+ [UIView commitAnimations];
+ 
+ */
 
 
 
