@@ -10,10 +10,22 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        crashhhhhhes
+//        self.view.layer.performSelector(onMainThread: #selector(yeeeeeeee), with: self, waitUntilDone: true)
+    }
+    
+    func yeeeeeeee() {
+        self.view.layer.cornerRadius = 200
+        
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     

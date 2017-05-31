@@ -54,7 +54,7 @@ class Parent: CloudKitSync {
     let ckManager = CloudKitManager()
     
     //MARK: initilizers
-    init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID) {
+    init(name: String, kids: [Child] = [], carpools: [Carpool] = [], isLeader: Bool = false, userRecordID: CKRecordID?) {
         self.name = name
         self.carpools = carpools
         self.kids = []

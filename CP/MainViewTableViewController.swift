@@ -28,15 +28,36 @@ class MainViewTableViewController: UITableViewController {
         super.viewDidLoad()
         
         DispatchQueue.main.async {
-            
             //now I'm going to chang it, so that I will get the name of the parent for 
             //the first time, no matter what...
             
+            self.setupViews()
+            
+            //MARK:
             ParentController.shared.getParentInfo()
             self.addObservers()
+            
+            //I want to check if the user has logged in before. I'll
+            //make a function in parentController that will make a 
+            //variable and store it to the user defaults...
+            
         }
+//        pracDates()
+        checkForIntro()
+    }
+    
+    func setupViews() {
+        let font = UIFont(name: "AppleSDGothicNeo-Thin", size: 25)
+        let bigFont = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
         
-        Theme.configAppearance()
+        greetingLabel.font = bigFont
+        
+        carpoolsTodayCountLabel.font = font
+        carpoolsTodayDetailsLabel.font = font
+        carpoolsTomorrowCountLabel.font = font
+        carpoolsTomorrowDetailsLabel.font = font
+        carpoolsWeeklyCountLabel.font = font
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -230,8 +251,28 @@ class MainViewTableViewController: UITableViewController {
         }
         
     }
+    
+    //MARK: - INTROOOOOO
+    //make sure you eventually call this function instead of
+    //the give intro function...
+    
+    func checkForIntro() {
+        if ParentController.shared.checkIfParentNeedsIntro() {
+            performSegue(withIdentifier: "introSegue", sender: nil)
+        } else {
+            return
+        }
+    }
 
-    //MARK: - EventKit
+    //MARK: - Alerts
+    
+    func pracDates() {
+    
+        let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey")
+        EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
+        
+        
+    }
     
     func getName() {
         var alertTextField: UITextField?

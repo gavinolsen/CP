@@ -66,7 +66,10 @@ class NotificationManager {
         
         for date in carpool.notificationComponents {
             
-            let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            let firstDay = EventManager.shared.calculateFirstDay(weekDay: date.day!)
+            print(firstDay)
+            
+            let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: EventManager.shared.nextMonth, day: firstDay, hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
 
             // i need to make the month 5 months farther ahead. so
             // if the month is 8 or higher, i need to subtract 12

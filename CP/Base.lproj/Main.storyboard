@@ -165,8 +165,8 @@
                                         <constraint firstAttribute="width" constant="123" id="nqg-iR-4Pv"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey there! Don't forget to sign into iCloud!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
-                                    <rect key="frame" x="96" y="54.5" width="90" height="101.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't forget to sign into iCloud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
+                                    <rect key="frame" x="96" y="64.5" width="90" height="81.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="90" id="6Q0-nP-9pr"/>
                                     </constraints>
@@ -255,11 +255,12 @@
                         <outlet property="carpoolsWeeklyCountLabel" destination="P3j-KY-MlJ" id="TXM-fo-Zg5"/>
                         <outlet property="greetingLabel" destination="xWh-AO-FdF" id="plq-Md-Vz0"/>
                         <outlet property="greetingView" destination="Epi-OS-AlM" id="PNT-WR-i6q"/>
+                        <segue destination="2aa-XE-sdf" kind="presentation" identifier="introSegue" modalTransitionStyle="partialCurl" id="5hf-n4-YqF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3425" y="274"/>
+            <point key="canvasLocation" x="3425" y="256"/>
         </scene>
         <!--Carpools for this kid-->
         <scene sceneID="izM-fJ-M4B">
@@ -293,6 +294,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="RRv-LH-wA8" kind="show" id="pNa-AE-3n6"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -304,7 +308,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h6F-KS-4qM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4294" y="274"/>
+            <point key="canvasLocation" x="4294" y="160"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="dvv-Pt-cRU">
+            <objects>
+                <viewController id="RRv-LH-wA8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cf4-h4-8IW"/>
+                        <viewControllerLayoutGuide type="bottom" id="FBV-eO-vRz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kbf-Tr-j0a">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wQZ-8D-a3v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5074" y="-318"/>
         </scene>
         <!--Settings-->
         <scene sceneID="KCl-0a-Ff8">
@@ -365,7 +387,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sef-hm-YZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4890" y="278"/>
+            <point key="canvasLocation" x="5039" y="371"/>
         </scene>
         <!--Change Name-->
         <scene sceneID="74e-6e-fAJ">
@@ -379,23 +401,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Egc-Rq-LJ4">
-                                <rect key="frame" x="16" y="64" width="343" height="80.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Egc-Rq-LJ4">
+                                <rect key="frame" x="16" y="64" width="343" height="114.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to change your name to?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpX-Hg-1zS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What do you want to change your name to?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpX-Hg-1zS">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A90-m0-XKI">
-                                        <rect key="frame" x="0.0" y="20.5" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="37.5" width="343" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W2I-zh-EcI">
-                                        <rect key="frame" x="0.0" y="50.5" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="84.5" width="343" height="30"/>
                                         <state key="normal" title="Change Name"/>
                                         <connections>
                                             <action selector="changeUsersName:" destination="18t-QV-hvS" eventType="touchUpInside" id="IiP-ne-Zu0"/>
@@ -403,7 +425,6 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="W2I-zh-EcI" firstAttribute="top" secondItem="A90-m0-XKI" secondAttribute="bottom" id="1YZ-Mz-55e"/>
                                     <constraint firstItem="W2I-zh-EcI" firstAttribute="leading" secondItem="Egc-Rq-LJ4" secondAttribute="leading" id="8ua-rQ-rAP"/>
                                     <constraint firstAttribute="trailing" secondItem="A90-m0-XKI" secondAttribute="trailing" id="DKO-oi-uJg"/>
                                     <constraint firstItem="OpX-Hg-1zS" firstAttribute="leading" secondItem="Egc-Rq-LJ4" secondAttribute="leading" id="Isw-iR-rPt"/>
@@ -428,7 +449,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qt-gl-NZj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5855" y="278"/>
+            <point key="canvasLocation" x="5791" y="370"/>
         </scene>
         <!--My Carpools-->
         <scene sceneID="EHN-GI-82z">
@@ -509,10 +530,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="EwN-Pl-uM7">
-                                <rect key="frame" x="16" y="64" width="343" height="131"/>
+                                <rect key="frame" x="16" y="64" width="343" height="172"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter carpool key:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8I-GJ-nRM">
-                                        <rect key="frame" x="0.0" y="0.0" width="138" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter carpool key:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8I-GJ-nRM">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -536,8 +557,20 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="leader" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x8g-gH-2nN">
+                                        <rect key="frame" x="0.0" y="101" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="times" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evf-F8-dlV">
+                                        <rect key="frame" x="0.0" y="121.5" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfR-74-mfn">
-                                        <rect key="frame" x="0.0" y="101" width="343" height="30"/>
+                                        <rect key="frame" x="0.0" y="142" width="343" height="30"/>
                                         <state key="normal" title="Join"/>
                                         <connections>
                                             <action selector="joinCarpool:" destination="qLj-iD-tHS" eventType="touchUpInside" id="Keo-ob-utD"/>
@@ -545,18 +578,24 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="x8g-gH-2nN" secondAttribute="trailing" id="4Qu-PT-NLh"/>
                                     <constraint firstItem="TGq-yS-Xzz" firstAttribute="top" secondItem="tWp-RC-xTm" secondAttribute="bottom" id="BKb-r7-Kmc"/>
+                                    <constraint firstItem="x8g-gH-2nN" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="BX4-Wd-PSF"/>
                                     <constraint firstAttribute="trailing" secondItem="RfR-74-mfn" secondAttribute="trailing" id="CA8-Wi-aFi"/>
+                                    <constraint firstAttribute="trailing" secondItem="W8I-GJ-nRM" secondAttribute="trailing" id="Ea2-JX-aoJ"/>
                                     <constraint firstItem="N53-yI-MoN" firstAttribute="top" secondItem="TGq-yS-Xzz" secondAttribute="bottom" id="KFq-I0-uKI"/>
                                     <constraint firstItem="W8I-GJ-nRM" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="NGQ-Dg-t4T"/>
                                     <constraint firstAttribute="trailing" secondItem="tWp-RC-xTm" secondAttribute="trailing" id="OlZ-Va-uSH"/>
+                                    <constraint firstAttribute="trailing" secondItem="evf-F8-dlV" secondAttribute="trailing" id="RqV-lV-bNR"/>
                                     <constraint firstItem="tWp-RC-xTm" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="Vec-gw-JoT"/>
+                                    <constraint firstItem="x8g-gH-2nN" firstAttribute="top" secondItem="N53-yI-MoN" secondAttribute="bottom" id="Xvm-Tx-Vg7"/>
                                     <constraint firstItem="W8I-GJ-nRM" firstAttribute="top" secondItem="EwN-Pl-uM7" secondAttribute="top" id="Zwa-mE-H7c"/>
                                     <constraint firstItem="RfR-74-mfn" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="boS-FJ-Q4F"/>
                                     <constraint firstAttribute="trailing" secondItem="N53-yI-MoN" secondAttribute="trailing" id="i2S-qM-59w"/>
                                     <constraint firstItem="N53-yI-MoN" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="kgA-Ep-NfU"/>
                                     <constraint firstItem="TGq-yS-Xzz" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="pPy-GD-t7R"/>
                                     <constraint firstAttribute="trailing" secondItem="TGq-yS-Xzz" secondAttribute="trailing" id="tMS-Bx-uqW"/>
+                                    <constraint firstItem="evf-F8-dlV" firstAttribute="leading" secondItem="EwN-Pl-uM7" secondAttribute="leading" id="xFk-af-jsK"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -570,7 +609,10 @@
                     <navigationItem key="navigationItem" title="Join carpool" id="O8a-Gs-h65"/>
                     <connections>
                         <outlet property="carpoolKeyTextField" destination="tWp-RC-xTm" id="IrP-b6-oh4"/>
+                        <outlet property="carpoolLeaderNameLabel" destination="x8g-gH-2nN" id="KxI-dC-afm"/>
                         <outlet property="carpoolNameLabel" destination="N53-yI-MoN" id="qs3-D7-Qdy"/>
+                        <outlet property="carpoolTimesLabel" destination="evf-F8-dlV" id="3tx-mt-hIO"/>
+                        <outlet property="enterCarpoolKeyLabel" destination="W8I-GJ-nRM" id="o20-tP-nbA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyO-gn-gfq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -619,7 +661,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ce8-uV-KAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4890" y="1011"/>
+            <point key="canvasLocation" x="5038" y="1011"/>
         </scene>
         <!--You lead these carpools-->
         <scene sceneID="Yni-Ii-XQU">
@@ -712,7 +754,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="978-Tz-q4k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4890" y="1740"/>
+            <point key="canvasLocation" x="5038" y="1740"/>
         </scene>
         <!--New Carpool-->
         <scene sceneID="5c1-E6-BjI">
@@ -764,6 +806,204 @@
             </objects>
             <point key="canvasLocation" x="4294" y="1011"/>
         </scene>
+        <!--Main Intro View Controller-->
+        <scene sceneID="6re-fc-kob">
+            <objects>
+                <viewController id="2aa-XE-sdf" customClass="MainIntroViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qx2-C5-NQg"/>
+                        <viewControllerLayoutGuide type="bottom" id="MiY-0d-FgM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pam-MX-43e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vsJ-Qs-deC">
+                                <rect key="frame" x="0.0" y="70" width="375" height="279.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to CP! This is the ultimate app to help you schedule your carpools. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48P-lb-ju1">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-vP-1DO">
+                                        <rect key="frame" x="0.0" y="66" width="375" height="81.5"/>
+                                        <string key="text">Your app will load on the main page, where you can view how many carpools you have scheduled for the current day and tomorrow, and how many carpools each kid is involved in.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The first thing you need to do to get set up is add all of your kids that need carpools" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hR-go-Qy3">
+                                        <rect key="frame" x="0.0" y="172.5" width="375" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can add as many kids as you like from the family tab on the tab bar from the home screen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22h-mj-ZWe">
+                                        <rect key="frame" x="0.0" y="238.5" width="375" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="family_icon_32" translatesAutoresizingMaskIntoConstraints="NO" id="zAv-Wu-i3Q">
+                                <rect key="frame" x="161" y="604" width="53" height="43"/>
+                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="Zh5-zP-8LP"/>
+                                    <constraint firstAttribute="width" constant="53" id="emj-lE-x1h"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4a-ib-Dyc">
+                                <rect key="frame" x="164" y="540" width="46" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="bWb-ii-B2A"/>
+                                </constraints>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" red="0.18823529411764706" green="0.0" blue="0.24705882370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.057630271320000002" green="1" blue="0.71588877080000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnToApp:" destination="2aa-XE-sdf" eventType="touchUpInside" id="B98-U7-t0v"/>
+                                    <segue destination="RkS-X3-UZP" kind="presentation" modalTransitionStyle="partialCurl" id="eRC-2g-klX"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="vsJ-Qs-deC" firstAttribute="top" secondItem="qx2-C5-NQg" secondAttribute="bottom" constant="50" id="1US-Ai-7UZ"/>
+                            <constraint firstAttribute="bottom" secondItem="zAv-Wu-i3Q" secondAttribute="bottom" constant="20" symbolic="YES" id="Gs3-Eq-m3J"/>
+                            <constraint firstAttribute="trailing" secondItem="vsJ-Qs-deC" secondAttribute="trailing" id="JHd-mI-yDa"/>
+                            <constraint firstItem="vsJ-Qs-deC" firstAttribute="leading" secondItem="pam-MX-43e" secondAttribute="leading" id="hjk-mX-kiq"/>
+                            <constraint firstItem="P4a-ib-Dyc" firstAttribute="centerX" secondItem="vsJ-Qs-deC" secondAttribute="centerX" id="npe-jC-FDd"/>
+                            <constraint firstItem="zAv-Wu-i3Q" firstAttribute="top" secondItem="P4a-ib-Dyc" secondAttribute="bottom" constant="34" id="sNC-2w-EJI"/>
+                            <constraint firstItem="P4a-ib-Dyc" firstAttribute="centerX" secondItem="zAv-Wu-i3Q" secondAttribute="centerX" id="yCX-3v-Dv2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fd0-X4-l00" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-898.39999999999998" y="984.55772113943033"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="t31-Xy-hJN">
+            <objects>
+                <viewController id="RkS-X3-UZP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dTk-5g-f4f"/>
+                        <viewControllerLayoutGuide type="bottom" id="WKs-Tp-I2D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D5m-Jz-pvc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checklist-50" translatesAutoresizingMaskIntoConstraints="NO" id="G82-f0-xFO">
+                                <rect key="frame" x="309" y="597" width="50" height="50"/>
+                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can add your own carpools, join other carpools, and manage the kids in each carpool that you created from the carpool tab." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vA-l0-G7M">
+                                <rect key="frame" x="16" y="146" width="343" height="81.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvL-BJ-fJq">
+                                <rect key="frame" x="16" y="242.5" width="343" height="72"/>
+                                <string key="text">For your security, only you can see the kids in the carpools that you create. You may include your kids carpools of others, but only the leaders of those carpools will be able to see them</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you create your own carpool or join a carpool, the times are automatically loaded onto your calendar." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6C-xg-GO6">
+                                <rect key="frame" x="16" y="70" width="343" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osn-ue-1qp">
+                                <rect key="frame" x="163" y="533" width="48" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="NV6-mB-kVl"/>
+                                </constraints>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.0" blue="0.24705882370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.057630271320000002" green="1" blue="0.71588877080000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="returnToApp:" destination="2aa-XE-sdf" eventType="touchUpInside" id="7Fq-N3-HSv"/>
+                                    <segue destination="eja-HJ-xr8" kind="presentation" modalTransitionStyle="partialCurl" id="oRd-VB-LEv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WKs-Tp-I2D" firstAttribute="top" secondItem="osn-ue-1qp" secondAttribute="bottom" constant="104" id="9Iv-EQ-HDP"/>
+                            <constraint firstItem="G82-f0-xFO" firstAttribute="trailing" secondItem="6vA-l0-G7M" secondAttribute="trailing" id="Fcs-VO-ETO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="T6C-xg-GO6" secondAttribute="trailing" id="J9d-Sy-oMv"/>
+                            <constraint firstItem="kvL-BJ-fJq" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="Ka3-eF-l6u"/>
+                            <constraint firstItem="T6C-xg-GO6" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="KaX-Iw-yYY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kvL-BJ-fJq" secondAttribute="trailing" id="VAp-aQ-uex"/>
+                            <constraint firstAttribute="bottom" secondItem="G82-f0-xFO" secondAttribute="bottom" constant="20" symbolic="YES" id="WWt-a2-Fku"/>
+                            <constraint firstItem="T6C-xg-GO6" firstAttribute="top" secondItem="dTk-5g-f4f" secondAttribute="bottom" constant="50" id="cSL-ob-cnb"/>
+                            <constraint firstItem="kvL-BJ-fJq" firstAttribute="top" secondItem="6vA-l0-G7M" secondAttribute="bottom" constant="15" id="dg0-J8-eaA"/>
+                            <constraint firstItem="6vA-l0-G7M" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="jln-j5-2Sj"/>
+                            <constraint firstItem="osn-ue-1qp" firstAttribute="centerX" secondItem="kvL-BJ-fJq" secondAttribute="centerX" id="mFQ-tv-AXJ"/>
+                            <constraint firstItem="6vA-l0-G7M" firstAttribute="top" secondItem="T6C-xg-GO6" secondAttribute="bottom" constant="15" id="tnk-Jw-mcE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6vA-l0-G7M" secondAttribute="trailing" id="v4j-Pd-zRP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="71S-pN-LKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-108" y="984.55772113943033"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="8D3-Up-TbG">
+            <objects>
+                <viewController id="eja-HJ-xr8" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x8k-Uk-NRl"/>
+                        <viewControllerLayoutGuide type="bottom" id="8Ag-Qa-gth"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zQc-Px-n3y">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for using my app! if you have any suggestions to make the app more functional, please comment on the app store" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLC-mW-21x">
+                                <rect key="frame" x="16" y="120" width="343" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufa-mm-C6k">
+                                <rect key="frame" x="168.5" y="211" width="37" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" red="0.18823529410000001" green="0.0" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xVN-2g-4ot" kind="show" id="QHi-1T-h1f"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XLC-mW-21x" firstAttribute="centerX" secondItem="ufa-mm-C6k" secondAttribute="centerX" id="3xz-Jh-ITJ"/>
+                            <constraint firstItem="ufa-mm-C6k" firstAttribute="top" secondItem="XLC-mW-21x" secondAttribute="bottom" constant="30" id="OfY-pc-fpc"/>
+                            <constraint firstItem="XLC-mW-21x" firstAttribute="trailing" secondItem="zQc-Px-n3y" secondAttribute="trailingMargin" id="dfY-tZ-8kd"/>
+                            <constraint firstItem="XLC-mW-21x" firstAttribute="leading" secondItem="zQc-Px-n3y" secondAttribute="leadingMargin" id="hhg-86-hB9"/>
+                            <constraint firstItem="XLC-mW-21x" firstAttribute="top" secondItem="x8k-Uk-NRl" secondAttribute="bottom" constant="100" id="zHH-Sp-FyD"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ofZ-uT-buY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="656.79999999999995" y="984.55772113943033"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="OjS-x1-fVm">
             <objects>
@@ -783,13 +1023,13 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JAv-T7-1wc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2040" y="278"/>
+            <point key="canvasLocation" x="1878" y="256"/>
         </scene>
         <!--Family-->
         <scene sceneID="1oe-ha-dfA">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07S-F1-MaV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Family" image="40x32" id="bi0-vT-idz"/>
+                    <tabBarItem key="tabBarItem" title="Family" image="family_icon_32" id="bi0-vT-idz"/>
                     <toolbarItems/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
@@ -831,7 +1071,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g4m-Jd-lh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2614" y="274"/>
+            <point key="canvasLocation" x="2679" y="256"/>
         </scene>
         <!--Carpools-->
         <scene sceneID="BWY-LY-ldm">
@@ -862,8 +1102,9 @@
         <image name="32_settings" width="32" height="32"/>
         <image name="32house" width="32" height="32"/>
         <image name="32n" width="32" height="32"/>
-        <image name="40x32" width="40" height="32"/>
         <image name="Car-64" width="64" height="64"/>
+        <image name="Checklist-50" width="50" height="50"/>
+        <image name="family_icon_32" width="32" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZLG-zd-Y2J"/>

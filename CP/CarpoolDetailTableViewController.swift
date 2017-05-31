@@ -136,13 +136,15 @@ class CarpoolDetailTableViewController: UITableViewController, UITextFieldDelega
             return
         }
         
-        //make sure there are kids
         if ParentController.shared.parent?.kids.count == 0 || ParentController.shared.parent?.kids == nil || ParentController.shared.parent == nil {
             registerKidsAlert()
             return
         }
-        NotificationManager.shared.makeNewNotificationsWith(name: carpoolTextField.text ?? "Planned Activity", and: carpoolDateComponents)
+        saveCarpool()
         getFirstChildAlert()
+        
+        
+        
     }
 }
 
@@ -180,7 +182,7 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
         let pickerLabelTrailing = NSLayoutConstraint(item: dayPickerLabel, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([pickerLablTop, pickerLabelLeading, pickerLabelTrailing])
         
-        let pickerTop = NSLayoutConstraint(item: dayPicker, attribute: .top, relatedBy: .equal, toItem: dayPickerLabel, attribute: .bottom, multiplier: 1, constant: 0)
+        let pickerTop = NSLayoutConstraint(item: dayPicker, attribute: .top, relatedBy: .equal, toItem: dayPickerLabel, attribute: .bottom, multiplier: 1, constant: -30)
         let pickerLeading = NSLayoutConstraint(item: dayPicker, attribute: .leading, relatedBy: .equal, toItem: carpoolDetailView, attribute: .leading, multiplier: 1, constant: 0)
         let pickerTrailing = NSLayoutConstraint(item: dayPicker, attribute: .trailing, relatedBy: .equal, toItem: carpoolDetailView, attribute: .trailing, multiplier: 1, constant: 0)
         carpoolDetailView.addConstraints([pickerTop, pickerLeading, pickerTrailing])
@@ -277,13 +279,13 @@ extension CarpoolDetailTableViewController {
                 break
             }
         }
-        
         //i need to know which kid is the parents 
         //in the order, so i know which kid to append the carpool to...
     
         CarpoolController.shared.parentsCarpools.append(newCarpool)
         ParentController.shared.parent?.leaderdCarpools.append(newCarpool)
         NotificationManager.shared.loadCarpoolToReminders(carpool: newCarpool)
+        NotificationManager.shared.makeNewNotificationsWith(name: carpoolTextField.text ?? "Planned Activity", and: carpoolDateComponents)
         EventManager.shared.loadCarpoolToCalendar(carpool: newCarpool)
         
     }
@@ -314,6 +316,10 @@ extension CarpoolDetailTableViewController {
         let passAlertController = UIAlertController(title: passKey, message: "Other parents who want to join your carpool will need this key. You can find it again in your leaderd carpools tab.", preferredStyle: .alert)
         passAlertController.view.layer.cornerRadius = 8
         let dismissAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
+            
+            //this is where I'm going to go back to the 
+            //list of carpools
+            
             let nc = self.navigationController
             nc?.popViewController(animated: true)
         })
@@ -348,36 +354,6 @@ extension CarpoolDetailTableViewController {
     }
     
 }
-
-/*
- The usual solution is to slide the field (and everything above it) up with an animation, and then back down when you are done. You may need to put the text field and some of the other items into another view and slide the view as a unit. (I call these things "plates" as in "tectonic plates", but that's just me). But here is the general idea if you don't need to get fancy.
- 
- - (void)textFieldDidBeginEditing:(UITextField *)textField
- {
- [self animateTextField: textField up: YES];
- }
- 
- 
- - (void)textFieldDidEndEditing:(UITextField *)textField
- {
- [self animateTextField: textField up: NO];
- }
- 
- - (void) animateTextField: (UITextField*) textField up: (BOOL) up
- {
- const int movementDistance = 80; // tweak as needed
- const float movementDuration = 0.3f; // tweak as needed
- 
- int movement = (up ? -movementDistance : movementDistance);
- 
- [UIView beginAnimations: @"anim" context: nil];
- [UIView setAnimationBeginsFromCurrentState: YES];
- [UIView setAnimationDuration: movementDuration];
- self.view.frame = CGRectOffset(self.view.frame, 0, movement);
- [UIView commitAnimations];
- 
- */
-
 
 
 

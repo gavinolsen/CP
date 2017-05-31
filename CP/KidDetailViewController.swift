@@ -148,7 +148,7 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         detailTextView.returnKeyType = .done
         detailTextView.delegate = self
         
-        let themeColor: UIColor = .timeLightOrange
+        let themeColor: UIColor = .white
         
         agePicker.backgroundColor = themeColor
         childNameTextField.backgroundColor = themeColor

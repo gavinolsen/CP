@@ -15,11 +15,18 @@ class JoinCarpoolViewController: UIViewController {
     var carpool: Carpool?
     
     //outlets
+    @IBOutlet weak var enterCarpoolKeyLabel: UILabel!
     @IBOutlet weak var carpoolKeyTextField: UITextField!
     @IBOutlet weak var carpoolNameLabel: UILabel!
-    
+    @IBOutlet weak var carpoolLeaderNameLabel: UILabel!
+    @IBOutlet weak var carpoolTimesLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        carpoolNameLabel.fadeOut(duration: 3, delay: 0) { (_) in }
+        carpoolTimesLabel.fadeOut(duration: 3, delay: 0) { (_) in }
+        carpoolLeaderNameLabel.fadeOut(duration: 3, delay: 0) { (_) in }
     }
 
     //actions
@@ -93,6 +100,13 @@ class JoinCarpoolViewController: UIViewController {
     func setViewWith(carpool: Carpool) {
         
         carpoolNameLabel.text = carpool.eventName
+        carpoolTimesLabel.text = carpool.getTimeString()
+        carpoolLeaderNameLabel.text = carpool.leader?.name
+        
+        carpoolNameLabel.fadeIn(duration: 4, delay: 0) { (_) in }
+        carpoolTimesLabel.fadeIn(duration: 4, delay: 0) { (_) in }
+        carpoolLeaderNameLabel.fadeIn(duration: 4, delay: 0) { (_) in }
+        
     }
     
     func registerKidsAlert() {

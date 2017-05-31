@@ -96,6 +96,15 @@ class ParentController {
         }
     }
     
+    func checkIfParentNeedsIntro() -> Bool {
+        if UserDefaults.standard.string(forKey: "CPUserNeedsIntro") != nil {
+            return false
+        } else {
+            UserDefaults.standard.set(true, forKey: "CPUserNeedsIntro")
+            return true
+        }
+    }
+    
     //what i want to do, is search for the record of the current user... if there
     //isn't a record with
     

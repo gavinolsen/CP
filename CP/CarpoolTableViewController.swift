@@ -23,6 +23,11 @@ class CarpoolTableViewController: UITableViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
     func gotCarpools(_ notification: Notification) {
         tableView.reloadData()
     }

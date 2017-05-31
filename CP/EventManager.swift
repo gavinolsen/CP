@@ -25,6 +25,7 @@ class EventManager {
     var calendarArray: [EKCalendar] = []
     var calendarIdentifiers: [String] = []
     var selectedCalendarString: String = ""
+    var nextMonth = NotificationManager.shared.getMonth()
     
     func getLocalCalendars() -> [EKCalendar] {
      
@@ -61,8 +62,16 @@ class EventManager {
         
         for date in carpool.notificationComponents {
             
-            let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
-            let endTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: date.month, day: getDay(), hour: date.hour! + 1, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            //I think the problem is when I am making the start date
+            //and the end date. I'm taking the current day, instead of the day that it's supposed to reoccur
+            
+            //what i want to do is get the next day that falls on the weekday
+            //that I want...
+            
+            let firstDay = calculateFirstDay(weekDay: date.day!)
+            
+            let startTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: nextMonth, day: firstDay, hour: date.hour, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
+            let endTimeDate = DateComponents(calendar: nil, timeZone: nil, era: nil, year: date.year, month: nextMonth, day: firstDay, hour: date.hour! + 1, minute: date.minute, second: nil, nanosecond: nil, weekday: date.weekday, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
             
             // i need to make the month 5 months farther ahead. so
             // if the month is 8 or higher, i need to subtract 12 
@@ -193,8 +202,63 @@ class EventManager {
         let myCalendar = NSCalendar(calendarIdentifier: .gregorian)
         let myComponents = myCalendar?.components(.day, from: todayDate)
         let day = myComponents?.day
+
         return day ?? 0
+        
+        
+    
     }
+    
+    func getDaysInMonth(month: Int, year: Int) -> Int
+    {
+        let calendar = NSCalendar.current
+        
+        var startComps = DateComponents()
+        startComps.day = 1
+        startComps.month = month
+        startComps.year = year
+        
+        var endComps = DateComponents()
+        endComps.day = 1
+        endComps.month = month == 12 ? 1 : month + 1
+        endComps.year = month == 12 ? year + 1 : year
+        
+        guard let startDate = calendar.date(from: startComps) else { return 0}
+        guard let endDate = calendar.date(from: endComps) else { return 0}
+        
+        let component: Set<Calendar.Component> = [Calendar.Component.day]
+        
+        let mydiff = calendar.dateComponents(component, from: startDate, to: endDate)
+        
+        return mydiff.day ?? 0
+    }
+    
+    func calculateFirstDay(weekDay: Int) -> Int {
+        
+        let daysInMonth = getDaysInMonth(month: NotificationManager.shared.getMonth(), year: NotificationManager.shared.getYear())
+        
+        let daysRemainingInMonth = daysInMonth - getDay()
+        
+        nextMonth = NotificationManager.shared.getMonth()
+        
+        if daysRemainingInMonth < 7 {
+            nextMonth += 1
+            var firstWeekDay = getWeekDay()
+            
+            for i in 0...7 {
+                if firstWeekDay == weekDay {
+                    return i
+                } else if firstWeekDay == 7 {
+                    firstWeekDay = 1
+                } else {
+                    firstWeekDay += 1
+                }
+            }
+        }
+        return getDay()
+    }
+    
+    
     
     func getWeekDay() -> Int {
         let todayDate = Date()
@@ -208,7 +272,23 @@ class EventManager {
 
 
 
-
+/*
+ let nextDay = weekDay + daysRemainingInMonth
+ 
+ var firstCalDay = 0
+ //now i want to find the next sunday...
+ //I need to find out what weekday it is
+ //
+ 
+ for i in 0...7 {
+ if i == weekDay {
+ 
+ }
+ firstCalDay += 1
+ }
+ 
+ print(nextDay)
+ */
 
 
 
