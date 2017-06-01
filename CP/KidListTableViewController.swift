@@ -42,6 +42,7 @@ class KidListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath)
 
+        cell.textLabel?.font = UIFont(name: "GillSans-UltraBold", size: 25)
         cell.textLabel?.text = kids[indexPath.row].name
         
         return cell

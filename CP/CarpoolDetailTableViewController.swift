@@ -206,7 +206,7 @@ extension CarpoolDetailTableViewController: UIPickerViewDelegate, UIPickerViewDa
         keyboardToolbar.items = [flexBarButton, doneBarButton]
         self.carpoolTextField.inputAccessoryView = keyboardToolbar
     }
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         view.endEditing(true)
     }
     
@@ -354,6 +354,36 @@ extension CarpoolDetailTableViewController {
     }
     
 }
+
+/*
+ The usual solution is to slide the field (and everything above it) up with an animation, and then back down when you are done. You may need to put the text field and some of the other items into another view and slide the view as a unit. (I call these things "plates" as in "tectonic plates", but that's just me). But here is the general idea if you don't need to get fancy.
+ 
+ - (void)textFieldDidBeginEditing:(UITextField *)textField
+ {
+ [self animateTextField: textField up: YES];
+ }
+ 
+ 
+ - (void)textFieldDidEndEditing:(UITextField *)textField
+ {
+ [self animateTextField: textField up: NO];
+ }
+ 
+ - (void) animateTextField: (UITextField*) textField up: (BOOL) up
+ {
+ const int movementDistance = 80; // tweak as needed
+ const float movementDuration = 0.3f; // tweak as needed
+ 
+ int movement = (up ? -movementDistance : movementDistance);
+ 
+ [UIView beginAnimations: @"anim" context: nil];
+ [UIView setAnimationBeginsFromCurrentState: YES];
+ [UIView setAnimationDuration: movementDuration];
+ self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+ [UIView commitAnimations];
+ 
+ */
+
 
 
 

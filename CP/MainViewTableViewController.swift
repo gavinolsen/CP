@@ -22,10 +22,18 @@ class MainViewTableViewController: UITableViewController {
     @IBOutlet weak var carpoolsTomorrowDetailsLabel: UILabel!
     @IBOutlet weak var carpoolsWeeklyCountLabel: UILabel!
     
+    let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey")
+    
+    var mockKids: [Child] = []
+    
     static let shared = MainViewTableViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let kid1 = Child(name: "g kid", age: 10, details: "mmeememememe", parent: nil, carpools: [self.carpool, carpool, carpool, carpool, carpool], ckReference: nil)
+        
+        mockKids = [kid1]
         
         DispatchQueue.main.async {
             //now I'm going to chang it, so that I will get the name of the parent for 
@@ -40,14 +48,13 @@ class MainViewTableViewController: UITableViewController {
             //I want to check if the user has logged in before. I'll
             //make a function in parentController that will make a 
             //variable and store it to the user defaults...
-            
         }
-//        pracDates()
+//        performSegue(withIdentifier: "introSegue", sender: nil)
         checkForIntro()
     }
     
     func setupViews() {
-        let font = UIFont(name: "AppleSDGothicNeo-Thin", size: 25)
+        let font = UIFont(name: "AppleSDGothicNeo-Thin", size: 18)
         let bigFont = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
         
         greetingLabel.font = bigFont
@@ -68,9 +75,9 @@ class MainViewTableViewController: UITableViewController {
     //MARK: Observers
     func userChanged(_ notification: Notification) {
         
-        if ParentController.shared.parentName == "" {
-            print("need to get the name")
+        if ParentController.shared.parentName == "" || ParentController.shared.parentName == nil {
             getName()
+            return
         }
         
         guard let name = ParentController.shared.parentName else { return }
@@ -147,8 +154,10 @@ class MainViewTableViewController: UITableViewController {
             self.carpoolsTomorrowCountLabel.text = "You have \(self.getPluralCarpool(num: tomorrowsCarpoolCount)) tomorrow:"
             self.carpoolsTomorrowDetailsLabel.text = self.getTimeStringFrom(timeString: tomorrowsCarpoolString)
             self.carpoolsWeeklyCountLabel.text = "There will be \(self.getDrives(num: drives)) this week"
+            
         }
     }
+    
     
     func getTimeStringFrom(timeString: String) -> String {
         
@@ -157,13 +166,15 @@ class MainViewTableViewController: UITableViewController {
         mod.remove(at: mod.count - 1)
         
         var modedStringArray = ""
+        var counter = 1
         
         for time in mod {
-            if time != mod.last {
+            if mod.count > counter {
                 modedStringArray += time + ", "
             } else {
-                modedStringArray += time
+                modedStringArray += "& " + time
             }
+            counter += 1
         }
         return modedStringArray
     }
@@ -218,12 +229,15 @@ class MainViewTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let kids = ParentController.shared.parent?.kids else { return 0 }
         return kids.count
+//        return mockKids.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "kidCell", for: indexPath) as? KidTableViewCell else { return UITableViewCell() }
 
         guard let kid = ParentController.shared.parent?.kids[indexPath.row] else { return UITableViewCell() }
+        
+//        let kid = mockKids[indexPath.row]
         
         cell.setViewWith(kid: kid)
         
@@ -239,12 +253,6 @@ class MainViewTableViewController: UITableViewController {
             guard let destinationVC = segue.destination as? CarpoolsForKidTableViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             
-            //carpools is assigned as 0... we need to assign the carpools of each kid. 
-            //the best place to do this would be in the getParentInfo() function
-            //of the ParentController class. when we have the record of each kid,
-            //we can search for the carpools of each kid and append them to the
-            //kid.carpool property of the parent. perfecto...
-            
             guard let kid = ParentController.shared.parent?.kids[indexPath.row] else { return }
             
             destinationVC.kid = kid
@@ -253,8 +261,6 @@ class MainViewTableViewController: UITableViewController {
     }
     
     //MARK: - INTROOOOOO
-    //make sure you eventually call this function instead of
-    //the give intro function...
     
     func checkForIntro() {
         if ParentController.shared.checkIfParentNeedsIntro() {
@@ -270,8 +276,6 @@ class MainViewTableViewController: UITableViewController {
     
         let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey")
         EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
-        
-        
     }
     
     func getName() {
@@ -288,16 +292,12 @@ class MainViewTableViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .cancel) { _ in
             guard let text = alertTextField?.text, !text.isEmpty else { return }
             
-            ParentController.shared.makeParentWithName(name: text)
+            ParentController.shared.makeNewParent(nameString: text)
         }
-        
         alertController.addAction(dismissAction)
         alertController.addAction(addAction)
-        
         present(alertController, animated: true, completion: nil)
-        
     }
-
 }
 
 

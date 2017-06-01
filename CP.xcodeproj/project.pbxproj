@@ -30,6 +30,8 @@
 		3B281FF11EC4F84B0058F13A /* KidListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */; };
 		3B281FF31EC4F85C0058F13A /* KidDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */; };
 		3B2E19211EDCBE7400689370 /* ChangeNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E19201EDCBE7400689370 /* ChangeNameViewController.swift */; };
+		3B4397361EE0BE12008347CB /* SecondMainIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4397351EE0BE12008347CB /* SecondMainIntroViewController.swift */; };
+		3B4397381EE0C3D6008347CB /* ThirdIntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4397371EE0C3D6008347CB /* ThirdIntroViewController.swift */; };
 		3B67C0541EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */; };
 		3B6E35DC1ED7EB6A008773DF /* CarpoolsForKidTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E35DB1ED7EB6A008773DF /* CarpoolsForKidTableViewController.swift */; };
 		3B6E35DE1EDA793E008773DF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E35DD1EDA793E008773DF /* SettingsViewController.swift */; };
@@ -69,6 +71,8 @@
 		3B281FF01EC4F84B0058F13A /* KidListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidListTableViewController.swift; sourceTree = "<group>"; };
 		3B281FF21EC4F85C0058F13A /* KidDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KidDetailViewController.swift; sourceTree = "<group>"; };
 		3B2E19201EDCBE7400689370 /* ChangeNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeNameViewController.swift; sourceTree = "<group>"; };
+		3B4397351EE0BE12008347CB /* SecondMainIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondMainIntroViewController.swift; sourceTree = "<group>"; };
+		3B4397371EE0C3D6008347CB /* ThirdIntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdIntroViewController.swift; sourceTree = "<group>"; };
 		3B67C0531EC54E6600EFCB12 /* CarpoolDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolDetailTableViewController.swift; sourceTree = "<group>"; };
 		3B6E35DB1ED7EB6A008773DF /* CarpoolsForKidTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarpoolsForKidTableViewController.swift; sourceTree = "<group>"; };
 		3B6E35DD1EDA793E008773DF /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				3B16B68B1EDF18CD00895B69 /* MainIntroViewController.swift */,
+				3B4397351EE0BE12008347CB /* SecondMainIntroViewController.swift */,
+				3B4397371EE0C3D6008347CB /* ThirdIntroViewController.swift */,
 			);
 			name = "Intro View Controllers";
 			sourceTree = "<group>";
@@ -361,8 +367,10 @@
 				3BA512B91ED6320600F503F6 /* AddKidToCarpoolTableViewController.swift in Sources */,
 				3BAC7B461ED74A280084D328 /* KidsInCarpoolTableViewController.swift in Sources */,
 				3B281FEE1EC3C1530058F13A /* MainViewTableViewController.swift in Sources */,
+				3B4397381EE0C3D6008347CB /* ThirdIntroViewController.swift in Sources */,
 				3B22A9F21ED0F8FB0062B985 /* NotificationManager.swift in Sources */,
 				3B281FD41EC0E9BB0058F13A /* Child.swift in Sources */,
+				3B4397361EE0BE12008347CB /* SecondMainIntroViewController.swift in Sources */,
 				3B22A9EE1ED0C9EC0062B985 /* CarpoolTableViewController.swift in Sources */,
 				3B16B68C1EDF18CD00895B69 /* MainIntroViewController.swift in Sources */,
 				3B281FD01EC0E8F80058F13A /* CloudKitSync.swift in Sources */,

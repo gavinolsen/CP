@@ -46,7 +46,7 @@ class NotificationManager {
         
         let nc = UNMutableNotificationContent()
         nc.title = name
-        nc.body = "Don't forget to take the kids to the activity"
+        nc.body = "Don't forget to take the kids to " + name
         nc.sound = .default()
         
         for date in components {

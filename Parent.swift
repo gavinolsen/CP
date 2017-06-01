@@ -70,13 +70,10 @@ class Parent: CloudKitSync {
         
         self.init(name: name, userRecordID: record.recordID)
         ckRecordID = record.recordID
-        
     }
     
     func getKids(predicate: NSPredicate) -> [Child] {
-        
         var kidos: [Child] = []
-            
         CloudKitManager.shared.fetchRecordsWithType(Child.typeKey, predicate: predicate, recordFetchedBlock: nil) { (records, error) in
             if error != nil {
                 print("there's an error: \(String(describing: error))")
@@ -91,7 +88,6 @@ class Parent: CloudKitSync {
         }
         return kidos
     }
-    
 }
 
 //MARK: extensions

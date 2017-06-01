@@ -15,6 +15,7 @@ extension ParentController {
     static let ChildArrayNotification = Notification.Name("ChildArrayNotification")
     static let CarpoolArrayNotification = Notification.Name("CarpoolArrayNotification")
     static let allParentsArrayNotification = Notification.Name("donefetchingalloftheparents")
+    static let ParentUpdatedNotification = Notification.Name("ParentUpdaedNotification")
 }
 
 class ParentController {
@@ -38,9 +39,8 @@ class ParentController {
         didSet {
             DispatchQueue.main.async {
                 let nc = NotificationCenter.default
-                nc.post(name: ParentController.ParentNameChangedNotification, object: self)
+                nc.post(name: ParentController.ParentUpdatedNotification, object: self)
     }}}
-    
     
     func getParentInfo() {
 
@@ -50,38 +50,19 @@ class ParentController {
                 print("There was an error fetching current User record: \(error.localizedDescription)")
                 return
             }
-            guard let recordID = iCloudUserRecordID else { return }
-            self.userRecordID = recordID
-            //if the first name comes back as nil, i'll have to get it from them somehow...
-            //probably an alert that prompts them to enter their name
             
-            if self.parentName == nil && records?.count == 0 {
-                if firstName != nil {
-                    self.parentName = firstName!
+            //if the first name comes back as nil, i'll have to get it from them somehow...
+            //probably an alert that prompts them to enter their name. it might be easier 
+            
+            if records?.count == 0 {
+                if let name = firstName {
+                    self.parentName = name
+                    self.makeNewParent(nameString: name)
                 } else {
                     self.parentName = ""
                     return
                 }
             }
-            
-            if firstName == nil && records?.first != nil {
-                
-                guard let parentWithoutName = Parent(record: (records?.first)!) else { print("bad first record"); return }
-                
-                self.parent = parentWithoutName
-                self.parentName = parentWithoutName.name
-                
-                guard let record = records?.first else { print("bad first record"); return }
-                
-                let parentReference = CKReference(recordID: record.recordID, action: .none)
-                self.fetchKidsFromParent(reference: parentReference)
-                self.fetchCarpoolsFromParent(reference: parentReference)
-                self.fetchCarpoolsFromParentAsLeader(reference: parentReference)
-                return
-            }
-            
-            self.parent?.name = (firstName)!
-            self.parentName = firstName!
             
             if let record = records?.first {
                 self.setParentWithRecord(record: record)
@@ -90,8 +71,6 @@ class ParentController {
                 self.fetchKidsFromParent(reference: parentReference)
                 self.fetchCarpoolsFromParent(reference: parentReference)
                 self.fetchCarpoolsFromParentAsLeader(reference: parentReference)
-            } else {
-                self.makeNewParent(nameString: self.parentName, recordID: recordID)
             }
         }
     }
@@ -102,6 +81,25 @@ class ParentController {
         } else {
             UserDefaults.standard.set(true, forKey: "CPUserNeedsIntro")
             return true
+        }
+    }
+    
+    func reloginParent() {
+        //I want to call this function the first time that they
+        //log in so i make sure that the records they create have
+        //a reference to the parent's record name...
+        
+        CloudKitManager.shared.fetchCurrentUserRecords(Parent.typeKey) { (records, error, name, userID) in
+            if let record = records?.first {
+                let recordName = record.recordID.recordName
+                let firstRecord = record
+                let recordID = CKRecordID(recordName: recordName)
+                self.userRecordID = recordID
+                self.parent = Parent(record: firstRecord)
+                self.parentName = Parent(record: firstRecord)?.name
+            } else {
+                self.reloginParent()
+            }
         }
     }
     
@@ -117,37 +115,30 @@ class ParentController {
     
     //crud functions
     //create
-    func makeNewParent(nameString: String?, recordID: CKRecordID) {
-        guard let name = nameString else { return }
+    func makeNewParent(nameString: String) {
         
-
-        let newParent = Parent(name: name, userRecordID: recordID)
-        
-        //what do i want it do do if there is already a parent??
+        let newParent = Parent(name: nameString, userRecordID: nil)
         
         parent = newParent
         save(parent: newParent)
-        userRecordID = newParent.ckRecordID
-        print(newParent.ckRecordID ?? "nothing in here")
-        userRecordID = newParent.ckRecordID
-        getParentInfo()
+        parentName = nameString
+        
+        //there is nothing in the parent's ckrecordID, so I should refetch them!
+        reloginParent()
     }
     
     func setParentWithRecord(record: CKRecord) {
-        let savedParent = Parent(record: record)
+        guard let savedParent = Parent(record: record) else { return }
+        
+        
+        parentName = savedParent.name
         parent = savedParent
         parentRecord = record
         
-        guard let ckRecordID = savedParent?.ckRecordID else { return }
+        guard let ckRecordID = savedParent.ckRecordID else { return }
         userRecordID = ckRecordID
     }
-    
-    func makeParentWithName(name: String) {
-        parentName = name
-        guard let recordID = userRecordID else { return }
-        makeNewParent(nameString: name, recordID: recordID)
-    }
-    
+
     //retreiving kids and carpools
     
     func fetchKidsFromParent(reference: CKReference) {

@@ -218,8 +218,6 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         self.view.addConstraints([textViewTop, textViewLeading, textViewTrailing, textViewHeight, textViewWidth])
         
         detailTextView.frame = CGRect(x: 0, y: 400, width: 25, height: 30)
-        
-        
     }
     
     func setKeyboards() {
@@ -232,7 +230,7 @@ extension KidDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource 
         self.detailTextView.inputAccessoryView = keyboardToolbar
     }
     
-    func dismissKeyboard() {
+    override func dismissKeyboard() {
         view.endEditing(true)
     }
 }

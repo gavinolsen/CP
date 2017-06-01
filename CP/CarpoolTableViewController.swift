@@ -9,11 +9,11 @@
 import UIKit
 
 class CarpoolTableViewController: UITableViewController {
+    
+    let mock = ["1", "yo daddy", "king of the rock"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //as soon as they can see carpools, I want to
         
         NotificationManager.shared.requestReminderAuthorization()
         EventManager.shared.requestEventAuthorization()
@@ -41,19 +41,14 @@ class CarpoolTableViewController: UITableViewController {
 
         let carpool = CarpoolController.shared.parentsCarpools[indexPath.row]
         
+        cell.textLabel?.font = UIFont(name: "GillSans-UltraBold", size: 20)
         cell.textLabel?.text = carpool.eventName
         cell.detailTextLabel?.text = carpool.getTimeString()
+        
+        //cell.textLabel?.text = mock[indexPath.row]
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     
     // Override to support editing the table view.
@@ -65,21 +60,6 @@ class CarpoolTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     // MARK: - Navigation
     

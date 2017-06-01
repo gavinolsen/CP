@@ -16,8 +16,20 @@ class KidTableViewCell: UITableViewCell {
     func setViewWith(kid: Child) {
         
         kidNameLabel.text = kid.name
-        kidCarpoolDetails.text = kid.details
+        kidCarpoolDetails.text = getCarpoolsText(kid: kid)
         
+        kidNameLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+    }
+    
+    func getCarpoolsText(kid: Child) -> String {
+        
+        if kid.carpools.count == 0 {
+            return "0 carpools"
+        } else if kid.carpools.count == 1 {
+            return "1 carpool"
+        } else {
+            return "\(kid.carpools.count) carpools"
+        }
     }
 
 }

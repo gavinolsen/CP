@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xVN-2g-4ot">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xVN-2g-4ot">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -159,32 +159,31 @@
                                         <constraint firstItem="P3j-KY-MlJ" firstAttribute="top" secondItem="Mec-DK-tea" secondAttribute="bottom" constant="20" id="jRe-4h-81Z"/>
                                     </constraints>
                                 </stackView>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Car-64" translatesAutoresizingMaskIntoConstraints="NO" id="4Gg-AR-R1z">
-                                    <rect key="frame" x="252" y="51" width="123" height="107"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="123" id="nqg-iR-4Pv"/>
-                                    </constraints>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't forget to sign into iCloud" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWh-AO-FdF">
-                                    <rect key="frame" x="96" y="64.5" width="90" height="81.5"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="90" id="6Q0-nP-9pr"/>
-                                    </constraints>
+                                    <rect key="frame" x="28" y="8" width="158" height="160"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.51779846432115961" green="0.18682934366102386" blue="0.80770145939086291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Car-64" translatesAutoresizingMaskIntoConstraints="NO" id="4Gg-AR-R1z">
+                                    <rect key="frame" x="233" y="41" width="123" height="107"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="123" id="lVx-7S-qV1"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="9jZ-a9-wa0" firstAttribute="top" secondItem="4Gg-AR-R1z" secondAttribute="bottom" constant="18" id="20w-Uz-QCL"/>
                                 <constraint firstAttribute="bottom" secondItem="9jZ-a9-wa0" secondAttribute="bottom" id="58U-Df-SS5"/>
-                                <constraint firstItem="4Gg-AR-R1z" firstAttribute="trailing" secondItem="9jZ-a9-wa0" secondAttribute="trailing" id="9Fw-Sc-NtS"/>
-                                <constraint firstItem="xWh-AO-FdF" firstAttribute="centerY" secondItem="4Gg-AR-R1z" secondAttribute="centerY" id="Fu2-WN-gCz"/>
-                                <constraint firstItem="4Gg-AR-R1z" firstAttribute="leading" secondItem="xWh-AO-FdF" secondAttribute="trailing" constant="66" id="Vyt-hW-yAv"/>
+                                <constraint firstItem="4Gg-AR-R1z" firstAttribute="top" secondItem="Epi-OS-AlM" secondAttribute="top" constant="41" id="6Jx-Ad-Ry6"/>
+                                <constraint firstItem="xWh-AO-FdF" firstAttribute="leading" secondItem="Epi-OS-AlM" secondAttribute="leading" constant="28" id="8D4-DJ-AEx"/>
+                                <constraint firstItem="4Gg-AR-R1z" firstAttribute="leading" secondItem="xWh-AO-FdF" secondAttribute="trailing" constant="47" id="Ed1-Ro-Sdh"/>
+                                <constraint firstAttribute="trailing" secondItem="4Gg-AR-R1z" secondAttribute="trailing" constant="19" id="HkR-dK-DQh"/>
+                                <constraint firstItem="9jZ-a9-wa0" firstAttribute="top" secondItem="4Gg-AR-R1z" secondAttribute="bottom" constant="28" id="TlF-c3-hda"/>
+                                <constraint firstItem="xWh-AO-FdF" firstAttribute="top" secondItem="Epi-OS-AlM" secondAttribute="topMargin" id="WDE-iE-V3O"/>
                                 <constraint firstItem="9jZ-a9-wa0" firstAttribute="leading" secondItem="Epi-OS-AlM" secondAttribute="leading" id="XIR-hO-dDR"/>
+                                <constraint firstItem="9jZ-a9-wa0" firstAttribute="top" secondItem="xWh-AO-FdF" secondAttribute="bottom" constant="8" symbolic="YES" id="cAC-lp-bIN"/>
                                 <constraint firstAttribute="trailing" secondItem="9jZ-a9-wa0" secondAttribute="trailing" id="mnI-73-UaD"/>
-                                <constraint firstItem="4Gg-AR-R1z" firstAttribute="top" secondItem="Epi-OS-AlM" secondAttribute="top" constant="51" id="umO-Pf-Etw"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -260,7 +259,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsP-p7-ZWf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3425" y="256"/>
+            <point key="canvasLocation" x="3424.8000000000002" y="255.92203898050977"/>
         </scene>
         <!--Carpools for this kid-->
         <scene sceneID="izM-fJ-M4B">
@@ -817,81 +816,20 @@
                     <view key="view" contentMode="scaleToFill" id="pam-MX-43e">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vsJ-Qs-deC">
-                                <rect key="frame" x="0.0" y="70" width="375" height="279.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to CP! This is the ultimate app to help you schedule your carpools. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48P-lb-ju1">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxN-vP-1DO">
-                                        <rect key="frame" x="0.0" y="66" width="375" height="81.5"/>
-                                        <string key="text">Your app will load on the main page, where you can view how many carpools you have scheduled for the current day and tomorrow, and how many carpools each kid is involved in.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The first thing you need to do to get set up is add all of your kids that need carpools" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hR-go-Qy3">
-                                        <rect key="frame" x="0.0" y="172.5" width="375" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can add as many kids as you like from the family tab on the tab bar from the home screen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="22h-mj-ZWe">
-                                        <rect key="frame" x="0.0" y="238.5" width="375" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="family_icon_32" translatesAutoresizingMaskIntoConstraints="NO" id="zAv-Wu-i3Q">
-                                <rect key="frame" x="161" y="604" width="53" height="43"/>
-                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="Zh5-zP-8LP"/>
-                                    <constraint firstAttribute="width" constant="53" id="emj-lE-x1h"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4a-ib-Dyc">
-                                <rect key="frame" x="164" y="540" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="bWb-ii-B2A"/>
-                                </constraints>
-                                <state key="normal" title="Next">
-                                    <color key="titleColor" red="0.18823529411764706" green="0.0" blue="0.24705882370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.057630271320000002" green="1" blue="0.71588877080000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="returnToApp:" destination="2aa-XE-sdf" eventType="touchUpInside" id="B98-U7-t0v"/>
-                                    <segue destination="RkS-X3-UZP" kind="presentation" modalTransitionStyle="partialCurl" id="eRC-2g-klX"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="vsJ-Qs-deC" firstAttribute="top" secondItem="qx2-C5-NQg" secondAttribute="bottom" constant="50" id="1US-Ai-7UZ"/>
-                            <constraint firstAttribute="bottom" secondItem="zAv-Wu-i3Q" secondAttribute="bottom" constant="20" symbolic="YES" id="Gs3-Eq-m3J"/>
-                            <constraint firstAttribute="trailing" secondItem="vsJ-Qs-deC" secondAttribute="trailing" id="JHd-mI-yDa"/>
-                            <constraint firstItem="vsJ-Qs-deC" firstAttribute="leading" secondItem="pam-MX-43e" secondAttribute="leading" id="hjk-mX-kiq"/>
-                            <constraint firstItem="P4a-ib-Dyc" firstAttribute="centerX" secondItem="vsJ-Qs-deC" secondAttribute="centerX" id="npe-jC-FDd"/>
-                            <constraint firstItem="zAv-Wu-i3Q" firstAttribute="top" secondItem="P4a-ib-Dyc" secondAttribute="bottom" constant="34" id="sNC-2w-EJI"/>
-                            <constraint firstItem="P4a-ib-Dyc" firstAttribute="centerX" secondItem="zAv-Wu-i3Q" secondAttribute="centerX" id="yCX-3v-Dv2"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="RkS-X3-UZP" kind="presentation" identifier="secondMainINtro" modalTransitionStyle="partialCurl" id="fDD-Ef-eV0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fd0-X4-l00" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-898.39999999999998" y="984.55772113943033"/>
         </scene>
-        <!--View Controller-->
+        <!--Second Main Intro View Controller-->
         <scene sceneID="t31-Xy-hJN">
             <objects>
-                <viewController id="RkS-X3-UZP" sceneMemberID="viewController">
+                <viewController id="RkS-X3-UZP" customClass="SecondMainIntroViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dTk-5g-f4f"/>
                         <viewControllerLayoutGuide type="bottom" id="WKs-Tp-I2D"/>
@@ -899,72 +837,20 @@
                     <view key="view" contentMode="scaleToFill" id="D5m-Jz-pvc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checklist-50" translatesAutoresizingMaskIntoConstraints="NO" id="G82-f0-xFO">
-                                <rect key="frame" x="309" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can add your own carpools, join other carpools, and manage the kids in each carpool that you created from the carpool tab." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6vA-l0-G7M">
-                                <rect key="frame" x="16" y="146" width="343" height="81.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvL-BJ-fJq">
-                                <rect key="frame" x="16" y="242.5" width="343" height="72"/>
-                                <string key="text">For your security, only you can see the kids in the carpools that you create. You may include your kids carpools of others, but only the leaders of those carpools will be able to see them</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you create your own carpool or join a carpool, the times are automatically loaded onto your calendar." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T6C-xg-GO6">
-                                <rect key="frame" x="16" y="70" width="343" height="61"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osn-ue-1qp">
-                                <rect key="frame" x="163" y="533" width="48" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="48" id="NV6-mB-kVl"/>
-                                </constraints>
-                                <state key="normal" title="Next">
-                                    <color key="titleColor" red="0.18823529410000001" green="0.0" blue="0.24705882370000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" red="0.057630271320000002" green="1" blue="0.71588877080000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="returnToApp:" destination="2aa-XE-sdf" eventType="touchUpInside" id="7Fq-N3-HSv"/>
-                                    <segue destination="eja-HJ-xr8" kind="presentation" modalTransitionStyle="partialCurl" id="oRd-VB-LEv"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="WKs-Tp-I2D" firstAttribute="top" secondItem="osn-ue-1qp" secondAttribute="bottom" constant="104" id="9Iv-EQ-HDP"/>
-                            <constraint firstItem="G82-f0-xFO" firstAttribute="trailing" secondItem="6vA-l0-G7M" secondAttribute="trailing" id="Fcs-VO-ETO"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="T6C-xg-GO6" secondAttribute="trailing" id="J9d-Sy-oMv"/>
-                            <constraint firstItem="kvL-BJ-fJq" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="Ka3-eF-l6u"/>
-                            <constraint firstItem="T6C-xg-GO6" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="KaX-Iw-yYY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="kvL-BJ-fJq" secondAttribute="trailing" id="VAp-aQ-uex"/>
-                            <constraint firstAttribute="bottom" secondItem="G82-f0-xFO" secondAttribute="bottom" constant="20" symbolic="YES" id="WWt-a2-Fku"/>
-                            <constraint firstItem="T6C-xg-GO6" firstAttribute="top" secondItem="dTk-5g-f4f" secondAttribute="bottom" constant="50" id="cSL-ob-cnb"/>
-                            <constraint firstItem="kvL-BJ-fJq" firstAttribute="top" secondItem="6vA-l0-G7M" secondAttribute="bottom" constant="15" id="dg0-J8-eaA"/>
-                            <constraint firstItem="6vA-l0-G7M" firstAttribute="leading" secondItem="D5m-Jz-pvc" secondAttribute="leadingMargin" id="jln-j5-2Sj"/>
-                            <constraint firstItem="osn-ue-1qp" firstAttribute="centerX" secondItem="kvL-BJ-fJq" secondAttribute="centerX" id="mFQ-tv-AXJ"/>
-                            <constraint firstItem="6vA-l0-G7M" firstAttribute="top" secondItem="T6C-xg-GO6" secondAttribute="bottom" constant="15" id="tnk-Jw-mcE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6vA-l0-G7M" secondAttribute="trailing" id="v4j-Pd-zRP"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="eja-HJ-xr8" kind="presentation" identifier="thirdMainIntro" modalTransitionStyle="partialCurl" id="8Mb-MZ-Ry3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71S-pN-LKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-108" y="984.55772113943033"/>
         </scene>
-        <!--View Controller-->
+        <!--Third Intro View Controller-->
         <scene sceneID="8D3-Up-TbG">
             <objects>
-                <viewController id="eja-HJ-xr8" sceneMemberID="viewController">
+                <viewController id="eja-HJ-xr8" customClass="ThirdIntroViewController" customModule="CP" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="x8k-Uk-NRl"/>
                         <viewControllerLayoutGuide type="bottom" id="8Ag-Qa-gth"/>
@@ -972,33 +858,11 @@
                     <view key="view" contentMode="scaleToFill" id="zQc-Px-n3y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thanks for using my app! if you have any suggestions to make the app more functional, please comment on the app store" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XLC-mW-21x">
-                                <rect key="frame" x="16" y="120" width="343" height="61"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufa-mm-C6k">
-                                <rect key="frame" x="168.5" y="211" width="37" height="30"/>
-                                <color key="backgroundColor" red="1" green="0.62837329669999997" blue="0.3762747307" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleColor" red="0.18823529410000001" green="0.0" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="xVN-2g-4ot" kind="show" id="QHi-1T-h1f"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.18823529411764706" green="0.0" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="XLC-mW-21x" firstAttribute="centerX" secondItem="ufa-mm-C6k" secondAttribute="centerX" id="3xz-Jh-ITJ"/>
-                            <constraint firstItem="ufa-mm-C6k" firstAttribute="top" secondItem="XLC-mW-21x" secondAttribute="bottom" constant="30" id="OfY-pc-fpc"/>
-                            <constraint firstItem="XLC-mW-21x" firstAttribute="trailing" secondItem="zQc-Px-n3y" secondAttribute="trailingMargin" id="dfY-tZ-8kd"/>
-                            <constraint firstItem="XLC-mW-21x" firstAttribute="leading" secondItem="zQc-Px-n3y" secondAttribute="leadingMargin" id="hhg-86-hB9"/>
-                            <constraint firstItem="XLC-mW-21x" firstAttribute="top" secondItem="x8k-Uk-NRl" secondAttribute="bottom" constant="100" id="zHH-Sp-FyD"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <segue destination="xVN-2g-4ot" kind="show" identifier="fourthIntro" id="EyJ-AN-qTC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofZ-uT-buY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1103,7 +967,6 @@
         <image name="32house" width="32" height="32"/>
         <image name="32n" width="32" height="32"/>
         <image name="Car-64" width="64" height="64"/>
-        <image name="Checklist-50" width="50" height="50"/>
         <image name="family_icon_32" width="32" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>

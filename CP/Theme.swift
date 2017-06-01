@@ -29,18 +29,8 @@ enum Theme {
         
         UIApplication.shared.statusBarStyle = .lightContent
         
-//        let theme: UIColor = .timeLightOrange
-//        
-//        UITableView.appearance().backgroundColor = theme
-//        UITableViewCell.appearance().backgroundColor = theme
-//        
-//        //UIView.appearance().backgroundColor = theme
-//        
-//        UIPickerView.appearance().backgroundColor = theme
-//        
-//        UITableViewCell.appearance().textLabel?.textColor = theme
+        UITableViewCell().textLabel?.font = UIFont(name: "GillSans-UltraBold", size: 30)
     }
-    
 }
 
 
@@ -69,8 +59,6 @@ enum Theme {
  */
 
 extension UIView {
-    
-    
     func fadeIn(duration: TimeInterval = 1.0, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
         UIView.animate(withDuration: duration, delay: delay, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.alpha = 1.0
@@ -81,7 +69,18 @@ extension UIView {
             self.alpha = 0.0
         }, completion: completion)
     }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
     
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 
