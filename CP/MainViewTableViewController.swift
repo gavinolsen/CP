@@ -22,7 +22,7 @@ class MainViewTableViewController: UITableViewController {
     @IBOutlet weak var carpoolsTomorrowDetailsLabel: UILabel!
     @IBOutlet weak var carpoolsWeeklyCountLabel: UILabel!
     
-    let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey")
+    let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey", leaderName: "Gavin")
     
     var mockKids: [Child] = []
     
@@ -168,6 +168,10 @@ class MainViewTableViewController: UITableViewController {
         var modedStringArray = ""
         var counter = 1
         
+        if mod.count == 1 {
+            return mod[0]
+        }
+        
         for time in mod {
             if mod.count > counter {
                 modedStringArray += time + ", "
@@ -269,14 +273,14 @@ class MainViewTableViewController: UITableViewController {
             return
         }
     }
-
-    //MARK: - Alerts
     
     func pracDates() {
     
-        let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey")
+        let carpool = Carpool(name: "g car", timeStrings: ["1", "2", "2", "2"], days: [1,3,5], hours: [16,15,14], minutes: [0, 30, 0], passkey: "passkey", leaderName: "Gavin")
         EventManager.shared.loadCarpoolToCalendar(carpool: carpool)
     }
+
+    //MARK: - Alerts
     
     func getName() {
         var alertTextField: UITextField?

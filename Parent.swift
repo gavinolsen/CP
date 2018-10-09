@@ -36,8 +36,6 @@ class Parent: CloudKitSync {
                 nc.post(name: ParentController.ChildArrayNotification, object: self)
         }}}
     
-    
-    
     var carpools: [Carpool] = [] {
         didSet {
             DispatchQueue.main.async {

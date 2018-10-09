@@ -37,7 +37,6 @@ class Child: CloudKitSync {
         self.details = details
         self.parent = parent
         self.carpools = carpools
-        //self.ckReference = ckReference
     }
     
     convenience required init?(record: CKRecord) {

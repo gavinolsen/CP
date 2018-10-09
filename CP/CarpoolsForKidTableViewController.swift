@@ -16,6 +16,8 @@ class CarpoolsForKidTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.title = ""
+        
         guard let kidsCarpools = kid?.carpools else { return }
         carpools = kidsCarpools
     }

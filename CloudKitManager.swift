@@ -186,7 +186,6 @@ class CloudKitManager {
     
                     let predicate = NSPredicate(format: "%K == %@", argumentArray: [CreatorUserRecordIDKey, record.recordID])
                     
-//                    self.fetchRecordsWithType(type, predicate: predicate, recordFetchedBlock: nil, completion: completion)
                     self.fetchRecordsWithType(type, predicate: predicate, recordFetchedBlock: nil, completion: { (records, error) in
                         
                         completion(records,error,firstName, record.recordID)

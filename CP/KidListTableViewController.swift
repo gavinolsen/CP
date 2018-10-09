@@ -15,7 +15,7 @@ class KidListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //ParentController.shared.getParentInfo()
+        navigationItem.title = "Your kids"
         
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updateView(_:)), name: ParentController.ChildArrayNotification, object: nil)
@@ -25,17 +25,14 @@ class KidListTableViewController: UITableViewController {
     }
 
     func updateView(_ notification: Notification) {
-        
         guard let kidos = ParentController.shared.parent?.kids else { return }
         kids = kidos
-        
         tableView.reloadData()
     }
     
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return ParentController.shared.parent?.kids.count ?? 0
     }
 

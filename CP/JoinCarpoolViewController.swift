@@ -79,6 +79,7 @@ class JoinCarpoolViewController: UIViewController {
                 //i need to know which of the carpools of
                 //the parent i need to add this kid to...
                 //or maybe i can just add the kid to the carpool directly..
+                
                 carpool.kids?.append(kid)
                 
                 ParentController.shared.joinCarpool(record: record)
@@ -101,7 +102,7 @@ class JoinCarpoolViewController: UIViewController {
         
         carpoolNameLabel.text = carpool.eventName
         carpoolTimesLabel.text = carpool.getTimeString()
-        carpoolLeaderNameLabel.text = carpool.leader?.name
+        carpoolLeaderNameLabel.text = carpool.leaderName
         
         carpoolNameLabel.fadeIn(duration: 4, delay: 0) { (_) in }
         carpoolTimesLabel.fadeIn(duration: 4, delay: 0) { (_) in }

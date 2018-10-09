@@ -124,6 +124,8 @@ class KidDetailViewController: UIViewController, UITextFieldDelegate {
         detailTextView.text = child.details
         
         agePicker.selectRow((child.age - 1), inComponent: 0, animated: true)
+        
+        navigationItem.title = kid?.name
     }
 }
 

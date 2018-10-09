@@ -51,7 +51,10 @@ class CarpoolController {
         
         guard let passkey = UUID().uuidString.components(separatedBy: "-").first else { return nil}
         completion?(passkey)
-        let newCarpool = Carpool(name: name, timeStrings: timeStrings, days: days, hours: hours, minutes: minutes, components: components, drivers: [driver], kids: kids, leader: leader, passkey: passkey)
+        
+        guard let leaderName = ParentController.shared.parentName else { return nil }
+        
+        let newCarpool = Carpool(name: name, timeStrings: timeStrings, days: days, hours: hours, minutes: minutes, components: components, drivers: [driver], kids: kids, leader: leader, passkey: passkey, leaderName: leaderName)
         save(newCarpool)
         
         return newCarpool
